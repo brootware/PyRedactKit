@@ -3,7 +3,7 @@
 <p align="center">
   <img src="./asciiRedact.png" alt="Python Redactor Kit!"/>
 <br />
-<i>CLI tool to redact sensitive information like ip address, email and dns names.</i>
+<i>CLI tool to redact sensitive information like ip address, email and dns.</i>
 </p>
 
 ## Features
@@ -28,7 +28,7 @@ Clone the repo
 git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
 ```
 
-Run as below
+Run as below to redact a single file
 
 ```
 python pyredactkit.py test.txt
