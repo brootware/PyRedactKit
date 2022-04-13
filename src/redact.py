@@ -4,7 +4,6 @@ import os
 import mimetypes
 import re
 import sys
-import json
 
 """ Main redactor library """
 
@@ -224,7 +223,7 @@ class Redactor:
         else:
             print(
                 f"[ + ] No option supplied, will be redacting all the sensitive data supported")
-            all_sensi = self.dns_strings(data) + self.emails(data) + \
+            all_sensi = self.emails(data) + self.dns_strings(data) +  \
                 self.ipv4_addresses(
                     data) + self.ipv6_addresses(data)
             redacted_data = self.to_redact(data, all_sensi)
