@@ -11,6 +11,19 @@ import glob
 
 
 def main():
+    print(""" 
+    ______       ______         _            _     _   ___ _   
+    | ___ \      | ___ \       | |          | |   | | / (_) |  
+    | |_/ /   _  | |_/ /___  __| | __ _  ___| |_  | |/ / _| |_ 
+    |  __/ | | | |    // _ \/ _` |/ _` |/ __| __| |    \| | __|
+    | |  | |_| | | |\ \  __/ (_| | (_| | (__| |_  | |\  \ | |_ 
+    \_|   \__, | \_| \_\___|\__,_|\__,_|\___|\__| \_| \_/_|\__|
+           __/ |                                               
+           |___/                                                                                                           
+        +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
+        |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
+        +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+                                                                             
+     """)
 
     parser = argparse.ArgumentParser(description='Read in a file or set of files, and return the result.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
