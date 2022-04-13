@@ -1,14 +1,19 @@
-# PyRedactKit
+# PyRedactKit 🔐📝
 
 <p align="center">
   <img src="./asciiRedact.png" alt="Python Redactor Kit!"/>
+<br />
+<i>CLI tool to redact sensitive information like ip address, email and dns names.</i>
 </p>
-
-CLI tool to redact sensitive information like ip address, email and dns names.
 
 ## Features
 
-- [ ] To add features
+Redacts the following from your text files. 📄 ✍️
+
+- dns 🌐
+- emails ✉️
+- ipv4 📟
+- ipv6 📟
 
 ## Pre-requisites
 
@@ -16,8 +21,6 @@ CLI tool to redact sensitive information like ip address, email and dns names.
 - [pip](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) installed
 
 ## How to use
-
-- [ ] To add instructions
 
 Clone the repo
 
