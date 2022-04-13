@@ -1,4 +1,5 @@
 # coding: utf-8
+# from the repository https://github.com/madisonmay/CommonRegex/blob/master/commonregex.py
 from types import MethodType
 import re
 
@@ -50,14 +51,14 @@ regexes = {
 
 class regex:
 
-  def __init__(self, obj, regex):
-    self.obj = obj
-    self.regex = regex
+    def __init__(self, obj, regex):
+        self.obj = obj
+        self.regex = regex
 
-  def __call__(self, *args):
-    def regex_method(text=None):
-      return [x.strip() for x in self.regex.findall(text or self.obj.text)]
-    return regex_method
+    def __call__(self, *args):
+        def regex_method(text=None):
+            return [x.strip() for x in self.regex.findall(text or self.obj.text)]
+        return regex_method
 
 
 class CommonRegex(object):
@@ -66,7 +67,7 @@ class CommonRegex(object):
         self.text = text
 
         for k, v in list(regexes.items()):
-          setattr(self, k, regex(self, v)(self))
+            setattr(self, k, regex(self, v)(self))
 
         if text:
             for key in list(regexes.keys()):

@@ -1,6 +1,5 @@
 """ Main redactor class implementation """
 from src.commonregex import CommonRegex
-# from commonregex import CommonRegex
 import os
 import mimetypes
 import re
