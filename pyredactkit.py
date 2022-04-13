@@ -7,6 +7,7 @@ import argparse
 from src.redact import Redactor
 import os
 import glob
+# lintertest
 
 
 def main():
