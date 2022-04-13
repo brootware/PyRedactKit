@@ -1,10 +1,12 @@
 """ Main redactor class implementation """
-from src.commonregex import CommonRegex
-import os
+
 import mimetypes
+import os
 import re
 import sys
 import time
+
+from src.commonregex import CommonRegex
 
 """ Main redactor library """
 
@@ -17,28 +19,29 @@ class Redactor:
     Static variables:
         block (unicode string): To redact sensitive data
     """
-    block = '\u2588'
+
+    block = "\u2588"
 
     def __init__(self):
-        """ 
+        """
         Class Initialization
         Args:
             None
 
         Returns:
-            None 
+            None
         """
         self.__allowed_files__ = [
-            'text/plain',
-            'text/x-python',
-            'application/json',
-            'application/javascript',
-            'text/html',
-            'text/csv',
-            'text/tab-separated-values',
-            'text/css',
-            'text/cache-manifest',
-            'text/calendar'
+            "text/plain",
+            "text/x-python",
+            "application/json",
+            "application/javascript",
+            "text/html",
+            "text/csv",
+            "text/tab-separated-values",
+            "text/css",
+            "text/cache-manifest",
+            "text/calendar",
         ]
 
     @staticmethod
@@ -102,7 +105,7 @@ class Redactor:
     #     return name_list
 
     def dns_strings(self, data):
-        """ Identify dns and return them from the supplied data
+        """Identify dns and return them from the supplied data
         Args:
             data (str): data in alpha-numeric format
 
@@ -116,7 +119,7 @@ class Redactor:
         return dns_list
 
     def emails(self, data):
-        """ Identify emails and return them from the supplied data
+        """Identify emails and return them from the supplied data
         Args:
             data (str): data in alpha-numeric format
 
@@ -130,7 +133,7 @@ class Redactor:
         return emails_list
 
     def ipv4_addresses(self, data):
-        """ Identify ipv4 addresses and return them from the supplied data
+        """Identify ipv4 addresses and return them from the supplied data
         Args:
             data (str): data in alpha-numeric format
 
@@ -144,7 +147,7 @@ class Redactor:
         return ipv4_list
 
     def ipv6_addresses(self, data):
-        """ Identify ipv4 addresses and return them from the supplied data
+        """Identify ipv4 addresses and return them from the supplied data
         Args:
             data (str): data in alpha-numeric format
 
@@ -172,7 +175,7 @@ class Redactor:
     #     return cc_list
 
     def to_redact(self, data=str, redact_list=[]):
-        """ Helper function that takes in list of keywords to be redacted from data.
+        """Helper function that takes in list of keywords to be redacted from data.
         Args:
             redact_list (array): list of keywords in alpha-numeric format
             data (str): data to be redacted in alpha-numeric format
@@ -187,7 +190,7 @@ class Redactor:
         for elm in redact_list:
             total_elm = len(elm)
             # encode element to be blocked
-            elm = r'\b' + elm + r'\b'
+            elm = r"\b" + elm + r"\b"
             # multiply the block with length of identified elements
             bl = total_elm * self.block
             # substitute the block using regular expression
@@ -198,11 +201,11 @@ class Redactor:
         print()
         print(f"[ + ] Redacted {redact_count} targets...")
         time_taken = end - start
-        print(f'[ + ] Took {time_taken} seconds to execute')
+        print(f"[ + ] Took {time_taken} seconds to execute")
         return data
 
     def redact(self, data=str, option=str):
-        """ Main function to redact
+        """Main function to redact
         Args:
             data (str) : data to be supplied to redact
             option (str): (optional) choice for redaction
@@ -211,37 +214,37 @@ class Redactor:
             redacted_data (str): redacted data
         """
         if option == "dns":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
+            print(f"[ + ] Redacting {option} from the file. This might take some time")
             dns_list = self.dns_strings(data)
             redacted_data = self.to_redact(data, dns_list)
-        elif option == "email" or option == "emails":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
+        elif option in ("email", "emails"):
+            print(f"[ + ] Redacting {option} from the file. This might take some time")
             emails_list = self.emails(data)
             redacted_data = self.to_redact(data, emails_list)
         elif option == "ipv4":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
+            print(f"[ + ] Redacting {option} from the file. This might take some time")
             ipv4_list = self.ipv4_addresses(data)
             redacted_data = self.to_redact(data, ipv4_list)
         elif option == "ipv6":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
+            print(f"[ + ] Redacting {option} from the file. This might take some time")
             ipv6_list = self.ipv6_addresses(data)
             redacted_data = self.to_redact(data, ipv6_list)
         else:
             print(
-                f"[ + ] No option supplied, will be redacting all the sensitive data supported")
-            all_sensi = self.emails(data) + self.dns_strings(data) +  \
-                self.ipv4_addresses(
-                    data) + self.ipv6_addresses(data)
+                "[ + ] No option supplied, will be redacting all the sensitive data supported"
+            )
+            all_sensi = (
+                self.emails(data)
+                + self.dns_strings(data)
+                + self.ipv4_addresses(data)
+                + self.ipv6_addresses(data)
+            )
             redacted_data = self.to_redact(data, all_sensi)
 
         return redacted_data
 
-    def process_file(self, filename, option=str, savedir='./'):
-        """ Function to process supplied file from cli.
+    def process_file(self, filename, option=str, savedir="./"):
+        """Function to process supplied file from cli.
         Args:
             filename (str): File to redact
             savedir (str): [Optional] directory to place results
@@ -256,15 +259,24 @@ class Redactor:
                     savedir = savedir + "/"
 
                 if not os.path.exists(os.path.dirname(savedir)):
-                    print("[ + ] " + os.path.dirname(savedir) +
-                          " directory does not exist, creating it.")
+                    print(
+                        "[ + ] "
+                        + os.path.dirname(savedir)
+                        + " directory does not exist, creating it."
+                    )
                     os.makedirs(os.path.dirname(savedir))
 
-                print("[ + ] Processing starts now. This may take some time "
-                      "depending on the file size. Monitor the redacted file "
-                      "size to monitor progress")
+                print(
+                    "[ + ] Processing starts now. This may take some time "
+                    "depending on the file size. Monitor the redacted file "
+                    "size to monitor progress"
+                )
 
-                with open(f"{savedir}redacted_{os.path.basename(filename)}", 'w', encoding="utf-8") as result:
+                with open(
+                    f"{savedir}redacted_{os.path.basename(filename)}",
+                    "w",
+                    encoding="utf-8",
+                ) as result:
                     data = self.redact(content, option)
                     result.write(data)
 
