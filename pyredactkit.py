@@ -15,14 +15,10 @@ def main():
     parser.add_argument("filename", help="Logfile to redact")
     parser.add_argument(
         "-t", "--redactiontype", help="""Type of data to redact. 
-        names,
-        dates,
-        phones,
         dns,
         emails,
         ipv4,
-        ipv6,
-        cc(creditcard)""")
+        ipv6""")
     parser.add_argument(
         "-o", "--outdir", help="Output directory of the file")
     args = parser.parse_args()
@@ -31,7 +27,7 @@ def main():
         sys.exit(f"[ - ] {args.filename} not present")
 
     # redact file
-    redact_obj = Redactor
+    redact_obj = Redactor()
 
     if args.redactiontype and args.outdir:
         redact_obj.process_file(args.filename, args.redactiontype, args.outdir)
