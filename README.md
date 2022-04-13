@@ -18,3 +18,15 @@ CLI tool to redact sensitive information like ip address, email and dns names.
 ## How to use
 
 - [ ] To add instructions
+
+Clone the repo
+
+```
+git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
+```
+
+Run as below
+
+```
+python pyredactkit.py test.txt
+```
