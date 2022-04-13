@@ -2,6 +2,8 @@
 test_redact/
 __pycache__
 bottybot/
+test.txt
+redacted_*
 # Ignoring sensitive files and directories.
 
 secret*.*

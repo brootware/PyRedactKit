@@ -6,7 +6,6 @@ Utility to redact sensitive data
 import argparse
 from src.redact import Redactor
 import os
-import sys
 import glob
 
 

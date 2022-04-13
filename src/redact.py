@@ -4,6 +4,7 @@ import os
 import mimetypes
 import re
 import sys
+import time
 
 """ Main redactor library """
 
@@ -180,6 +181,10 @@ class Redactor:
             data (str): redacted data
 
         """
+        count = 0
+        redact_count = 0
+        start = time.time()
+
         for elm in redact_list:
             total_elm = len(elm)
             # encode element to be blocked
@@ -188,7 +193,13 @@ class Redactor:
             bl = total_elm * self.block
             # substitute the block using regular expression
             data = re.sub(elm, bl, data)
+            redact_count += 1
 
+        end = time.time()
+        print()
+        print(f"[ + ] Redacted {redact_count} targets...")
+        time_taken = end - start
+        print(f'[ + ] Took {time_taken} seconds to execute')
         return data
 
     def redact(self, data=str, option=str):
