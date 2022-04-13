@@ -30,3 +30,19 @@ Run as below
 ```
 python pyredactkit.py test.txt
 ```
+
+To redact specific type of data. E.g (ipv4)
+
+```
+python pyredactkit.py test.txt -t ipv4
+```
+
+To redact multiple files from a directory and place it in a new directory
+
+```
+python pyredactkit.py to_test/ -o redacted_dir
+```
+
+## TODO
+
+Unredact part is currently in development
