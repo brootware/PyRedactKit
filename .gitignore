@@ -1,4 +1,6 @@
 .DS_Store
+test_redact
+__pycache__
 # Ignoring sensitive files and directories.
 
 secret*.*

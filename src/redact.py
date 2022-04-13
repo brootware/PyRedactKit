@@ -250,9 +250,6 @@ class Redactor:
                           " directory does not exist, creating it.")
                     os.makedirs(os.path.dirname(savedir))
 
-                print(
-                    "[ + ] Processing starts now. This may take some time depending on file size.")
-
                 with open(f"{savedir}redacted_{os.path.basename(filename)}", 'w', encoding="utf-8") as result:
                     data = self.redact(content, option)
                     result.write(data)
