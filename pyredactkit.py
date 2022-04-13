@@ -48,8 +48,8 @@ def main():
 
     for path in full_paths:
         if os.path.isfile(path):
-            fileName, fileExt = os.path.splitext(path)
-            if args.extension == '' or args.extension == fileExt:
+            file_name, file_ext = os.path.splitext(path)
+            if args.extension == '' or args.extension == file_ext:
                 files.add(path)
         else:
             if (args.recursive):
