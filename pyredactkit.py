@@ -25,7 +25,7 @@ def main():
     parser.add_argument(
         "-o", "--outdir", help="Output directory of the file")
     parser.add_argument('-r', '--recursive', action='store_true',
-                        default=False, help='Search through subfolders')
+                        default=True, help='Search through subfolders')
     parser.add_argument('-e', '--extension', default='',
                         help='File extension to filter by.')
     args = parser.parse_args()
