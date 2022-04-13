@@ -181,7 +181,6 @@ class Redactor:
             data (str): redacted data
 
         """
-        count = 0
         redact_count = 0
         start = time.time()
 
