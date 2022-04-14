@@ -36,7 +36,7 @@ def main():
         ipv4,
         ipv6""")
     parser.add_argument(
-        "-o", "--outdir", help="Output directory of the file")
+        "-d", "--dirout", help="Output directory of the file")
     parser.add_argument('-r', '--recursive', action='store_true',
                         default=True, help='Search through subfolders')
     parser.add_argument('-e', '--extension', default='',
