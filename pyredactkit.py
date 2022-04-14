@@ -51,7 +51,7 @@ def main():
             file_name, file_ext = os.path.splitext(path)
             if args.extension in ('', file_ext):
                 files.add(path)
-        elif (args.recursive):
+        elif args.recursive:
             full_paths += glob.glob(path + '/*')
 
     # redact file
