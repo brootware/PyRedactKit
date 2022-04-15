@@ -49,15 +49,15 @@ regexes = {
 }
 
 
-class regex:
+class Regex:
 
-    def __init__(self, obj, regex):
+    def __init__(self, obj, regex_member):
         self.obj = obj
-        self.regex = regex
+        self.regex_member = regex_member
 
     def __call__(self, *args):
         def regex_method(text=None):
-            return [x.strip() for x in self.regex.findall(text or self.obj.text)]
+            return [x.strip() for x in self.regex_member.findall(text or self.obj.text)]
         return regex_method
 
 
@@ -67,7 +67,7 @@ class CommonRegex(object):
         self.text = text
 
         for k, v in list(regexes.items()):
-            setattr(self, k, regex(self, v)(self))
+            setattr(self, k, Regex(self, v)(self))
 
         if text:
             for key in list(regexes.keys()):
