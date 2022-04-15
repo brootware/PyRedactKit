@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import time
+import nltk
 
 from src.commonregex import CommonRegex
 
@@ -78,31 +79,31 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
-    # def names(self, data):
-    #     """ Identify names and return them from the supplied data
-    #     Args:
-    #         data (str): data in alpha-numeric format
+    def names(self, data):
+        """ Identify names and return them from the supplied data
+        Args:
+            data (str): data in alpha-numeric format
 
-    #     Returns:
-    #         data (str): data in alpha-numeric format
-    #         dates_list (array): array of names identified from the supplied data
-    #     """
-    #     name = ""
-    #     name_list = []
-    #     words = nltk.word_tokenize(data)
-    #     part_of_speech_tagsets = nltk.pos_tag(words)
-    #     named_ent = nltk.ne_chunk(part_of_speech_tagsets, binary=False)
+        Returns:
+            data (str): data in alpha-numeric format
+            dates_list (array): array of names identified from the supplied data
+        """
+        name = ""
+        name_list = []
+        words = nltk.word_tokenize(data)
+        part_of_speech_tagsets = nltk.pos_tag(words)
+        named_ent = nltk.ne_chunk(part_of_speech_tagsets, binary=False)
 
-    #     for subtree in named_ent.subtrees():
-    #         if subtree.label() == 'PERSON':
-    #             l = []
-    #             for leaf in subtree.leaves():
-    #                 l.append(leaf[0])
-    #             name = ' '.join(l)
-    #             if name not in name_list:
-    #                 name_list.append(name)
+        for subtree in named_ent.subtrees():
+            if subtree.label() == 'PERSON':
+                l = []
+                for leaf in subtree.leaves():
+                    l.append(leaf[0])
+                name = ' '.join(l)
+                if name not in name_list:
+                    name_list.append(name)
 
-    #     return name_list
+        return name_list
 
     def dns_strings(self, data):
         """Identify dns and return them from the supplied data
@@ -214,21 +215,30 @@ class Redactor:
             redacted_data (str): redacted data
         """
         if option == "dns":
-            print(f"[ + ] Redacting {option} from the file. This might take some time")
+            print(
+                f"[ + ] Redacting {option} from the file. This might take some time")
             dns_list = self.dns_strings(data)
             redacted_data = self.to_redact(data, dns_list)
         elif option in ("email", "emails"):
-            print(f"[ + ] Redacting {option} from the file. This might take some time")
+            print(
+                f"[ + ] Redacting {option} from the file. This might take some time")
             emails_list = self.emails(data)
             redacted_data = self.to_redact(data, emails_list)
         elif option == "ipv4":
-            print(f"[ + ] Redacting {option} from the file. This might take some time")
+            print(
+                f"[ + ] Redacting {option} from the file. This might take some time")
             ipv4_list = self.ipv4_addresses(data)
             redacted_data = self.to_redact(data, ipv4_list)
         elif option == "ipv6":
-            print(f"[ + ] Redacting {option} from the file. This might take some time")
+            print(
+                f"[ + ] Redacting {option} from the file. This might take some time")
             ipv6_list = self.ipv6_addresses(data)
             redacted_data = self.to_redact(data, ipv6_list)
+        elif option == "names":
+            print(
+                f"[ + ] Redacting {option} from the file. This might take some time")
+            name_list = self.names(data)
+            redacted_data = self.to_redact(data, name_list)
         else:
             print(
                 "[ + ] No option supplied, will be redacting all the sensitive data supported"
@@ -238,6 +248,7 @@ class Redactor:
                 + self.dns_strings(data)
                 + self.ipv4_addresses(data)
                 + self.ipv6_addresses(data)
+                + self.names(data)
             )
             redacted_data = self.to_redact(data, all_sensi)
 

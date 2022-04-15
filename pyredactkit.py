@@ -34,7 +34,8 @@ def main():
         dns,
         emails,
         ipv4,
-        ipv6""")
+        ipv6,
+        names""")
     parser.add_argument(
         "-d", "--dirout", help="Output directory of the file")
     parser.add_argument('-r', '--recursive', action='store_true',
@@ -60,8 +61,8 @@ def main():
     for file in files:
         if args.redactiontype:
             redact_obj.process_file(file, args.redactiontype)
-        elif args.outdir:
-            redact_obj.process_file(file, args.redactiontype, args.outdir)
+        elif args.dirout:
+            redact_obj.process_file(file, args.redactiontype, args.dirout)
         else:
             redact_obj.process_file(file)
 
