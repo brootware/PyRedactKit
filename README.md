@@ -49,7 +49,7 @@ python pyredactkit.py to_test/ -o redacted_dir
 Help Menu as below
 
 ```
-usage: pyredactkit.py [-h] [-t REDACTIONTYPE] [-o OUTDIR] [-r] [-e EXTENSION] path [path ...]
+usage: pyredactkit.py [-h] [-t REDACTIONTYPE] [-d DIROUT] [-r] [-e EXTENSION] path [path ...]
 
 Read in a file or set of files, and return the result.
 
@@ -60,7 +60,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -t REDACTIONTYPE, --redactiontype REDACTIONTYPE
                         Type of data to redact. dns, emails, ipv4, ipv6 (default: None)
-  -o OUTDIR, --outdir OUTDIR
+  -d DIROUT, --dirout DIROUT
                         Output directory of the file (default: None)
   -r, --recursive       Search through subfolders (default: True)
   -e EXTENSION, --extension EXTENSION
