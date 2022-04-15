@@ -25,31 +25,31 @@ Redacts the following from your text files. 📄 ✍️
 
 Clone the repo
 
-```
+```bash
 git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
 ```
 
 Run as below to redact a single file
 
-```
+```bash
 python pyredactkit.py test.txt
 ```
 
 To redact specific type of data. E.g (ipv4)
 
-```
+```bash
 python pyredactkit.py test.txt -t ipv4
 ```
 
 To redact multiple files from a directory and place it in a new directory
 
-```
+```bash
 python pyredactkit.py to_test/ -o redacted_dir
 ```
 
 Help Menu as below
 
-```
+```bash
 usage: pyredactkit.py [-h] [-t REDACTIONTYPE] [-d DIROUT] [-r] [-e EXTENSION] path [path ...]
 
 Read in a file or set of files, and return the result.
