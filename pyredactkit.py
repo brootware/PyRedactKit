@@ -31,6 +31,7 @@ def main():
                         help="Path of a file or a directory of files")
     parser.add_argument(
         "-t", "--redactiontype", help="""Type of data to redact. 
+        names,
         dns,
         emails,
         ipv4,

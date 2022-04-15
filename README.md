@@ -10,6 +10,7 @@
 
 Redacts the following from your text files. 📄 ✍️
 
+- names 👤
 - dns 🌐
 - emails ✉️
 - ipv4 📟
@@ -59,7 +60,8 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -t REDACTIONTYPE, --redactiontype REDACTIONTYPE
-                        Type of data to redact. dns, emails, ipv4, ipv6 (default: None)
+                        Type of data to redact. names, dns, emails, ipv4, ipv6, names (default:
+                        None)
   -d DIROUT, --dirout DIROUT
                         Output directory of the file (default: None)
   -r, --recursive       Search through subfolders (default: True)
