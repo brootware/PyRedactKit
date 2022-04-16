@@ -61,9 +61,9 @@ def test_current_file_is_allowed(obj):
 
 def test_names_function_should_return_list_of_strings(obj):
     assert type(obj.names(data)
-                ) == list, 'names should return a list of strings'
+                ) == list, 'names should return a list'
     for value in data:
-        assert type(value) is str
+        assert type(value) is str, 'names should return a list of strings'
 
 
 def test_dns_strings_function_should_return_list_of_strings(obj):
