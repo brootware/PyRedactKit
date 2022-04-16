@@ -69,7 +69,3 @@ optional arguments:
   -e EXTENSION, --extension EXTENSION
                         File extension to filter by. (default: )
 ```
-
-## TODO
-
-Unredact part is currently in development
