@@ -118,3 +118,9 @@ optional arguments:
   -e EXTENSION, --extension EXTENSION
                         File extension to filter by. (default: )
 ```
+
+## Sample files
+
+- [All types of data](https://github.com/brootware/PyRedactKit/blob/main/test/test2.txt)
+- [itcont.txt - 4GB uncompressed](https://sanitizationbq.s3.ap-southeast-1.amazonaws.com/itcont.tar.gz)
+- [test_sample2.txt - 10002 lines of IP addresses](https://sanitizationbq.s3.ap-southeast-1.amazonaws.com/test_sample2.txt)
