@@ -9,9 +9,7 @@ import os
 import glob
 # lintertest
 
-
-def main():
-    text = """
+banner = """
     ______       ______         _            _     _   ___ _   
     | ___ \      | ___ \       | |          | |   | | / (_) |  
     | |_/ /   _  | |_/ /___  __| | __ _  ___| |_  | |/ / _| |_ 
@@ -27,7 +25,10 @@ def main():
     https://github.com/brootware
     https://brootware.github.io                                                                             
     """
-    print(text)
+
+
+def main():
+    print(banner)
 
     parser = argparse.ArgumentParser(description='Read in a file or set of files, and return the result.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
