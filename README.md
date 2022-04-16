@@ -1,7 +1,7 @@
 # PyRedactKit 🔐📝
 
 <p align="center">
-  <img src="./asciiRedact.png" alt="Python Redactor Kit!"/>
+  <img src="./images/asciiRedact.png" alt="Python Redactor Kit!"/>
 <br />
 <i>CLI tool to redact sensitive information like ip address, email and dns.</i>
 </p>
@@ -23,6 +23,9 @@ Redacts the following from your text files. 📄 ✍️
 - [pip](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) installed
 
 ## How to use
+
+Demo:
+![demo](./images/pyredact.gif)
 
 Clone the repo
 
