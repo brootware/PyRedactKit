@@ -64,9 +64,9 @@ def test_names_function_should_return_list(obj):
                 ) == list, 'names should return a list'
 
 
-# def test_elements_of_names_list_should_be_strings(obj):
-#     for value in obj.names(data):
-#         assert type(value) is str, 'elements of names list should be strings'
+def test_elements_of_names_list_should_be_strings(obj):
+    for value in obj.names(data):
+        assert type(value) is str, 'elements of names list should be strings'
 
 
 def test_dns_strings_function_should_return_list(obj):
