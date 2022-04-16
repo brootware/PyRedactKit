@@ -33,6 +33,15 @@ Clone the repo
 git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
 ```
 
+Install requirements in a virtual environment
+
+```bash
+python -m pip install --user virtualenv
+python -m venv redactenv
+source ./redactenv/bin/activate
+pip install -r requirements.txt
+```
+
 Run as below to redact a single file
 
 ```bash
@@ -47,7 +56,10 @@ $ python pyredactkit.py test.txt
            |___/                                                                                                           
             +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
             |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+                                                                             
+            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+   
+            
+    https://github.com/brootware
+    https://brootware.github.io                                                                           
      
 [ + ] Processing starts now. This may take some time depending on the file size. Monitor the redacted file size to monitor progress
 [ + ] No option supplied, will be redacting all the sensitive data supported
