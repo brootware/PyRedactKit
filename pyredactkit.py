@@ -22,7 +22,9 @@ def main():
            |___/                                                                                                           
             +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
             |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+                                                                             
+            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
+    https://github.com/brootware
+    https://brootware.github.io                                                                             
      """)
 
     parser = argparse.ArgumentParser(description='Read in a file or set of files, and return the result.',
