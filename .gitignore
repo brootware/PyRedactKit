@@ -1,9 +1,6 @@
 .DS_Store
 test_redact/
 __pycache__
-bottybot/
-test.txt
-test2.txt
 redacted_*
 # Ignoring sensitive files and directories.
 
