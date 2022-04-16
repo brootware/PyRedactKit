@@ -85,8 +85,7 @@ class Redactor:
             data (str): data in alpha-numeric format
 
         Returns:
-            data (str): data in alpha-numeric format
-            dates_list (array): array of names identified from the supplied data
+            name_list (array): array of names identified from the supplied data
         """
         name = ""
         name_list = []
@@ -111,7 +110,6 @@ class Redactor:
             data (str): data in alpha-numeric format
 
         Returns:
-            data (str): data in alpha-numeric format
             dns_list (array): array of dns strings identified from the supplied data
         """
         parsed_text = CommonRegex(data)
@@ -125,7 +123,6 @@ class Redactor:
             data (str): data in alpha-numeric format
 
         Returns:
-            data (str): data in alpha-numeric format
             emails_list (array): array of emails strings identified from the supplied data
         """
         parsed_text = CommonRegex(data)
@@ -139,7 +136,6 @@ class Redactor:
             data (str): data in alpha-numeric format
 
         Returns:
-            data (str): data in alpha-numeric format
             ipv4_list (array): array of ipv4 addresess identified from the supplied data
         """
         parsed_text = CommonRegex(data)
@@ -153,7 +149,6 @@ class Redactor:
             data (str): data in alpha-numeric format
 
         Returns:
-            data (str): data in alpha-numeric format
             ipv6_list (array): array of ipv6 addresess identified from the supplied data
         """
         parsed_text = CommonRegex(data)
@@ -167,7 +162,6 @@ class Redactor:
             data (str): data in alpha-numeric format
 
         Returns:
-            data (str): data in alpha-numeric format
             cc_list (array): array of credit card numbers identified from the supplied data
         """
         parsed_text = CommonRegex(data)
@@ -183,7 +177,6 @@ class Redactor:
 
         Returns:
             data (str): redacted data
-
         """
         redact_count = 0
         start = time.time()
