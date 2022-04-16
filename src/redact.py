@@ -161,19 +161,19 @@ class Redactor:
 
         return ipv6_list
 
-    # def credit_cards(self, data):
-    #     """ Identify ipv4 addresses and return them from the supplied data
-    #     Args:
-    #         data (str): data in alpha-numeric format
+    def credit_cards(self, data):
+        """ Identify ipv4 addresses and return them from the supplied data
+        Args:
+            data (str): data in alpha-numeric format
 
-    #     Returns:
-    #         data (str): data in alpha-numeric format
-    #         cc_list (array): array of credit card numbers identified from the supplied data
-    #     """
-    #     parsed_text = CommonRegex(data)
-    #     cc_list = parsed_text.credit_cards()
+        Returns:
+            data (str): data in alpha-numeric format
+            cc_list (array): array of credit card numbers identified from the supplied data
+        """
+        parsed_text = CommonRegex(data)
+        cc_list = parsed_text.credit_cards
 
-    #     return cc_list
+        return cc_list
 
     def to_redact(self, data=str, redact_list=[]):
         """Helper function that takes in list of keywords to be redacted from data.
@@ -239,6 +239,11 @@ class Redactor:
                 f"[ + ] Redacting {option} from the file. This might take some time")
             name_list = self.names(data)
             redacted_data = self.to_redact(data, name_list)
+        elif option == "cc":
+            print(
+                f"[ + ] Redacting {option} from the file. This might take some time")
+            cc_list = self.credit_cards(data)
+            redacted_data = self.to_redact(data, cc_list)
         else:
             print(
                 "[ + ] No option supplied, will be redacting all the sensitive data supported"
@@ -249,6 +254,7 @@ class Redactor:
                 + self.ipv4_addresses(data)
                 + self.ipv6_addresses(data)
                 + self.names(data)
+                + self.credit_cards(data)
             )
             redacted_data = self.to_redact(data, all_sensi)
 

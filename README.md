@@ -44,7 +44,7 @@ python pyredactkit.py test.txt -t ipv4
 To redact multiple files from a directory and place it in a new directory
 
 ```bash
-python pyredactkit.py to_test/ -o redacted_dir
+python pyredactkit.py to_test/ -d redacted_dir
 ```
 
 Help Menu as below
