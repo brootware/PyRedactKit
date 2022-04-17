@@ -5,7 +5,7 @@ import os
 import re
 import sys
 import time
-import nltk
+# import nltk
 
 from src.commonregex import CommonRegex
 
@@ -79,30 +79,30 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
-    def names(self, data):
-        """ Identify names and return them from the supplied data
-        Args:
-            data (str): data in alpha-numeric format
+    # def names(self, data):
+    #     """ Identify names and return them from the supplied data
+    #     Args:
+    #         data (str): data in alpha-numeric format
 
-        Returns:
-            name_list (array): array of names identified from the supplied data
-        """
-        name = ""
-        name_list = []
-        words = nltk.word_tokenize(data)
-        part_of_speech_tagsets = nltk.pos_tag(words)
-        named_ent = nltk.ne_chunk(part_of_speech_tagsets, binary=False)
+    #     Returns:
+    #         name_list (array): array of names identified from the supplied data
+    #     """
+    #     name = ""
+    #     name_list = []
+    #     words = nltk.word_tokenize(data)
+    #     part_of_speech_tagsets = nltk.pos_tag(words)
+    #     named_ent = nltk.ne_chunk(part_of_speech_tagsets, binary=False)
 
-        for subtree in named_ent.subtrees():
-            if subtree.label() == 'PERSON':
-                l = []
-                for leaf in subtree.leaves():
-                    l.append(leaf[0])
-                name = ' '.join(l)
-                if name not in name_list:
-                    name_list.append(name)
+    #     for subtree in named_ent.subtrees():
+    #         if subtree.label() == 'PERSON':
+    #             l = []
+    #             for leaf in subtree.leaves():
+    #                 l.append(leaf[0])
+    #             name = ' '.join(l)
+    #             if name not in name_list:
+    #                 name_list.append(name)
 
-        return name_list
+    #     return name_list
 
     def dns_strings(self, data):
         """Identify dns and return them from the supplied data
@@ -227,11 +227,11 @@ class Redactor:
                 f"[ + ] Redacting {option} from the file. This might take some time")
             ipv6_list = self.ipv6_addresses(data)
             redacted_data = self.to_redact(data, ipv6_list)
-        elif option == "names":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
-            name_list = self.names(data)
-            redacted_data = self.to_redact(data, name_list)
+        # elif option == "names":
+        #     print(
+        #         f"[ + ] Redacting {option} from the file. This might take some time")
+        #     name_list = self.names(data)
+        #     redacted_data = self.to_redact(data, name_list)
         elif option == "cc":
             print(
                 f"[ + ] Redacting {option} from the file. This might take some time")
@@ -246,7 +246,7 @@ class Redactor:
                 + self.dns_strings(data)
                 + self.ipv4_addresses(data)
                 + self.ipv6_addresses(data)
-                + self.names(data)
+                # + self.names(data)
                 + self.credit_cards(data)
             )
             redacted_data = self.to_redact(data, all_sensi)
