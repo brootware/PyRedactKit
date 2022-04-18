@@ -2,6 +2,7 @@
 test_redact/
 __pycache__
 redacted_*
+.dccache
 # Ignoring sensitive files and directories.
 
 secret*.*
