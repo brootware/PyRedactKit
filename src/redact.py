@@ -289,6 +289,7 @@ class Redactor:
                 ) as result:
                     data = self.redact(content, option)
                     result.write(data)
+                    print(f"[ + ] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
 
         except UnicodeDecodeError:
             os.remove(f"{savedir}redacted_{os.path.basename(filename)}")
