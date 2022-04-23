@@ -7,8 +7,6 @@ import sys
 import time
 # import nltk
 
-from src.commonregex import CommonRegex
-
 """ Main redactor library """
 
 
@@ -112,8 +110,8 @@ class Redactor:
         Returns:
             dns_list (array): array of dns strings identified from the supplied data
         """
-        parsed_text = CommonRegex(data)
-        dns_list = parsed_text.links
+        parsed_text = re.findall('(?i)((?:https?://|www\d{0,3}[.])?[a-z0-9.\-]+[.](?:(?:international)|(?:construction)|(?:contractors)|(?:enterprises)|(?:photography)|(?:immobilien)|(?:management)|(?:technology)|(?:directory)|(?:education)|(?:equipment)|(?:institute)|(?:marketing)|(?:solutions)|(?:builders)|(?:clothing)|(?:computer)|(?:democrat)|(?:diamonds)|(?:graphics)|(?:holdings)|(?:lighting)|(?:plumbing)|(?:training)|(?:ventures)|(?:academy)|(?:careers)|(?:company)|(?:domains)|(?:florist)|(?:gallery)|(?:guitars)|(?:holiday)|(?:kitchen)|(?:recipes)|(?:shiksha)|(?:singles)|(?:support)|(?:systems)|(?:agency)|(?:berlin)|(?:camera)|(?:center)|(?:coffee)|(?:estate)|(?:kaufen)|(?:luxury)|(?:monash)|(?:museum)|(?:photos)|(?:repair)|(?:social)|(?:tattoo)|(?:travel)|(?:viajes)|(?:voyage)|(?:build)|(?:cheap)|(?:codes)|(?:dance)|(?:email)|(?:glass)|(?:house)|(?:ninja)|(?:photo)|(?:shoes)|(?:solar)|(?:today)|(?:aero)|(?:arpa)|(?:asia)|(?:bike)|(?:buzz)|(?:camp)|(?:club)|(?:coop)|(?:farm)|(?:gift)|(?:guru)|(?:info)|(?:jobs)|(?:kiwi)|(?:land)|(?:limo)|(?:link)|(?:menu)|(?:mobi)|(?:moda)|(?:name)|(?:pics)|(?:pink)|(?:post)|(?:rich)|(?:ruhr)|(?:sexy)|(?:tips)|(?:wang)|(?:wien)|(?:zone)|(?:biz)|(?:cab)|(?:cat)|(?:ceo)|(?:com)|(?:edu)|(?:gov)|(?:int)|(?:mil)|(?:net)|(?:onl)|(?:org)|(?:pro)|(?:red)|(?:tel)|(?:uno)|(?:xxx)|(?:ac)|(?:ad)|(?:ae)|(?:af)|(?:ag)|(?:ai)|(?:al)|(?:am)|(?:an)|(?:ao)|(?:aq)|(?:ar)|(?:as)|(?:at)|(?:au)|(?:aw)|(?:ax)|(?:az)|(?:ba)|(?:bb)|(?:bd)|(?:be)|(?:bf)|(?:bg)|(?:bh)|(?:bi)|(?:bj)|(?:bm)|(?:bn)|(?:bo)|(?:br)|(?:bs)|(?:bt)|(?:bv)|(?:bw)|(?:by)|(?:bz)|(?:ca)|(?:cc)|(?:cd)|(?:cf)|(?:cg)|(?:ch)|(?:ci)|(?:ck)|(?:cl)|(?:cm)|(?:cn)|(?:co)|(?:cr)|(?:cu)|(?:cv)|(?:cw)|(?:cx)|(?:cy)|(?:cz)|(?:de)|(?:dj)|(?:dk)|(?:dm)|(?:do)|(?:dz)|(?:ec)|(?:ee)|(?:eg)|(?:er)|(?:es)|(?:et)|(?:eu)|(?:fi)|(?:fj)|(?:fk)|(?:fm)|(?:fo)|(?:fr)|(?:ga)|(?:gb)|(?:gd)|(?:ge)|(?:gf)|(?:gg)|(?:gh)|(?:gi)|(?:gl)|(?:gm)|(?:gn)|(?:gp)|(?:gq)|(?:gr)|(?:gs)|(?:gt)|(?:gu)|(?:gw)|(?:gy)|(?:hk)|(?:hm)|(?:hn)|(?:hr)|(?:ht)|(?:hu)|(?:id)|(?:ie)|(?:il)|(?:im)|(?:in)|(?:io)|(?:iq)|(?:ir)|(?:is)|(?:it)|(?:je)|(?:jm)|(?:jo)|(?:jp)|(?:ke)|(?:kg)|(?:kh)|(?:ki)|(?:km)|(?:kn)|(?:kp)|(?:kr)|(?:kw)|(?:ky)|(?:kz)|(?:la)|(?:lb)|(?:lc)|(?:li)|(?:lk)|(?:lr)|(?:ls)|(?:lt)|(?:lu)|(?:lv)|(?:ly)|(?:ma)|(?:mc)|(?:md)|(?:me)|(?:mg)|(?:mh)|(?:mk)|(?:ml)|(?:mm)|(?:mn)|(?:mo)|(?:mp)|(?:mq)|(?:mr)|(?:ms)|(?:mt)|(?:mu)|(?:mv)|(?:mw)|(?:mx)|(?:my)|(?:mz)|(?:na)|(?:nc)|(?:ne)|(?:nf)|(?:ng)|(?:ni)|(?:nl)|(?:no)|(?:np)|(?:nr)|(?:nu)|(?:nz)|(?:om)|(?:pa)|(?:pe)|(?:pf)|(?:pg)|(?:ph)|(?:pk)|(?:pl)|(?:pm)|(?:pn)|(?:pr)|(?:ps)|(?:pt)|(?:pw)|(?:py)|(?:qa)|(?:re)|(?:ro)|(?:rs)|(?:ru)|(?:rw)|(?:sa)|(?:sb)|(?:sc)|(?:sd)|(?:se)|(?:sg)|(?:sh)|(?:si)|(?:sj)|(?:sk)|(?:sl)|(?:sm)|(?:sn)|(?:so)|(?:sr)|(?:st)|(?:su)|(?:sv)|(?:sx)|(?:sy)|(?:sz)|(?:tc)|(?:td)|(?:tf)|(?:tg)|(?:th)|(?:tj)|(?:tk)|(?:tl)|(?:tm)|(?:tn)|(?:to)|(?:tp)|(?:tr)|(?:tt)|(?:tv)|(?:tw)|(?:tz)|(?:ua)|(?:ug)|(?:uk)|(?:us)|(?:uy)|(?:uz)|(?:va)|(?:vc)|(?:ve)|(?:vg)|(?:vi)|(?:vn)|(?:vu)|(?:wf)|(?:ws)|(?:ye)|(?:yt)|(?:za)|(?:zm)|(?:zw))(?:/[^\s()<>]+[^\s`!()\[\]{};:\'".,<>?\xab\xbb\u201c\u201d\u2018\u2019])?)', data, flags=re.IGNORECASE)
+        dns_list = parsed_text
 
         return dns_list
 
@@ -125,8 +123,8 @@ class Redactor:
         Returns:
             emails_list (array): array of emails strings identified from the supplied data
         """
-        parsed_text = CommonRegex(data)
-        emails_list = parsed_text.emails
+        parsed_text = re.findall("([a-z0-9!#$%&'*+\/=?^_`{|.}~-]+@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)", data, flags=re.IGNORECASE)
+        emails_list = parsed_text
 
         return emails_list
 
@@ -138,8 +136,8 @@ class Redactor:
         Returns:
             ipv4_list (array): array of ipv4 addresess identified from the supplied data
         """
-        parsed_text = CommonRegex(data)
-        ipv4_list = parsed_text.ips
+        parsed_text = re.findall('(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)', data, re.IGNORECASE)
+        ipv4_list = parsed_text
 
         return ipv4_list
 
@@ -151,8 +149,8 @@ class Redactor:
         Returns:
             ipv6_list (array): array of ipv6 addresess identified from the supplied data
         """
-        parsed_text = CommonRegex(data)
-        ipv6_list = parsed_text.ipv6s
+        parsed_text = re.findall('\s*(?!.*::.*::)(?:(?!:)|:(?=:))(?:[0-9a-f]{0,4}(?:(?<=::)|(?<!::):)){6}(?:[0-9a-f]{0,4}(?:(?<=::)|(?<!::):)[0-9a-f]{0,4}(?:(?<=::)|(?<!:)|(?<=:)(?<!::):)|(?:25[0-4]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-4]|2[0-4]\d|1\d\d|[1-9]?\d)){3})\s*', data, re.VERBOSE | re.IGNORECASE | re.DOTALL)
+        ipv6_list = parsed_text
 
         return ipv6_list
 
@@ -164,8 +162,8 @@ class Redactor:
         Returns:
             cc_list (array): array of credit card numbers identified from the supplied data
         """
-        parsed_text = CommonRegex(data)
-        cc_list = parsed_text.credit_cards
+        parsed_text = re.findall('((?:(?:\\d{4}[- ]?){3}\\d{4}|\\d{15,16}))(?![\\d])',data)
+        cc_list = parsed_text
 
         return cc_list
 
@@ -179,23 +177,18 @@ class Redactor:
             data (str): redacted data
         """
         redact_count = 0
-        start = time.time()
+        
 
         for elm in redact_list:
-            total_elm = len(elm)
-            # encode element to be blocked
-            elm = r"\b" + elm + r"\b"
-            # multiply the block with length of identified elements
-            bl = total_elm * self.block
+            # multiply the block with 15 regardless of length
+            bl = self.block * 15
             # substitute the block using regular expression
-            data = re.sub(elm, bl, data)
+            data = data.replace(elm,bl)
             redact_count += 1
 
-        end = time.time()
+        
         print()
         print(f"[ + ] Redacted {redact_count} targets...")
-        time_taken = end - start
-        print(f"[ + ] Took {time_taken} seconds to execute")
         return data
 
     def redact(self, data=str, option=str):
@@ -207,6 +200,7 @@ class Redactor:
         Returns:
             redacted_data (str): redacted data
         """
+        start = time.time()
         if option == "dns":
             print(
                 f"[ + ] Redacting {option} from the file. This might take some time")
@@ -250,8 +244,11 @@ class Redactor:
                 + self.credit_cards(data)
             )
             redacted_data = self.to_redact(data, all_sensi)
-
+        end = time.time()
+        time_taken = end - start
+        print(f"[ + ] Took {time_taken} seconds to execute")
         return redacted_data
+        
 
     def process_file(self, filename, option=str, savedir="./"):
         """Function to process supplied file from cli.
@@ -289,6 +286,7 @@ class Redactor:
                 ) as result:
                     data = self.redact(content, option)
                     result.write(data)
+                    print(f"[ + ] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
 
         except UnicodeDecodeError:
             os.remove(f"{savedir}redacted_{os.path.basename(filename)}")
