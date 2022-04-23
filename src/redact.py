@@ -179,7 +179,7 @@ class Redactor:
             data (str): redacted data
         """
         redact_count = 0
-        start = time.time()
+        
 
         for elm in redact_list:
             # total_elm = len(elm)
@@ -189,11 +189,9 @@ class Redactor:
             data = data.replace(elm,bl)
             redact_count += 1
 
-        end = time.time()
+        
         print()
         print(f"[ + ] Redacted {redact_count} targets...")
-        time_taken = end - start
-        print(f"[ + ] Took {time_taken} seconds to execute")
         return data
 
     def redact(self, data=str, option=str):
@@ -205,6 +203,7 @@ class Redactor:
         Returns:
             redacted_data (str): redacted data
         """
+        start = time.time()
         if option == "dns":
             print(
                 f"[ + ] Redacting {option} from the file. This might take some time")
@@ -248,8 +247,11 @@ class Redactor:
                 + self.credit_cards(data)
             )
             redacted_data = self.to_redact(data, all_sensi)
-
+        end = time.time()
+        time_taken = end - start
+        print(f"[ + ] Took {time_taken} seconds to execute")
         return redacted_data
+        
 
     def process_file(self, filename, option=str, savedir="./"):
         """Function to process supplied file from cli.
