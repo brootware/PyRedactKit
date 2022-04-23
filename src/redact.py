@@ -180,9 +180,8 @@ class Redactor:
         
 
         for elm in redact_list:
-            # total_elm = len(elm)
-            # multiply the block with length of identified elements
-            bl = "\u2588" * 15
+            # multiply the block with 15 regardless of length
+            bl = self.block * 15
             # substitute the block using regular expression
             data = data.replace(elm,bl)
             redact_count += 1
