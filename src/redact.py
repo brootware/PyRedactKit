@@ -182,13 +182,11 @@ class Redactor:
         start = time.time()
 
         for elm in redact_list:
-            total_elm = len(elm)
-            # encode element to be blocked
-            elm = r"\b" + elm + r"\b"
+            # total_elm = len(elm)
             # multiply the block with length of identified elements
-            bl = total_elm * self.block
+            bl = "\u2588" * 15
             # substitute the block using regular expression
-            data = re.sub(elm, bl, data)
+            data = data.replace(elm,bl)
             redact_count += 1
 
         end = time.time()
