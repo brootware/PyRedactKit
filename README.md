@@ -33,13 +33,14 @@ Clone the repo
 git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
 ```
 
-Install requirements in a virtual environment
+Install requirements and nltk dependencies in a virtual environment.
 
 ```bash
 python -m pip install --user virtualenv
 python -m venv redactenv
 source ./redactenv/bin/activate
 pip install -r requirements.txt
+python -c "import nltk; nltk.download('popular',quiet=True)"
 ```
 
 Run as below to redact a single file
