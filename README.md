@@ -10,6 +10,8 @@
 
 Redacts the following from your text files. 📄 ✍️
 
+
+- nric 🆔
 - credit cards 🏧
 - dns 🌐
 - emails ✉️
@@ -32,19 +34,31 @@ Clone the repo
 git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
 ```
 
-Install requirements in a virtual environment
+Install requirements and nltk dependencies in a virtual environment.
 
 ```bash
 python -m pip install --user virtualenv
 python -m venv redactenv
 source ./redactenv/bin/activate
 pip install -r requirements.txt
+python -c "import nltk
+import ssl
+
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
+nltk.download()"
 ```
 
 Run as below to redact a single file
 
 ```bash
-$ python pyredactkit.py test.txt
+$ python pyredactkit.py ip_test.txt 
+
     ______       ______         _            _     _   ___ _   
     | ___ \      | ___ \       | |          | |   | | / (_) |  
     | |_/ /   _  | |_/ /___  __| | __ _  ___| |_  | |/ / _| |_ 
@@ -55,39 +69,39 @@ $ python pyredactkit.py test.txt
            |___/                                                                                                           
             +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
             |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+   
+            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
             
     https://github.com/brootware
-    https://brootware.github.io                                                                           
-     
+    https://brootware.github.io                                                                             
+    
 [ + ] Processing starts now. This may take some time depending on the file size. Monitor the redacted file size to monitor progress
 [ + ] No option supplied, will be redacting all the sensitive data supported
-
-[ + ] Redacted 36 targets...
-[ + ] Took 0.0026597976684570312 seconds to execute
+[ + ] Redacted 10064 targets...
+[ + ] Redacted results saved to ./redacted_ip_test.txt
 ```
 
-Sample Result:
+Sample Result (Note that name is not redacted by default):
 
 ```txt
-████, please get that article on ████████████████ to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at ██████████████████████
-this is my IP: ██████████
-My router is : ██████████
-█████████████
-█████████████
-█████████████
-█████████████
+John, please get that article on ███████████████ to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at ███████████████.
+All rights reserved. Printed in the United States of America. No part of this book may be used or reproduced in any manner whatsoever without written permission except in the case of brief quotations embodied in critical articles and reviews. For information address HarperCollins Publishers, 10 East 53rd Street, New York, NY 10022. His name is David. I met him and John last week. Gowtham Teja Kanneganti is a good student. I was born on Oct 4, 1995. My Indian mobile number is +91-7761975545. After coming to USA I got a new number +1-405-413-5255. I live on 1003 E Brooks St, Norman, Ok, 73071. I met  a child, who is playing with josh.
+this is my IP: ███████████████
+My router is : ███████████████
+███████████████
+███████████████
+███████████████
+███████████████
 
-███████████████████
+███████████████
 
 My email is ███████████████
 
-this is my IP: ██████████
-My router is: ██████████
-█████████████
-█████████████
-█████████████
-█████████████
+this is my IP: ███████████████
+My router is: ███████████████
+███████████████
+███████████████
+███████████████
+███████████████
 
 Card_Number,Card_Family,Credit_Limit,Cust_ID
 ███████████████████,Premium,530000,CC67088
@@ -99,10 +113,23 @@ Card_Number,Card_Family,Credit_Limit,Cust_ID
 ███████████████████,Premium,781000,CC66746
 ```
 
-To redact specific type of data. E.g (ipv4)
+To redact specific type of data. E.g (name)
 
 ```bash
-python pyredactkit.py test.txt -t ipv4
+python pyredactkit.py test.txt -t name
+```
+
+Sample result:
+
+```txt
+███████████████, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com.
+All rights reserved. Printed in the United States of America. No part of this book may be used or reproduced in any manner whatsoever without written permission except in the case of brief quotations embodied in critical articles and reviews. For information address HarperCollins Publishers, 10 East 53rd Street, New York, NY 10022. His name is ███████████████. I met him and ███████████████ last week. ███████████████ is a good student. I was born on Oct 4, 1995. My Indian mobile number is +91-7761975545. After coming to USA I got a new number +1-405-413-5255. I live on 1003 E ███████████████, Norman, Ok, 73071. I met  a child, who is playing with josh.
+this is my IP: 102.23.5.1
+My router is : 10.10.10.1
+71.159.188.33
+81.141.167.45
+165.65.59.139
+64.248.67.225
 ```
 
 To redact multiple files from a directory and place it in a new directory
@@ -114,7 +141,8 @@ python pyredactkit.py to_test/ -d redacted_dir
 ## Optional Help Menu as below
 
 ```bash
-usage: pyredactkit.py [-h] [-t REDACTIONTYPE] [-d DIROUT] [-r] [-e EXTENSION] path [path ...]
+usage: pyredactkit.py [-h] [-t REDACTIONTYPE] [-d DIROUT] [-r] [-e EXTENSION]
+                      path [path ...]
 
 Read in a file or set of files, and return the result.
 
@@ -124,8 +152,8 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -t REDACTIONTYPE, --redactiontype REDACTIONTYPE
-                        Type of data to redact. names, dns, emails, ipv4, ipv6, names (default:
-                        None)
+                        Type of data to redact. names, nric, dns, emails, ipv4, ipv6
+                        (default: None)
   -d DIROUT, --dirout DIROUT
                         Output directory of the file (default: None)
   -r, --recursive       Search through subfolders (default: True)
@@ -135,6 +163,6 @@ optional arguments:
 
 ## Sample files
 
-- [All types of data](https://raw.githubusercontent.com/brootware/PyRedactKit/main/test/test2.txt)
+- [All types of data](https://raw.githubusercontent.com/brootware/PyRedactKit/main/test/test.txt)
 - [itcont.txt - 4GB uncompressed](https://sanitizationbq.s3.ap-southeast-1.amazonaws.com/itcont.tar.gz)
 - [test_sample2.txt - 10002 lines of IP addresses](https://sanitizationbq.s3.ap-southeast-1.amazonaws.com/test_sample2.txt)

@@ -4,6 +4,7 @@ __pycache__
 redacted_*
 .dccache
 ip_test.txt
+multiredact
 # Ignoring sensitive files and directories.
 
 secret*.*

@@ -37,6 +37,7 @@ def main():
     parser.add_argument(
         "-t", "--redactiontype", help="""Type of data to redact. 
         names,
+        nric,
         dns,
         emails,
         ipv4,
