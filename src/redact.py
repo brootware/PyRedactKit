@@ -4,6 +4,7 @@ import mimetypes
 import os
 import sys
 import time
+import re
 
 from src.identifiers import Identifier
 
@@ -20,7 +21,7 @@ class Redactor:
         block (unicode string): To redact sensitive data
     """
 
-    block = "\u2588"
+    block = "\u2588" * 15
 
     def __init__(self):
         """
@@ -78,93 +79,120 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
-    def to_redact(self, data=str, redact_list=[]):
-        """Helper function that takes in list of keywords to be redacted from data.
-        Args:
-            redact_list (array): list of keywords in alpha-numeric format
-            data (str): data to be redacted in alpha-numeric format
+    # def to_redact(self, data=str, redact_list=[]):
+    #     """Helper function that takes in list of keywords to be redacted from data.
+    #     Args:
+    #         redact_list (array): list of keywords in alpha-numeric format
+    #         data (str): data to be redacted in alpha-numeric format
 
-        Returns:
-            data (str): redacted data
-        """
-        redact_count = 0
+    #     Returns:
+    #         data (str): redacted data
+    #     """
+    #     redact_count = 0
         
 
-        for elm in redact_list:
-            # multiply the block with 15 regardless of length
-            bl = self.block * 15
-            # substitute the block using regular expression
-            data = data.replace(elm,bl)
-            redact_count += 1
+    #     for elm in redact_list:
+    #         # multiply the block with 15 regardless of length
+    #         bl = self.block * 15
+    #         # substitute the block using regular expression
+    #         data = data.replace(elm,bl)
+    #         redact_count += 1
 
         
-        print()
-        print(f"[ + ] Redacted {redact_count} targets...")
-        return data
+    #     print()
+    #     print(f"[ + ] Redacted {redact_count} targets...")
+    #     return data
 
-    def redact(self, data=str, option=str):
-        """Main function to redact
-        Args:
-            data (str) : data to be supplied to redact
-            option (str): (optional) choice for redaction
+    # def redact(self, data=str, option=str):
+    #     """Main function to redact
+    #     Args:
+    #         data (str) : data to be supplied to redact
+    #         option (str): (optional) choice for redaction
 
-        Returns:
-            redacted_data (str): redacted data
-        """
-        start = time.time()
+    #     Returns:
+    #         redacted_data (str): redacted data
+    #     """
+    #     start = time.time()
+    #     if option == "dns":
+    #         print(
+    #             f"[ + ] Redacting {option} from the file. This might take some time")
+    #         dns_list = id_object.dns_strings(data)
+    #         redacted_data = self.to_redact(data, dns_list)
+    #     elif option in ("email", "emails"):
+    #         print(
+    #             f"[ + ] Redacting {option} from the file. This might take some time")
+    #         emails_list = id_object.emails(data)
+    #         redacted_data = self.to_redact(data, emails_list)
+    #     elif option == "ipv4":
+    #         print(
+    #             f"[ + ] Redacting {option} from the file. This might take some time")
+    #         ipv4_list = id_object.ipv4_addresses(data)
+    #         redacted_data = self.to_redact(data, ipv4_list)
+    #     elif option == "ipv6":
+    #         print(
+    #             f"[ + ] Redacting {option} from the file. This might take some time")
+    #         ipv6_list = id_object.ipv6_addresses(data)
+    #         redacted_data = self.to_redact(data, ipv6_list)
+    #     elif option == "names":
+    #         print(
+    #             f"[ + ] Redacting {option} from the file. This might take some time")
+    #         name_list = id_object.names(data)
+    #         redacted_data = self.to_redact(data, name_list)
+    #     elif option == "cc":
+    #         print(
+    #             f"[ + ] Redacting {option} from the file. This might take some time")
+    #         cc_list = id_object.credit_cards(data)
+    #         redacted_data = self.to_redact(data, cc_list)
+    #     elif option == "nric":
+    #         print(f"[ + ] Redacting {option} from the file. This might take some time")
+    #         nric_list = id_object.nric(data)
+    #         redacted_data = self.to_redact(data,nric_list)
+    #     else:
+    #         print(
+    #             "[ + ] No option supplied, will be redacting all the sensitive data supported"
+    #         )
+    #         all_sensi = (
+    #             id_object.emails(data)
+    #             + id_object.dns_strings(data)
+    #             + id_object.ipv4_addresses(data)
+    #             + id_object.ipv6_addresses(data)
+    #             + id_object.names(data)
+    #             + id_object.credit_cards(data)
+    #             + id_object.nric(data)
+    #         )
+    #         redacted_data = self.to_redact(data, all_sensi)
+    #     end = time.time()
+    #     time_taken = end - start
+    #     print(f"[ + ] Took {time_taken} seconds to execute")
+    #     return redacted_data
+        
+    def redact(self, line=str, option=str):
+        redacted_line = ''
         if option == "dns":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
-            dns_list = id_object.dns_strings(data)
-            redacted_data = self.to_redact(data, dns_list)
+            dns = id_object.regexes[1]['pattern']
+            redacted_line = re.sub(dns, self.block, line,flags=re.IGNORECASE)
         elif option in ("email", "emails"):
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
-            emails_list = id_object.emails(data)
-            redacted_data = self.to_redact(data, emails_list)
+            email = id_object.regexes[0]['pattern']
+            redacted_line = re.sub(email, self.block, line,flags=re.IGNORECASE)
         elif option == "ipv4":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
-            ipv4_list = id_object.ipv4_addresses(data)
-            redacted_data = self.to_redact(data, ipv4_list)
+            ipv4 = id_object.regexes[2]['pattern']
+            redacted_line = re.sub(ipv4, self.block, line,flags=re.IGNORECASE)
+        # elif option == "names":
+        #     print(
+        #         f"[ + ] Redacting {option} from the file. This might take some time")
+        #     name_list = id_object.names(data)
+        #     redacted_line = self.to_redact(data, name_list)
+        elif option in ("cc","creditcard"):
+            cc = id_object.regexes[3]['pattern']
+            redacted_line = re.sub(cc, self.block, line,flags=re.IGNORECASE)
+        elif option in ("nric","fin"):
+            nric = id_object.regexes[4]['pattern']
+            redacted_line = re.sub(nric, self.block, line,flags=re.IGNORECASE)
         elif option == "ipv6":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
-            ipv6_list = id_object.ipv6_addresses(data)
-            redacted_data = self.to_redact(data, ipv6_list)
-        elif option == "names":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
-            name_list = id_object.names(data)
-            redacted_data = self.to_redact(data, name_list)
-        elif option == "cc":
-            print(
-                f"[ + ] Redacting {option} from the file. This might take some time")
-            cc_list = id_object.credit_cards(data)
-            redacted_data = self.to_redact(data, cc_list)
-        elif option == "nric":
-            print(f"[ + ] Redacting {option} from the file. This might take some time")
-            nric_list = id_object.nric(data)
-            redacted_data = self.to_redact(data,nric_list)
-        else:
-            print(
-                "[ + ] No option supplied, will be redacting all the sensitive data supported"
-            )
-            all_sensi = (
-                id_object.emails(data)
-                + id_object.dns_strings(data)
-                + id_object.ipv4_addresses(data)
-                + id_object.ipv6_addresses(data)
-                + id_object.names(data)
-                + id_object.credit_cards(data)
-                + id_object.nric(data)
-            )
-            redacted_data = self.to_redact(data, all_sensi)
-        end = time.time()
-        time_taken = end - start
-        print(f"[ + ] Took {time_taken} seconds to execute")
-        return redacted_data
-        
+            ipv6 = id_object.regexes[5]['pattern']
+            redacted_line = re.sub(ipv6, self.block, line,flags=re.IGNORECASE)
+
+        return redacted_line
 
     def process_file(self, filename, option=str, savedir="./"):
         """Function to process supplied file from cli.
@@ -175,9 +203,10 @@ class Redactor:
         Returns:
             None
         """
+        count = 0
         try:
             with open(filename, encoding="utf-8") as target_file:
-                content = target_file.read()
+                # content = target_file.read()
                 if savedir != "./" and savedir[-1] != "/":
                     savedir = savedir + "/"
 
@@ -200,8 +229,21 @@ class Redactor:
                     "w",
                     encoding="utf-8",
                 ) as result:
-                    data = self.redact(content, option)
-                    result.write(data)
+
+                    if type(option) is not str:
+                        print(f"[ + ] No option supplied, will be redacting all the sensitive data supported")
+                        for line in target_file:
+                            for p in id_object.regexes:
+                                if re.search(p['pattern'], line, re.IGNORECASE):
+                                    line = re.sub(p['pattern'], self.block, line,
+                                                flags=re.IGNORECASE)
+                            result.write(line)
+                    else:
+                        print(f"[ + ] Redacting {option} from the file")
+                        for line in target_file:
+                            line = self.redact(line,option)
+                            result.write(line)
+                        
                     print(f"[ + ] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
 
         except UnicodeDecodeError:
