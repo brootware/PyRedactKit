@@ -137,7 +137,6 @@ class Redactor:
         try:
             # Open a file read pointer as target_file
             with open(filename, encoding="utf-8") as target_file:
-                # content = target_file.read()
                 if savedir != "./" and savedir[-1] != "/":
                     savedir = savedir + "/"
 
