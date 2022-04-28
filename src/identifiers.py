@@ -7,8 +7,8 @@ class Identifier:
     """Identifier
     Class containing all methods to identify sensitive data in files
 
-    Static variables:
-        block (unicode string): To redact sensitive data
+    Returns:
+        None
     """
     def __init__(self):
         return None
