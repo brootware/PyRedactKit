@@ -10,7 +10,6 @@
 
 Redacts the following from your text files. 📄 ✍️
 
-- names 👤
 - sg nric 🆔
 - credit cards 🏧
 - dns 🌐
