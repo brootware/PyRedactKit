@@ -11,6 +11,7 @@
 Redacts the following from your text files. 📄 ✍️
 
 - names 👤
+- nric 🆔
 - credit cards 🏧
 - dns 🌐
 - emails ✉️
@@ -126,7 +127,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -t REDACTIONTYPE, --redactiontype REDACTIONTYPE
-                        Type of data to redact. names, dns, emails, ipv4, ipv6, names (default:
+                        Type of data to redact. names, nric, dns, emails, ipv4, ipv6 (default:
                         None)
   -d DIROUT, --dirout DIROUT
                         Output directory of the file (default: None)
