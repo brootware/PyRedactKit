@@ -11,7 +11,7 @@
 Redacts the following from your text files. 📄 ✍️
 
 - names 👤
-- nric 🆔
+- sg nric 🆔
 - credit cards 🏧
 - dns 🌐
 - emails ✉️
