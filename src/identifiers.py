@@ -5,7 +5,7 @@ import nltk
 class Identifier:
     """Data identifier class containing all methods to identify sensitive data in files
 
-    Static variables:
+    Configurable Variables:
         regexes (array-dict) : an array list of dictionaries for identifying different type of data.
             pattern (str) : regular expression to identify
             type (str) : description of type of data

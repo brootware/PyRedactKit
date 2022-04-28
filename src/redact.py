@@ -78,7 +78,7 @@ class Redactor:
         if not os.path.isfile(file):
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
-        
+
     def redact(self, line=str, option=str):
         """Main function to redact
         Args:
@@ -89,28 +89,29 @@ class Redactor:
             redacted_line (str): redacted line
         """
         redacted_line = ''
-        if option == "dns":
+        if option in ("dns", "domain"):
             dns = id_object.regexes[1]['pattern']
-            redacted_line = re.sub(dns, self.block, line,flags=re.IGNORECASE)
+            redacted_line = re.sub(dns, self.block, line, flags=re.IGNORECASE)
         elif option in ("email", "emails"):
             email = id_object.regexes[0]['pattern']
-            redacted_line = re.sub(email, self.block, line,flags=re.IGNORECASE)
-        elif option == "ipv4":
+            redacted_line = re.sub(
+                email, self.block, line, flags=re.IGNORECASE)
+        elif option in ("ip", "ipv4"):
             ipv4 = id_object.regexes[2]['pattern']
-            redacted_line = re.sub(ipv4, self.block, line,flags=re.IGNORECASE)
-        elif option in ("cc","creditcard"):
+            redacted_line = re.sub(ipv4, self.block, line, flags=re.IGNORECASE)
+        elif option in ("cc", "creditcard"):
             cc = id_object.regexes[3]['pattern']
-            redacted_line = re.sub(cc, self.block, line,flags=re.IGNORECASE)
-        elif option in ("nric","fin"):
+            redacted_line = re.sub(cc, self.block, line, flags=re.IGNORECASE)
+        elif option in ("nric", "fin"):
             nric = id_object.regexes[4]['pattern']
-            redacted_line = re.sub(nric, self.block, line,flags=re.IGNORECASE)
+            redacted_line = re.sub(nric, self.block, line, flags=re.IGNORECASE)
         elif option == "ipv6":
             ipv6 = id_object.regexes[5]['pattern']
-            redacted_line = re.sub(ipv6, self.block, line,flags=re.IGNORECASE)
+            redacted_line = re.sub(ipv6, self.block, line, flags=re.IGNORECASE)
 
         return redacted_line
 
-    def redact_name(self,data=str):
+    def redact_name(self, data=str):
         """Main function to redact
         Args:
             data (str) : data to be supplied to identify names
@@ -121,7 +122,7 @@ class Redactor:
         name_list = id_object.names(data)
         name_count = len(name_list)
         for name in name_list:
-            data = data.replace(name,self.block)
+            data = data.replace(name, self.block)
         return data, name_count
 
     def process_file(self, filename, option=str, savedir="./"):
@@ -163,16 +164,17 @@ class Redactor:
                 ) as result:
                     # Check if any redaction type option is given in argument. If none, will redact all sensitive data.
                     if type(option) is not str:
-                        print(f"[ + ] No option supplied, will be redacting all the sensitive data supported")
+                        print(
+                            f"[ + ] No option supplied, will be redacting all the sensitive data supported")
                         for line in target_file:
                             for p in id_object.regexes:
                                 if re.search(p['pattern'], line, re.IGNORECASE):
                                     line = re.sub(p['pattern'], self.block, line,
-                                                flags=re.IGNORECASE)
+                                                  flags=re.IGNORECASE)
                             result.write(line)
                             count += 1
                     # Separate option to redact names
-                    elif option in ("name","names"):
+                    elif option in ("name", "names"):
                         content = target_file.read()
                         data = self.redact_name(content)
                         result.write(data[0])
@@ -180,12 +182,13 @@ class Redactor:
                     else:
                         print(f"[ + ] Redacting {option} from the file")
                         for line in target_file:
-                            line = self.redact(line,option)
+                            line = self.redact(line, option)
                             result.write(line)
                             count += 1
-                        
+
                     print(f"[ + ] Redacted {count} targets...")
-                    print(f"[ + ] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
+                    print(
+                        f"[ + ] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
 
         except UnicodeDecodeError:
             os.remove(f"{savedir}redacted_{os.path.basename(filename)}")
