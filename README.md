@@ -10,7 +10,7 @@
 
 Redacts the following from your text files. 📄 ✍️
 
-- names 👤
+
 - nric 🆔
 - credit cards 🏧
 - dns 🌐
