@@ -14,7 +14,7 @@ setup(
     name="pyredactkit",
     version="1.0.0",
     long_description=readme,
-    description="Python bot for mouse event simulation",
+    description="Python cli tool to redact sensitive data",
     python_requires="==3.*,>=3.6.0",
     license="GNU",
     author="Oaker Min",
