@@ -18,9 +18,9 @@ setup(
     python_requires="==3.*,>=3.6.0",
     license="GNU",
     author="Oaker Min",
-    author_email="ominbruce@outlook.com",
+    author_email="brootware@outlook.com",
     maintainer="Oaker Min",
-    maintainer_email="ominbruce@outlook.com",
+    maintainer_email="brootware@outlook.com",
     packages=["src"],
     py_modules=["pyredactkit", "src.redact"],
     install_requires=[
