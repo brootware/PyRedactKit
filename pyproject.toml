@@ -19,7 +19,7 @@ py = "^1.11.0"
 pyparsing = "^3.0.8"
 tomli = "^2.0.1"
 tqdm = "^4.64.0"
-nltk = {url = "https://files.pythonhosted.org/packages/b4/e0/840a250e5f85c480389c44d4058c7888b0c9f5f5333b353c77782a8a8e23/nltk-3.7.zip"}
+nltk = "^3.7"
 
 [tool.poetry.dev-dependencies]
 
