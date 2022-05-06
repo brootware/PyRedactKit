@@ -3,7 +3,7 @@
 <p align="center">
   <img src="./images/asciiRedact.png" alt="Python Redactor Kit!"/>
 <br />
-<i>CLI tool to redact sensitive information like ip address, email and dns.</i>
+<i>CLI tool to redact sensitive information like ip addresses, emails and domains.</i>
 <br/>
 <code>pip3 install pyredactkit && pyredactor</code>
 </p>
@@ -20,7 +20,7 @@ Redacts the following from your text files. 📄 ✍️
 - names 👤
 - sg nric 🆔
 - credit cards 🏧
-- dns 🌐
+- domain names 🌐
 - emails ✉️
 - ipv4 📟
 - ipv6 📟
