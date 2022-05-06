@@ -1,5 +1,5 @@
 import pytest
-from src.redact import Redactor
+from pyredactkit.redact import Redactor
 
 data = """John, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com
 this is my IP: 102.23.5.1
@@ -39,6 +39,9 @@ Card_Number,Card_Family,Credit_Limit,Cust_ID
 7908-3850-6633-2606,Gold,43000,CC71044
 """
 
+people_names = "John,Jones,Alex,Bruce"
+mask_names = "\u2588" * 15
+count_names = 4
 
 @pytest.fixture
 def obj():
@@ -59,25 +62,10 @@ def test_current_file_is_allowed(obj):
     assert obj.allowed_file(__file__), f'{__file__} should be allowed'
 
 
-def test_names_function_should_return_list(obj):
-    assert type(obj.names(data)
-                ) == list, 'names should return a list'
-
-
-def test_elements_of_names_list_should_be_strings(obj):
-    for value in obj.names(data):
-        assert type(value) is str, 'elements of names list should be strings'
-
-
-def test_dns_strings_function_should_return_list(obj):
-    assert type(obj.dns_strings(data)
-                ) == list, 'dns should return a list'
-
-
-def test_to_redact_function_should_return_string(obj):
-    assert type(obj.to_redact(data, obj.dns_strings(data))
-                ) == str, 'to redact function should return string'
-
-
 def test_redact_function_should_return_string(obj):
     assert type(obj.redact(data)) == str, 'redact function should return string'
+
+
+def test_redact_name_function_should_return_string_and_integer(obj):
+    set1 = (f'{mask_names},{mask_names},{mask_names},{mask_names}',count_names)
+    assert obj.redact_name(people_names) == set1, 'redact_name function should return masked data and count'

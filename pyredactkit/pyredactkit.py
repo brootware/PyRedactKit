@@ -4,7 +4,7 @@ Utility to redact sensitive data
 """
 
 import argparse
-from src.redact import Redactor
+from pyredactkit.redact import Redactor
 import os
 import glob
 # lintertest
@@ -30,27 +30,45 @@ banner = """
 def main():
     print(banner)
 
-    parser = argparse.ArgumentParser(description='Read in a file or set of files, and return the result.',
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("path", nargs="+",
-                        help="Path of a file or a directory of files")
+    parser = argparse.ArgumentParser(
+        description='Read in a file or set of files, and return the result.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
     parser.add_argument(
-        "-t", "--redactiontype", help="""Type of data to redact. 
+        "file", nargs="+",
+        help="Path of a file or a directory of files"
+    )
+    parser.add_argument(
+        "-t", "--redactiontype", 
+        help="""Type of data to redact. 
         names,
         nric,
         dns,
         emails,
         ipv4,
-        ipv6""")
+        ipv6"""
+    )
     parser.add_argument(
-        "-d", "--dirout", help="Output directory of the file")
-    parser.add_argument('-r', '--recursive', action='store_true',
-                        default=True, help='Search through subfolders')
-    parser.add_argument('-e', '--extension', default='',
-                        help='File extension to filter by.')
+        "-d", 
+        "--dirout", 
+        help="Output directory of the file"
+    )
+    parser.add_argument(
+        '-r', 
+        '--recursive', 
+        action='store_true',
+        default=True, 
+        help='Search through subfolders'
+    )
+    parser.add_argument(
+        '-e', 
+        '--extension', 
+        default='',
+        help='File extension to filter by.'
+    )
     args = parser.parse_args()
 
-    full_paths = [os.path.join(os.getcwd(), path) for path in args.path]
+    full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
     files = set()
 
     for path in full_paths:
