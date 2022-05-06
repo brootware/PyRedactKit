@@ -118,6 +118,7 @@ class Redactor:
 
         Returns:
             data (str) : redacted names from the data
+            name_count (int) : number of names redacted from the data
         """
         name_list = id_object.names(data)
         name_count = len(name_list)
