@@ -34,14 +34,14 @@ Clone the repo
 git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
 ```
 
-Install requirements and nltk dependencies in a virtual environment.
+Install required dependencies via poetry.
 
 ```bash
-python -m pip install --user virtualenv
-python -m venv redactenv
-source ./redactenv/bin/activate
-pip install -r requirements.txt
-python -c "import nltk
+python -m pip install --user poetry
+poetry install 
+```
+
+<!-- python -c "import nltk
 import ssl
 
 try:
@@ -49,15 +49,14 @@ try:
 except AttributeError:
     pass
 else:
-    ssl._create_default_https_context = _create_unverified_https_context
+    ssl._create_default_https_context =_create_unverified_https_context
 
-nltk.download()"
-```
+nltk.download()" -->
 
 Run as below to redact a single file
 
 ```bash
-$ python pyredactkit.py ip_test.txt 
+$ poetry run pyredactkit ip_test.txt 
 
     ______       ______         _            _     _   ___ _   
     | ___ \      | ___ \       | |          | |   | | / (_) |  
@@ -116,7 +115,7 @@ Card_Number,Card_Family,Credit_Limit,Cust_ID
 To redact specific type of data. E.g (name)
 
 ```bash
-python pyredactkit.py test.txt -t name
+poetry run pyredactkit test.txt -t name
 ```
 
 Sample result:
@@ -135,7 +134,7 @@ My router is : 10.10.10.1
 To redact multiple files from a directory and place it in a new directory
 
 ```bash
-python pyredactkit.py to_test/ -d redacted_dir
+poetry run pyredactkit to_test/ -d redacted_dir
 ```
 
 ## Optional Help Menu as below
