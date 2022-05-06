@@ -6,7 +6,7 @@ authors = ["brootware <brootware@outlook.com>"]
 license = "GNU"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 nltk = "^3.7"
 tqdm = "^4.64.0"
 regex = "^2022.4.24"
