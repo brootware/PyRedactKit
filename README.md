@@ -4,6 +4,13 @@
   <img src="./images/asciiRedact.png" alt="Python Redactor Kit!"/>
 <br />
 <i>CLI tool to redact sensitive information like ip address, email and dns.</i>
+<br/>
+<code>pip3 install pyredactkit && pyredactor</code>
+</p>
+
+<p align="center">
+   <!-- <img alt="PyPI - Downloads" src="https://pepy.tech/badge/pyredactkit/month">   -->
+   <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/brootware?style=social"> <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/pyredactkit"> <img alt="PyPI" src="https://img.shields.io/pypi/v/pyredactkit">
 </p>
 
 ## Features
