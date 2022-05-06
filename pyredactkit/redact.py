@@ -6,7 +6,7 @@ import sys
 import time
 import re
 
-from src.identifiers import Identifier
+from pyredactkit.identifiers import Identifier
 
 id_object = Identifier()
 """ Main redactor library """

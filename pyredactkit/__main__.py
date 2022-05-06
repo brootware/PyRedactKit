@@ -24,6 +24,6 @@ if __name__ == "__main__":
         )
         sys.exit(1)
 
-    from src import pyredactkit
+    from pyredactkit import pyredactkit
 
     pyredactkit.main()
