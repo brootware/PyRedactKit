@@ -28,6 +28,42 @@ Redacts the following from your text files. 📄 ✍️
 Demo:
 ![demo](./images/pyredact.gif)
 
+Quick install
+
+```bash
+python -m pip install pyredactkit
+```
+
+Redact a single file
+
+```bash
+pyredactkit ip_test.txt 
+```
+
+Install nltk data for redacting names
+
+```bash
+python -c "import nltk
+import ssl
+
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context =_create_unverified_https_context
+
+nltk.download('popular')"
+```
+
+Redact names from text file
+
+```bash
+pyredactkit ip_test.txt -t name
+```
+
+### Use from github source
+
 Clone the repo
 
 ```bash
@@ -151,19 +187,18 @@ poetry run pyredactkit to_test/ -d redacted_dir
 ## Optional Help Menu as below
 
 ```bash
-usage: pyredactkit.py [-h] [-t REDACTIONTYPE] [-d DIROUT] [-r] [-e EXTENSION]
-                      path [path ...]
+usage: pyredactkit [-h] [-t REDACTIONTYPE] [-d DIROUT] [-r] [-e EXTENSION] file [file ...]
 
 Read in a file or set of files, and return the result.
 
 positional arguments:
-  path                  Path of a file or a directory of files
+  file                  Path of a file or a directory of files
 
 optional arguments:
   -h, --help            show this help message and exit
   -t REDACTIONTYPE, --redactiontype REDACTIONTYPE
-                        Type of data to redact. names, nric, dns, emails, ipv4, ipv6
-                        (default: None)
+                        Type of data to redact. names, nric, dns, emails, ipv4, ipv6 (default:
+                        None)
   -d DIROUT, --dirout DIROUT
                         Output directory of the file (default: None)
   -r, --recursive       Search through subfolders (default: True)

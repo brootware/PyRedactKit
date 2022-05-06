@@ -92,7 +92,7 @@ twitter = ["twython"]
 name = "numpy"
 version = "1.22.3"
 description = "NumPy is the fundamental package for array computing with Python."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 
@@ -227,7 +227,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "85b7f5ca4d015a87192a04462a518207d692ef26faa896d640f7289110af4cf8"
+content-hash = "9ba4e667dcc92df9ecbb5b0bea8ee7808b157b74e32bfadaabe1dba373a7d4e2"
 
 [metadata.files]
 atomicwrites = [
