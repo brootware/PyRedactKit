@@ -34,11 +34,22 @@ Clone the repo
 git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
 ```
 
-Install required dependencies via poetry.
+Install required dependencies via poetry and download nltk.
 
 ```bash
 python -m pip install --user poetry
 poetry install 
+python -c "import nltk
+import ssl
+
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context =_create_unverified_https_context
+
+nltk.download('popular')"
 ```
 
 <!-- python -c "import nltk
