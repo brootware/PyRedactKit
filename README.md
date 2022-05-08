@@ -9,8 +9,11 @@
 </p>
 
 <p align="center">
-   <img alt="PyPI - Downloads" src="https://pepy.tech/badge/pyredactkit/month">
+   <!-- <img alt="PyPI - Downloads" src="https://pepy.tech/badge/pyredactkit/month"> -->
+   <img alt="PyPI - Downloads" src="https://pepy.tech/badge/pyredactkit">
    <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/brootware?style=social"> <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/pyredactkit"> <img alt="PyPI" src="https://img.shields.io/pypi/v/pyredactkit">
+   <a href="https://lgtm.com/projects/g/brootware/PyRedactKit/context:python"><img src="https://img.shields.io/lgtm/grade/python/g/brootware/PyRedactKit.svg?logo=lgtm" alt="LGTM PYTHON"></a>
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/brootware/pyredactkit/pylint?label=pylint">
 </p>
 
 ## Features
