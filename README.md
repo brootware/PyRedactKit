@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-   <!-- <img alt="PyPI - Downloads" src="https://pepy.tech/badge/pyredactkit/month">   -->
+   <img alt="PyPI - Downloads" src="https://pepy.tech/badge/pyredactkit/month">
    <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/brootware?style=social"> <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/pyredactkit"> <img alt="PyPI" src="https://img.shields.io/pypi/v/pyredactkit">
 </p>
 
