@@ -88,6 +88,7 @@ class Redactor:
         Returns:
             redacted_line (str): redacted line
         """
+        # Refactor this to loop through and check for option.
         redacted_line = ''
         if option in ("dns", "domain"):
             dns = id_object.regexes[1]['pattern']
