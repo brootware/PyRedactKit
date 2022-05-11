@@ -39,7 +39,7 @@ def main():
         help="Path of a file or a directory of files"
     )
     parser.add_argument(
-        "-t", "--redactiontype", 
+        "-t", "--redactiontype",
         help="""Type of data to redact. 
         names,
         nric,
@@ -49,20 +49,20 @@ def main():
         ipv6"""
     )
     parser.add_argument(
-        "-d", 
-        "--dirout", 
+        "-d",
+        "--dirout",
         help="Output directory of the file"
     )
     parser.add_argument(
-        '-r', 
-        '--recursive', 
+        '-r',
+        '--recursive',
         action='store_true',
-        default=True, 
+        default=True,
         help='Search through subfolders'
     )
     parser.add_argument(
-        '-e', 
-        '--extension', 
+        '-e',
+        '--extension',
         default='',
         help='File extension to filter by.'
     )
@@ -89,6 +89,7 @@ def main():
             redact_obj.process_file(file, args.redactiontype, args.dirout)
         else:
             redact_obj.process_file(file)
+            redact_obj.process_report(file)
 
 
 if __name__ == "__main__":
