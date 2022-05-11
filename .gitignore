@@ -5,6 +5,7 @@ redacted_*
 .dccache
 ip_test.txt
 multiredact
+manhours*
 # Ignoring sensitive files and directories.
 
 secret*.*
