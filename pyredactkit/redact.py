@@ -197,7 +197,7 @@ class Redactor:
             print("[ - ] Removed incomplete redact file")
             sys.exit("[ - ] Unable to read file")
 
-    def process_report(self, filename):
+    def process_report(self, filename, savedir="./"):
         """Function to process calculate and generate report of man hour saved.
         Args:
             filename (str): File to count the words
@@ -208,6 +208,18 @@ class Redactor:
         try:
             # Open a file read pointer as target_file
             with open(filename, encoding="utf-8") as target_file:
+                if savedir != "./" and savedir[-1] != "/":
+                    savedir = savedir + "/"
+
+                # created the directory if not present
+                if not os.path.exists(os.path.dirname(savedir)):
+                    print(
+                        "[ + ] "
+                        + os.path.dirname(savedir)
+                        + " directory does not exist, creating it."
+                    )
+                    os.makedirs(os.path.dirname(savedir))
+
                 text_chunk = target_file.read()
 
                 # Words per minute
@@ -230,14 +242,14 @@ class Redactor:
 
                 # Open a file write pointer as result
                 with open(
-                    f"manhours_saved_{os.path.basename(filename)}",
+                    f"{savedir}manhours_saved_{os.path.basename(filename)}",
                     "w",
                     encoding="utf-8",
                 ) as result:
                     result.write(word_report + "\n" +
                                  minutes_saved + "\n" + man_hours_saved)
                     print(
-                        f"[ + ] Estimated man hours saved report saved as manhours_saved_{os.path.basename(filename)}")
+                        f"[ + ] Estimated man hours saved report saved to {savedir}manhours_saved_{os.path.basename(filename)}")
 
         except UnicodeDecodeError:
             os.remove(f"manhour_saved_report_{os.path.basename(filename)}")
