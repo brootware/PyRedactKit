@@ -71,6 +71,7 @@ def main():
             redact_obj.process_file(file, args.redactiontype, args.dirout)
         else:
             redact_obj.process_file(file)
+            redact_obj.process_report(file)
 
 
 if __name__ == "__main__":
