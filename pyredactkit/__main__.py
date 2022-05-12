@@ -18,9 +18,9 @@ if __name__ == "__main__":
         + str(sys.version_info[2])
     )
 
-    if major != 3 or (major == 3 and minor < 7): # lgtm [py/redundant-comparison]
+    if major != 3 or (major == 3 and minor < 6):
         print(
-            f"PyRedactKit requires Python 3.8+, you are using {python_version}. Please install a higher Python version."
+            f"PyRedactKit requires Python 3.7+, you are using {python_version}. Please install a higher Python version."
         )
         sys.exit(1)
 

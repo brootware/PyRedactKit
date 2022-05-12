@@ -6,9 +6,9 @@ authors = ["brootware <brootware@outlook.com>"]
 license = "GNU"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 nltk = "^3.7"
-numpy = "^1.22.3"
+numpy = "^1.21.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
@@ -24,7 +24,7 @@ pyparsing = "^3.0.8"
 tomli = "^2.0.1"
 tqdm = "^4.64.0"
 nltk = "^3.7"
-numpy = "^1.22.3"
+numpy = "^1.21.0"
 rich = "^12.4.0"
 
 
