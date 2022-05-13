@@ -80,7 +80,7 @@ class Redactor:
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
     def redact_specific(self, line=str, option=str):
-        """Main function to redact
+        """Function to redact specific option
         Args:
             line (str) : line to be supplied to redact
             option (str): (optional) choice for redaction
@@ -124,6 +124,7 @@ class Redactor:
             Creates redacted file.
         """
         count = 0
+        options_list = self.valid_options()
         try:
             # Open a file read pointer as target_file
             with open(filename, encoding="utf-8") as target_file:
@@ -168,14 +169,20 @@ class Redactor:
                         data = self.redact_name(content)
                         result.write(data[0])
                         count = data[1]
+                    elif option not in options_list:
+                        os.remove(
+                            f"{savedir}redacted_{os.path.basename(filename)}")
+                        sys.exit(
+                            "[ - ] Not a valid option for redaction type.")
                     # Redacts all other options here
-                    print(f"[ + ] Redacting {option} from the file")
-                    for line in target_file:
-                        for id in id_object.regexes:
-                            if option in id['type'] and re.search(id['pattern'], line, flags=re.IGNORECASE):
-                                count += 1
-                        line = self.redact_specific(line, option)
-                        result.write(line)
+                    else:
+                        print(f"[ + ] Redacting {option} from the file")
+                        for line in target_file:
+                            for id in id_object.regexes:
+                                if option in id['type'] and re.search(id['pattern'], line, flags=re.IGNORECASE):
+                                    count += 1
+                            line = self.redact_specific(line, option)
+                            result.write(line)
 
                     print(f"[ + ] Redacted {count} targets...")
                     print(
@@ -244,3 +251,16 @@ class Redactor:
             os.remove(f"manhour_saved_report_{os.path.basename(filename)}")
             print("[ - ] Removed incomplete report")
             sys.exit("[ - ] Unable to read target file")
+
+    def valid_options(self):
+        """Function to read in valid options from Identifier.regexes
+        Args:
+            None
+
+        Returns:
+            option_tupe (tuple): redacted line
+        """
+        option_tuple = ()
+        for id in id_object.regexes:
+            option_tuple += id['type']
+        return option_tuple
