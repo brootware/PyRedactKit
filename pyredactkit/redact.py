@@ -79,7 +79,7 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
-    def redact(self, line=str, option=str):
+    def redact_specific(self, line=str, option=str):
         """Main function to redact
         Args:
             line (str) : line to be supplied to redact
@@ -90,25 +90,12 @@ class Redactor:
         """
         # Refactor this to loop through and check for option.
         redacted_line = ''
-        if option in ("dns", "domain"):
-            dns = id_object.regexes[1]['pattern']
-            redacted_line = re.sub(dns, self.block, line, flags=re.IGNORECASE)
-        elif option in ("email", "emails"):
-            email = id_object.regexes[0]['pattern']
-            redacted_line = re.sub(
-                email, self.block, line, flags=re.IGNORECASE)
-        elif option in ("ip", "ipv4"):
-            ipv4 = id_object.regexes[2]['pattern']
-            redacted_line = re.sub(ipv4, self.block, line, flags=re.IGNORECASE)
-        elif option in ("cc", "creditcard"):
-            cc = id_object.regexes[3]['pattern']
-            redacted_line = re.sub(cc, self.block, line, flags=re.IGNORECASE)
-        elif option in ("nric", "fin"):
-            nric = id_object.regexes[4]['pattern']
-            redacted_line = re.sub(nric, self.block, line, flags=re.IGNORECASE)
-        elif option == "ipv6":
-            ipv6 = id_object.regexes[5]['pattern']
-            redacted_line = re.sub(ipv6, self.block, line, flags=re.IGNORECASE)
+
+        for id in id_object.regexes:
+            redact_pattern = id['pattern']
+            if option in id['type']:
+                redacted_line = re.sub(
+                    redact_pattern, self.block, line, flags=re.IGNORECASE)
 
         return redacted_line
 
@@ -170,23 +157,25 @@ class Redactor:
                             f"[ + ] No option supplied, will be redacting all the sensitive data supported")
                         for line in target_file:
                             for p in id_object.regexes:
-                                if re.search(p['pattern'], line, re.IGNORECASE):
+                                if re.search(p['pattern'], line, flags=re.IGNORECASE):
+                                    count += 1
                                     line = re.sub(p['pattern'], self.block, line,
                                                   flags=re.IGNORECASE)
                             result.write(line)
-                            count += 1
                     # Separate option to redact names
                     elif option in ("name", "names"):
                         content = target_file.read()
                         data = self.redact_name(content)
                         result.write(data[0])
                         count = data[1]
-                    else:
-                        print(f"[ + ] Redacting {option} from the file")
-                        for line in target_file:
-                            line = self.redact(line, option)
-                            result.write(line)
-                            count += 1
+                    # Redacts all other options here
+                    print(f"[ + ] Redacting {option} from the file")
+                    for line in target_file:
+                        for id in id_object.regexes:
+                            if option in id['type'] and re.search(id['pattern'], line, flags=re.IGNORECASE):
+                                count += 1
+                        line = self.redact_specific(line, option)
+                        result.write(line)
 
                     print(f"[ + ] Redacted {count} targets...")
                     print(
