@@ -79,6 +79,19 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
+    def valid_options(self):
+        """Function to read in valid options from Identifier.regexes
+        Args:
+            None
+
+        Returns:
+            option_tupe (tuple): redacted line
+        """
+        option_tuple = ()
+        for id in id_object.regexes:
+            option_tuple += id['type']
+        return option_tuple
+
     def redact_specific(self, line=str, option=str):
         """Function to redact specific option
         Args:
@@ -251,16 +264,3 @@ class Redactor:
             os.remove(f"manhour_saved_report_{os.path.basename(filename)}")
             print("[ - ] Removed incomplete report")
             sys.exit("[ - ] Unable to read target file")
-
-    def valid_options(self):
-        """Function to read in valid options from Identifier.regexes
-        Args:
-            None
-
-        Returns:
-            option_tupe (tuple): redacted line
-        """
-        option_tuple = ()
-        for id in id_object.regexes:
-            option_tuple += id['type']
-        return option_tuple
