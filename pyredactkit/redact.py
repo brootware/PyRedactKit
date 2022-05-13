@@ -101,7 +101,6 @@ class Redactor:
         Returns:
             redacted_line (str): redacted line
         """
-        # Refactor this to loop through and check for option.
         redacted_line = ''
 
         for id in id_object.regexes:
