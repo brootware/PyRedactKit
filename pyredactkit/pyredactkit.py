@@ -46,7 +46,8 @@ def main():
         dns,
         emails,
         ipv4,
-        ipv6"""
+        ipv6,
+        base64"""
     )
     parser.add_argument(
         "-d",
