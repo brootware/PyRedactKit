@@ -48,14 +48,16 @@ regexes = [
 ]
 
 
-def write_hashmap(hashed_string, pattern_string):
-    hash_map = {}
-    hash_map.update({hashed_string: pattern_string})
+def write_hashmap(hashed_string, pattern_string, count):
+    hash_map = []
+    for i in range(0, count, 1):
+        hash_map.append({hashed_string: pattern_string})
     with open("hashmap.txt", "w", encoding="utf-8") as file:
         json.dump(hash_map, file)
 
 
 count = 0
+pattern_string_list = []
 with open("hashtest.txt", encoding="utf-8") as target_file:
     with open(
         f"redacted_test.txt",
@@ -70,10 +72,14 @@ with open("hashtest.txt", encoding="utf-8") as target_file:
                     pattern_string = re.search(
                         redact_pattern, line, flags=re.IGNORECASE)
                     pattern_string = pattern_string.group(0)
-                    hashed_string = hashlib.md5(
+                    hashed_string = hashlib.sha256(
                         pattern_string.encode()).hexdigest()
                     # print(pattern_string.group(0))
+                    # with open("hashmap.txt", "w", encoding="utf-8") as file:
+                    #     file.writelines(f"{hashed_string}:{pattern_string}\n")
+                    write_hashmap(hashed_string, pattern_string,
+                                  count)
                     line = re.sub(redact_pattern, hashed_string, line,
                                   flags=re.IGNORECASE)
-                write_hashmap(hashed_string, pattern_string)
+
             result.write(line)
