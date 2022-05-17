@@ -43,7 +43,6 @@ class Unredactor:
         Returns:
             Writes unredacted_file.txt with original unmasked data.
         """
-        count = 0
         with open(redacted_file, encoding="utf-8") as redacted_target:
             try:
                 with open(lookup_file, encoding="utf-8") as lookup_target:

@@ -20,15 +20,15 @@ def read_file(savedir="./"):
     return content
 
 
-def process_report(savedir="./"):
-    content = read_file()
-    with open(
-        f"{savedir}redacted_{os.path.basename('test.txt')}",
-        "w",
-        encoding="utf-8",
-    ) as result:
-        for line in content:
-            print(line)
+# def process_report(savedir="./"):
+#     content = read_file()
+#     with open(
+#         f"{savedir}redacted_{os.path.basename('test.txt')}",
+#         "w",
+#         encoding="utf-8",
+#     ) as result:
+#         for line in content:
+#             print(line)
 
 
-process_report()
+# process_report()

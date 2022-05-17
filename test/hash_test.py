@@ -63,7 +63,6 @@ def salt_hash(to_hash):
 
 
 def process_redact():
-    count = 0
     hash_map = {}
     with open("test.txt", encoding="utf-8") as target_file:
         with open(
@@ -75,7 +74,6 @@ def process_redact():
                 for id in regexes:
                     redact_pattern = id['pattern']
                     if re.search(redact_pattern, line, flags=re.IGNORECASE):
-                        count += 1
                         pattern_string = re.search(
                             redact_pattern, line, flags=re.IGNORECASE)
                         pattern_string = pattern_string.group(0)

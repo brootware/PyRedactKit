@@ -28,11 +28,3 @@ def replace_all(text, dictionary):
 
 
 unredact("redacted_test.txt", ".hashshadow.json")
-
-
-# with fileinput.FileInput("redacted_test.txt", inplace=True, backup='.bak') as file:
-#     for line in file:
-#         line.replace("c9b72036-172d-461a-ab87-b1098ad5649d",
-#                      "www.linkedin.com")
-
-#     file.write(line)
