@@ -37,14 +37,16 @@ def main():
     parser.add_argument(
         "file",
         nargs="+",
-        help="""Path of a file or a directory of files"""
+        help="""
+        Path of a file or a directory of files
+        Usage: pyredactkit [file/filestoredact]"""
     )
     parser.add_argument(
         "-u",
         "--unredact",
         help="""
         Option to unredact masked data.
-        pyredactkit [redactedfile] -u [.hashshadow.json]
+        Usage: pyredactkit [redactedfile] -u [.hashshadow.json]
         """
     )
     parser.add_argument(
@@ -56,12 +58,16 @@ def main():
         emails,
         ipv4,
         ipv6,
-        base64"""
+        base64
+        Usage: pyredactkit [file/filestoredact] -t ip"""
     )
     parser.add_argument(
         "-d",
         "--dirout",
-        help="Output directory of the file"
+        help="""
+        Output directory of the file
+        Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
+        """
     )
     parser.add_argument(
         '-r',
