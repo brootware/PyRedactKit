@@ -110,9 +110,8 @@ class Redactor:
             option (str): (optional) choice for redaction
 
         Returns:
-            redacted_line (str): redacted line
+            line (str): redacted line
         """
-        redacted_line = ''
         hash_map = {}
 
         for id in id_object.regexes:
@@ -124,11 +123,11 @@ class Redactor:
                 pattern_string = pattern_string.group(0)
                 masked_data = self.salt_hash(pattern_string)
                 hash_map.update({masked_data: pattern_string})
-                redacted_line = re.sub(
+                line = re.sub(
                     redact_pattern, masked_data, line, flags=re.IGNORECASE)
 
         self.write_hashmap(hash_map)
-        return redacted_line
+        return line
 
     def redact_name(self, data=str):
         """Main function to redact
