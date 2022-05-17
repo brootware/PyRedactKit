@@ -5,6 +5,8 @@ import os
 import sys
 import re
 import math
+import hashlib
+import json
 
 from pyredactkit.identifiers import Identifier
 
@@ -79,6 +81,15 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
+    def write_hashmap(self, hash_map):
+        with open(".hashshadow.json", "w", encoding="utf-8") as file:
+            json.dump(hash_map, file)
+
+    def salt_hash(self, to_hash):
+        salt = os.urandom(32)  # A new salt to be appended to string
+        masked_data = hashlib.sha256(to_hash.encode() + salt).hexdigest()
+        return masked_data
+
     def valid_options(self):
         """Function to read in valid options from Identifier.regexes
         Args:
@@ -102,13 +113,20 @@ class Redactor:
             redacted_line (str): redacted line
         """
         redacted_line = ''
+        hash_map = {}
 
         for id in id_object.regexes:
             redact_pattern = id['pattern']
+            pattern_string = re.search(
+                redact_pattern, line, flags=re.IGNORECASE)
+            pattern_string = pattern_string.group(0)
+            masked_data = self.salt_hash(pattern_string)
             if option in id['type']:
+                hash_map.update({masked_data: pattern_string})
                 redacted_line = re.sub(
-                    redact_pattern, self.block, line, flags=re.IGNORECASE)
+                    redact_pattern, masked_data, line, flags=re.IGNORECASE)
 
+        self.write_hashmap(hash_map)
         return redacted_line
 
     def redact_name(self, data=str):
@@ -136,6 +154,7 @@ class Redactor:
             Creates redacted file.
         """
         count = 0
+        hash_map = {}
         options_list = self.valid_options()
         try:
             # Open a file read pointer as target_file
@@ -170,11 +189,20 @@ class Redactor:
                             f"[ + ] No option supplied, will be redacting all the sensitive data supported")
                         for line in target_file:
                             for p in id_object.regexes:
-                                if re.search(p['pattern'], line, flags=re.IGNORECASE):
+                                redact_pattern = p['pattern']
+                                if re.search(redact_pattern, line, flags=re.IGNORECASE):
                                     count += 1
-                                    line = re.sub(p['pattern'], self.block, line,
+                                    pattern_string = re.search(
+                                        redact_pattern, line, flags=re.IGNORECASE)
+                                    pattern_string = pattern_string.group(0)
+                                    masked_data = self.salt_hash(
+                                        pattern_string)
+                                    hash_map.update(
+                                        {masked_data: pattern_string})
+                                    line = re.sub(redact_pattern, masked_data, line,
                                                   flags=re.IGNORECASE)
                             result.write(line)
+                        self.write_hashmap(hash_map)
                     # Separate option to redact names
                     elif option in ("name", "names"):
                         content = target_file.read()

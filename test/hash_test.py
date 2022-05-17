@@ -1,6 +1,8 @@
 import re
 import hashlib
 import json
+import os
+import sys
 
 block = "\u2588" * 15
 data = """
@@ -48,38 +50,42 @@ regexes = [
 ]
 
 
-def write_hashmap(hashed_string, pattern_string, count):
-    hash_map = []
-    for i in range(0, count, 1):
-        hash_map.append({hashed_string: pattern_string})
-    with open("hashmap.txt", "w", encoding="utf-8") as file:
+def write_hashmap(hash_map):
+    with open(".hashshadow.json", "w", encoding="utf-8") as file:
         json.dump(hash_map, file)
 
 
-count = 0
-pattern_string_list = []
-with open("hashtest.txt", encoding="utf-8") as target_file:
-    with open(
-        f"redacted_test.txt",
-        "w",
-        encoding="utf-8",
-    ) as result:
-        for line in target_file:
-            for id in regexes:
-                redact_pattern = id['pattern']
-                if re.search(redact_pattern, line, flags=re.IGNORECASE):
-                    count += 1
-                    pattern_string = re.search(
-                        redact_pattern, line, flags=re.IGNORECASE)
-                    pattern_string = pattern_string.group(0)
-                    hashed_string = hashlib.sha256(
-                        pattern_string.encode()).hexdigest()
-                    # print(pattern_string.group(0))
-                    # with open("hashmap.txt", "w", encoding="utf-8") as file:
-                    #     file.writelines(f"{hashed_string}:{pattern_string}\n")
-                    write_hashmap(hashed_string, pattern_string,
-                                  count)
-                    line = re.sub(redact_pattern, hashed_string, line,
-                                  flags=re.IGNORECASE)
+def salt_hash(to_hash):
+    salt = os.urandom(32)  # A new salt to be appended to string
+    masked_data = hashlib.sha256(to_hash.encode() + salt).hexdigest()
+    return masked_data
 
-            result.write(line)
+
+def process_redact():
+    count = 0
+    hash_map = {}
+    with open("hashtest.txt", encoding="utf-8") as target_file:
+        with open(
+            f"redacted_test.txt",
+            "w",
+            encoding="utf-8",
+        ) as result:
+            for line in target_file:
+                for id in regexes:
+                    redact_pattern = id['pattern']
+                    if re.search(redact_pattern, line, flags=re.IGNORECASE):
+                        count += 1
+                        pattern_string = re.search(
+                            redact_pattern, line, flags=re.IGNORECASE)
+                        pattern_string = pattern_string.group(0)
+                        masked_data = salt_hash(pattern_string)
+                        hash_map.update({masked_data: pattern_string})
+                        line = re.sub(redact_pattern, masked_data, line,
+                                      flags=re.IGNORECASE)
+
+                result.write(line)
+
+    write_hashmap(hash_map)
+
+
+process_redact()
