@@ -77,7 +77,7 @@ nltk.download('popular')"
 Redact names from text file
 
 ```bash
-pyredactkit ip_test.txt -t name
+pyredactkit test.txt -t name
 ```
 
 ### Use from github source
