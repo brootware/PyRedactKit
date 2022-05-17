@@ -32,11 +32,12 @@ class Unredactor:
             text = text.replace(k, v)
         return text
 
-    def unredact(self, lookup_file, redacted_file):
+    def unredact(self, redacted_file=str, lookup_file=str):
         """Function to unredact masked data and produces original unredacted data.
         Args:
-            lookup_file (str): Name of the file to look up key value map of masked data and original data.
             redacted_file (str): Name of the redacted file
+            lookup_file (str): Name of the file to look up key value map of masked data and original data.
+
 
         Returns:
             Writes unredacted_file.txt with original unmasked data.

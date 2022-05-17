@@ -6,12 +6,12 @@ import sys
 import fileinput
 
 
-def unredact(lookup_file, redacted_file):
+def unredact(redacted_file, lookup_file):
     with open(redacted_file, encoding="utf-8") as redacted_target:
         try:
             with open(lookup_file, encoding="utf-8") as lookup_target:
+                content = json.load(lookup_target)
                 with open("unredacted_file.txt", "w", encoding="utf-8") as write_file:
-                    content = json.load(lookup_target)
                     for line in redacted_target:
                         line = replace_all(line, content)
                         write_file.write(line)
@@ -27,7 +27,7 @@ def replace_all(text, dictionary):
     return text
 
 
-unredact(".hashshadow.json", "redacted_test.txt")
+unredact("redacted_test.txt", ".hashshadow.json")
 
 
 # with fileinput.FileInput("redacted_test.txt", inplace=True, backup='.bak') as file:

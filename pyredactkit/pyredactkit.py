@@ -4,6 +4,7 @@ Utility to redact sensitive data
 """
 
 import argparse
+from ast import arg
 from pyredactkit.redact import Redactor
 from pyredactkit.unredact import Unredactor
 import os
@@ -106,7 +107,7 @@ def main():
             redact_obj.process_file(file, args.redactiontype, args.dirout)
             redact_obj.process_report(file, args.dirout)
         elif args.unredact:
-            unredact_obj.unredact(args.unredact, file)
+            unredact_obj.unredact(file, args.unredact)
         else:
             redact_obj.process_file(file)
             redact_obj.process_report(file)

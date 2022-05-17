@@ -10,7 +10,7 @@
       "request": "launch",
       "module": "pyredactkit",
       "justMyCode": true,
-      "args": ["redacted_attempts.log", "-u", ".hashshadow_attempts.log.json"]
+      "args": ["redacted_attempts.log", "-u", "hashshadow_attempts.json"]
     }
   ]
 }
