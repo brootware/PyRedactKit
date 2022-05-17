@@ -38,7 +38,7 @@ def main():
         "file",
         nargs="+",
         help="""
-        Path of a file or a directory of files
+        Path of a file or a directory of files.
         Usage: pyredactkit [file/filestoredact]"""
     )
     parser.add_argument(
@@ -58,14 +58,14 @@ def main():
         emails,
         ipv4,
         ipv6,
-        base64
+        base64.
         Usage: pyredactkit [file/filestoredact] -t ip"""
     )
     parser.add_argument(
         "-d",
         "--dirout",
         help="""
-        Output directory of the file
+        Output directory of the file.
         Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
         """
     )
