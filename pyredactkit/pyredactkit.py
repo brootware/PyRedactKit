@@ -47,7 +47,7 @@ def main():
         "--unredact",
         help="""
         Option to unredact masked data.
-        Usage: pyredactkit [redactedfile] -u [.hashshadow.json]
+        Usage: pyredactkit [redacted_file] -u [.hashshadow.json]
         """
     )
     parser.add_argument(
