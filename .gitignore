@@ -6,6 +6,8 @@ redacted_*
 ip_test.txt
 multiredact
 manhours*
+unredacted_*
+.hashshadow*
 # Ignoring sensitive files and directories.
 
 secret*.*
