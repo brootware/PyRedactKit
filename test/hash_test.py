@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 import sys
+import uuid
 
 block = "\u2588" * 15
 data = """
@@ -64,7 +65,7 @@ def salt_hash(to_hash):
 def process_redact():
     count = 0
     hash_map = {}
-    with open("hashtest.txt", encoding="utf-8") as target_file:
+    with open("test.txt", encoding="utf-8") as target_file:
         with open(
             f"redacted_test.txt",
             "w",
@@ -78,7 +79,7 @@ def process_redact():
                         pattern_string = re.search(
                             redact_pattern, line, flags=re.IGNORECASE)
                         pattern_string = pattern_string.group(0)
-                        masked_data = salt_hash(pattern_string)
+                        masked_data = str(uuid.uuid4())
                         hash_map.update({masked_data: pattern_string})
                         line = re.sub(redact_pattern, masked_data, line,
                                       flags=re.IGNORECASE)

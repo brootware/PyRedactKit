@@ -8,6 +8,7 @@ multiredact
 manhours*
 .hashshadow.json
 *.txt
+.vscode
 # Ignoring sensitive files and directories.
 
 secret*.*

@@ -10,7 +10,7 @@
       "request": "launch",
       "module": "pyredactkit",
       "justMyCode": true,
-      "args": ["multiredact/cctest.txt", "-t", "cc"]
+      "args": ["test/test.txt"]
     }
   ]
 }

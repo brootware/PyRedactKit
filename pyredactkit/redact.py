@@ -7,6 +7,7 @@ import re
 import math
 import hashlib
 import json
+import uuid
 
 from pyredactkit.identifiers import Identifier
 
@@ -85,11 +86,6 @@ class Redactor:
         with open(".hashshadow.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
 
-    def salt_hash(self, to_hash):
-        # salt = os.urandom(32)  # A new salt to be appended to string
-        masked_data = hashlib.blake2s(to_hash.encode()).hexdigest()
-        return masked_data
-
     def valid_options(self):
         """Function to read in valid options from Identifier.regexes
         Args:
@@ -121,7 +117,7 @@ class Redactor:
                 pattern_string = re.search(
                     redact_pattern, line, flags=re.IGNORECASE)
                 pattern_string = pattern_string.group(0)
-                masked_data = self.salt_hash(pattern_string)
+                masked_data = str(uuid.uuid4())
                 hash_map.update({masked_data: pattern_string})
                 line = re.sub(
                     redact_pattern, masked_data, line, flags=re.IGNORECASE)
@@ -195,8 +191,7 @@ class Redactor:
                                     pattern_string = re.search(
                                         redact_pattern, line, flags=re.IGNORECASE)
                                     pattern_string = pattern_string.group(0)
-                                    masked_data = self.salt_hash(
-                                        pattern_string)
+                                    masked_data = str(uuid.uuid4())
                                     hash_map.update(
                                         {masked_data: pattern_string})
                                     line = re.sub(redact_pattern, masked_data, line,
