@@ -85,6 +85,8 @@ class Redactor:
     def write_hashmap(self, hash_map, filename):
         with open(f".hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
+            print(
+                f"[ + ].hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
 
     def valid_options(self):
         """Function to read in valid options from Identifier.regexes
