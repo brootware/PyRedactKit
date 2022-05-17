@@ -86,8 +86,8 @@ class Redactor:
             json.dump(hash_map, file)
 
     def salt_hash(self, to_hash):
-        salt = os.urandom(32)  # A new salt to be appended to string
-        masked_data = hashlib.sha256(to_hash.encode() + salt).hexdigest()
+        # salt = os.urandom(32)  # A new salt to be appended to string
+        masked_data = hashlib.blake2s(to_hash.encode()).hexdigest()
         return masked_data
 
     def valid_options(self):
@@ -117,11 +117,12 @@ class Redactor:
 
         for id in id_object.regexes:
             redact_pattern = id['pattern']
-            pattern_string = re.search(
-                redact_pattern, line, flags=re.IGNORECASE)
-            pattern_string = pattern_string.group(0)
-            masked_data = self.salt_hash(pattern_string)
-            if option in id['type']:
+            if option in id['type'] and re.search(
+                    redact_pattern, line, flags=re.IGNORECASE):
+                pattern_string = re.search(
+                    redact_pattern, line, flags=re.IGNORECASE)
+                pattern_string = pattern_string.group(0)
+                masked_data = self.salt_hash(pattern_string)
                 hash_map.update({masked_data: pattern_string})
                 redacted_line = re.sub(
                     redact_pattern, masked_data, line, flags=re.IGNORECASE)
