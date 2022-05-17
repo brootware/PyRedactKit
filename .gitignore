@@ -6,7 +6,7 @@ redacted_*
 ip_test.txt
 multiredact
 manhours*
-.hashshadow.json
+.hashshadow*
 *.txt
 .vscode
 # Ignoring sensitive files and directories.

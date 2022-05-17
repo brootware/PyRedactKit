@@ -82,8 +82,8 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
-    def write_hashmap(self, hash_map):
-        with open(".hashshadow.json", "w", encoding="utf-8") as file:
+    def write_hashmap(self, hash_map, filename):
+        with open(f".hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
 
     def valid_options(self):
@@ -99,7 +99,7 @@ class Redactor:
             option_tuple += id['type']
         return option_tuple
 
-    def redact_specific(self, line=str, option=str):
+    def redact_specific(self, line=str, option=str, filename=str):
         """Function to redact specific option
         Args:
             line (str) : line to be supplied to redact
@@ -122,7 +122,7 @@ class Redactor:
                 line = re.sub(
                     redact_pattern, masked_data, line, flags=re.IGNORECASE)
 
-        self.write_hashmap(hash_map)
+        self.write_hashmap(hash_map, filename)
         return line
 
     def redact_name(self, data=str):
@@ -197,7 +197,7 @@ class Redactor:
                                     line = re.sub(redact_pattern, masked_data, line,
                                                   flags=re.IGNORECASE)
                             result.write(line)
-                        self.write_hashmap(hash_map)
+                        self.write_hashmap(hash_map, filename)
                     # Separate option to redact names
                     elif option in ("name", "names"):
                         content = target_file.read()
@@ -216,7 +216,7 @@ class Redactor:
                             for id in id_object.regexes:
                                 if option in id['type'] and re.search(id['pattern'], line, flags=re.IGNORECASE):
                                     count += 1
-                            line = self.redact_specific(line, option)
+                            line = self.redact_specific(line, option, filename)
                             result.write(line)
 
                     print(f"[ + ] Redacted {count} targets...")
