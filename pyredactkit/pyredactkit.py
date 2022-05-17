@@ -4,10 +4,11 @@ Utility to redact sensitive data
 """
 
 import argparse
+from ast import arg
 from pyredactkit.redact import Redactor
+from pyredactkit.unredact import Unredactor
 import os
 import glob
-# lintertest
 
 banner = """
     ______       ______         _            _     _   ___ _   
@@ -35,8 +36,19 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
-        "file", nargs="+",
-        help="Path of a file or a directory of files"
+        "file",
+        nargs="+",
+        help="""
+        Path of a file or a directory of files.
+        Usage: pyredactkit [file/filestoredact]"""
+    )
+    parser.add_argument(
+        "-u",
+        "--unredact",
+        help="""
+        Option to unredact masked data.
+        Usage: pyredactkit [redactedfile] -u [.hashshadow.json]
+        """
     )
     parser.add_argument(
         "-t", "--redactiontype",
@@ -47,12 +59,16 @@ def main():
         emails,
         ipv4,
         ipv6,
-        base64"""
+        base64.
+        Usage: pyredactkit [file/filestoredact] -t ip"""
     )
     parser.add_argument(
         "-d",
         "--dirout",
-        help="Output directory of the file"
+        help="""
+        Output directory of the file.
+        Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
+        """
     )
     parser.add_argument(
         '-r',
@@ -82,6 +98,7 @@ def main():
 
     # redact file
     redact_obj = Redactor()
+    unredact_obj = Unredactor()
 
     for file in files:
         if args.redactiontype:
@@ -89,6 +106,8 @@ def main():
         elif args.dirout:
             redact_obj.process_file(file, args.redactiontype, args.dirout)
             redact_obj.process_report(file, args.dirout)
+        elif args.unredact:
+            unredact_obj.unredact(file, args.unredact)
         else:
             redact_obj.process_file(file)
             redact_obj.process_report(file)

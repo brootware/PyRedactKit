@@ -5,6 +5,8 @@ import os
 import sys
 import re
 import math
+import json
+import uuid
 
 from pyredactkit.identifiers import Identifier
 
@@ -79,6 +81,20 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
+    def write_hashmap(self, hash_map=dict, filename=str):
+        """Function that writes a .hashshadow_file.txt.json to os directory.
+        Args:
+            hash_map (dictionary): dictionary object to be written to file.
+            filename (str): name of supplied file
+
+        Returns:
+            Writes .hashshadow_file.txt.json to os directory
+        """
+        with open(f".hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
+            json.dump(hash_map, file)
+            print(
+                f"[ + ].hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
+
     def valid_options(self):
         """Function to read in valid options from Identifier.regexes
         Args:
@@ -92,24 +108,32 @@ class Redactor:
             option_tuple += id['type']
         return option_tuple
 
-    def redact_specific(self, line=str, option=str):
+    def redact_specific(self, line=str, option=str, filename=str):
         """Function to redact specific option
         Args:
             line (str) : line to be supplied to redact
             option (str): (optional) choice for redaction
+            filename (str): name of supplied file
 
         Returns:
-            redacted_line (str): redacted line
+            line (str): redacted line
         """
-        redacted_line = ''
+        hash_map = {}
 
         for id in id_object.regexes:
             redact_pattern = id['pattern']
-            if option in id['type']:
-                redacted_line = re.sub(
-                    redact_pattern, self.block, line, flags=re.IGNORECASE)
+            if option in id['type'] and re.search(
+                    redact_pattern, line, flags=re.IGNORECASE):
+                pattern_string = re.search(
+                    redact_pattern, line, flags=re.IGNORECASE)
+                pattern_string = pattern_string.group(0)
+                masked_data = str(uuid.uuid4())
+                hash_map.update({masked_data: pattern_string})
+                line = re.sub(
+                    redact_pattern, masked_data, line, flags=re.IGNORECASE)
 
-        return redacted_line
+        self.write_hashmap(hash_map, filename)
+        return line
 
     def redact_name(self, data=str):
         """Main function to redact
@@ -136,6 +160,7 @@ class Redactor:
             Creates redacted file.
         """
         count = 0
+        hash_map = {}
         options_list = self.valid_options()
         try:
             # Open a file read pointer as target_file
@@ -170,11 +195,19 @@ class Redactor:
                             f"[ + ] No option supplied, will be redacting all the sensitive data supported")
                         for line in target_file:
                             for p in id_object.regexes:
-                                if re.search(p['pattern'], line, flags=re.IGNORECASE):
+                                redact_pattern = p['pattern']
+                                if re.search(redact_pattern, line, flags=re.IGNORECASE):
                                     count += 1
-                                    line = re.sub(p['pattern'], self.block, line,
+                                    pattern_string = re.search(
+                                        redact_pattern, line, flags=re.IGNORECASE)
+                                    pattern_string = pattern_string.group(0)
+                                    masked_data = str(uuid.uuid4())
+                                    hash_map.update(
+                                        {masked_data: pattern_string})
+                                    line = re.sub(redact_pattern, masked_data, line,
                                                   flags=re.IGNORECASE)
                             result.write(line)
+                        self.write_hashmap(hash_map, filename)
                     # Separate option to redact names
                     elif option in ("name", "names"):
                         content = target_file.read()
@@ -193,7 +226,7 @@ class Redactor:
                             for id in id_object.regexes:
                                 if option in id['type'] and re.search(id['pattern'], line, flags=re.IGNORECASE):
                                     count += 1
-                            line = self.redact_specific(line, option)
+                            line = self.redact_specific(line, option, filename)
                             result.write(line)
 
                     print(f"[ + ] Redacted {count} targets...")
