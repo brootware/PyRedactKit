@@ -3,7 +3,7 @@
 <p align="center">
   <img src="./images/asciiRedact.png" alt="Python Redactor Kit!"/>
 <br />
-<i>CLI tool to redact sensitive information like ip addresses, emails and domains.</i>
+<i>CLI tool to redact and unredact sensitive information like ip addresses, emails and domains.</i>
 <br/>
 <code>pip3 install pyredactkit && pyredactor</code>
 </p>
@@ -19,7 +19,7 @@
 
 ## Features
 
-Redacts the following from your text files. 📄 ✍️
+Redacts and Unredacts the following from your text files. 📄 ✍️
 
 - names 👤
 - sg nric 🆔
