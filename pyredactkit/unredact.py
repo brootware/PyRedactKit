@@ -1,5 +1,6 @@
 import json
 import sys
+import os
 
 
 class Unredactor:
@@ -42,14 +43,17 @@ class Unredactor:
         Returns:
             Writes unredacted_file.txt with original unmasked data.
         """
+        count = 0
         with open(redacted_file, encoding="utf-8") as redacted_target:
             try:
                 with open(lookup_file, encoding="utf-8") as lookup_target:
-                    with open(f"unredacted_{redacted_file}", "w", encoding="utf-8") as write_file:
-                        content = json.load(lookup_target)
+                    content = json.load(lookup_target)
+                    with open(f"unredacted_{os.path.basename(redacted_file)}", "w", encoding="utf-8") as write_file:
                         for line in redacted_target:
                             line = self.replace_all(line, content)
                             write_file.write(line)
+                        print(
+                            f"[ + ] Unredacted results saved to unredacted_{os.path.basename(redacted_file)}")
             except FileNotFoundError:
                 sys.exit(f"[ - ] {lookup_file} file was not found")
             except json.JSONDecodeError:
