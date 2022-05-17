@@ -193,7 +193,7 @@ e0b66cbd-6174-4491-b938-408a47d38fb9,Platinum,142000,CC90518
 To redact specific type of data. E.g (name)
 
 ```bash
-pyredactkit test.txt -t name
+poetry run pyredactkit test.txt -t name
 ```
 
 Sample result:
@@ -220,7 +220,7 @@ My router is: 10.10.10.1
 To redact multiple files from a directory and place it in a new directory
 
 ```bash
-pyredactkit dir_test -d redacted_dir
+poetry run pyredactkit dir_test -d redacted_dir
 ```
 
 ## Optional Help Menu as below
