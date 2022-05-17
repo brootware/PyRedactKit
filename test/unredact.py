@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 import sys
+import fileinput
 
 
 def unredact(lookup_file, redacted_file):
@@ -11,17 +12,27 @@ def unredact(lookup_file, redacted_file):
             with open(lookup_file, encoding="utf-8") as lookup_target:
                 with open("unredacted_file.txt", "w", encoding="utf-8") as write_file:
                     content = json.load(lookup_target)
-                    for key, value in content.items():
-                        for line in redacted_target:
-                            if key in line:
-                                print(line)
-                            # print(line)
-                            # line = line.replace(key, value)
-                            # write_file.write(line)
+                    for line in redacted_target:
+                        line = replace_all(line, content)
+                        write_file.write(line)
         except FileNotFoundError:
             sys.exit(f"[ - ] {lookup_file} file was not found")
         except json.JSONDecodeError:
             sys.exit(f"[ - ] Issue decoding {lookup_file} file")
 
 
+def replace_all(text, dictionary):
+    for k, v in dictionary.items():
+        text = text.replace(k, v)
+    return text
+
+
 unredact(".hashshadow.json", "redacted_test.txt")
+
+
+# with fileinput.FileInput("redacted_test.txt", inplace=True, backup='.bak') as file:
+#     for line in file:
+#         line.replace("c9b72036-172d-461a-ab87-b1098ad5649d",
+#                      "www.linkedin.com")
+
+#     file.write(line)

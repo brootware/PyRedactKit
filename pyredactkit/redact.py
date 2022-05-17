@@ -5,7 +5,6 @@ import os
 import sys
 import re
 import math
-import hashlib
 import json
 import uuid
 
@@ -82,7 +81,15 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
-    def write_hashmap(self, hash_map, filename):
+    def write_hashmap(self, hash_map=dict, filename=str):
+        """Function that writes a .hashshadow_file.txt.json to os directory.
+        Args:
+            hash_map (dictionary): dictionary object to be written to file.
+            filename (str): name of supplied file
+
+        Returns:
+            Writes .hashshadow_file.txt.json to os directory
+        """
         with open(f".hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
             print(
@@ -106,6 +113,7 @@ class Redactor:
         Args:
             line (str) : line to be supplied to redact
             option (str): (optional) choice for redaction
+            filename (str): name of supplied file
 
         Returns:
             line (str): redacted line
