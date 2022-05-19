@@ -7,10 +7,9 @@ class Identifier:
     """Data identifier class containing all methods to identify sensitive data in files
 
     Configurable Variables:
-        regexes (array-dict) : an array list of dictionaries for identifying different type of data.
-            pattern (str) : regular expression to identify
-            type (str) : description of type of data
-            position(str) : json path position of the pattern.
+        regexes (array-dict): an array list of dictionaries for identifying different type of data.
+            pattern (str): regular expression to identify
+            type (tuple): description of options for type of data.
 
     Returns:
         None
