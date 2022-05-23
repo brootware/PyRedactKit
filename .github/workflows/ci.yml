@@ -29,6 +29,7 @@ jobs:
           python -m pip install --upgrade poetry
           pip install flake8 pytest nltk
           poetry install
+          python tools/install_nltk_popular.py
 
       - name: Lint with flake8
         run: |
