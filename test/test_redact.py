@@ -1,7 +1,5 @@
 import pytest
 from pyredactkit.redact import Redactor
-from pyredactkit.unredact import Unredactor
-from pyredactkit.identifiers import Identifier
 
 data = """John, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com
 this is my IP: 102.23.5.1
@@ -44,25 +42,11 @@ Card_Number,Card_Family,Credit_Limit,Cust_ID
 people_names = "John,Jones,Alex,Bruce"
 mask_names = "\u2588" * 15
 count_names = 4
-key_mapping = {
-    "2b21e939-abc9-4d06-9c5a-de9bf2aa22b4": "10.10.10.1"}
-redacted_text = "My router is : 2b21e939-abc9-4d06-9c5a-de9bf2aa22b4"
-unredacted_text = "My router is : 10.10.10.1"
 
 
 @pytest.fixture
 def redactor_obj():
     return Redactor()
-
-
-@pytest.fixture
-def unredactor_obj():
-    return Unredactor()
-
-
-@pytest.fixture
-def identifier_obj():
-    return Identifier()
 
 
 def test_check_python_file(redactor_obj):
@@ -88,8 +72,3 @@ def test_redact_name_function_should_return_string_and_integer(redactor_obj):
     set1 = (f'{mask_names},{mask_names},{mask_names},{mask_names}', count_names)
     assert redactor_obj.redact_name(
         people_names) == set1, 'redact_name function should return masked data and count'
-
-
-def test_replace_all_function_should_return_unredacted_string(unredactor_obj):
-    assert unredactor_obj.replace_all(
-        redacted_text, key_mapping) == unredacted_text, 'replace_all function should return unredacted string'
