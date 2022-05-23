@@ -43,29 +43,32 @@ people_names = "John,Jones,Alex,Bruce"
 mask_names = "\u2588" * 15
 count_names = 4
 
+
 @pytest.fixture
-def obj():
+def redactor_obj():
     return Redactor()
 
 
-def test_check_python_file(obj):
-    assert obj.check_file_type(
+def test_check_python_file(redactor_obj):
+    assert redactor_obj.check_file_type(
         __file__) == 'text/x-python', 'Failed python file check'
 
 
-def test_number_of_allowed_types(obj):
-    assert len(obj.get_allowed_files()
+def test_number_of_allowed_types(redactor_obj):
+    assert len(redactor_obj.get_allowed_files()
                ) == 10, 'Number of allowed tests does not match expected'
 
 
-def test_current_file_is_allowed(obj):
-    assert obj.allowed_file(__file__), f'{__file__} should be allowed'
+def test_current_file_is_allowed(redactor_obj):
+    assert redactor_obj.allowed_file(__file__), f'{__file__} should be allowed'
 
 
-def test_redact_function_should_return_string(obj):
-    assert type(obj.redact(data)) == str, 'redact function should return string'
+def test_valid_option_function_should_return_tuple(redactor_obj):
+    assert type(redactor_obj.valid_options()
+                ) == tuple, 'redact function should return tuple'
 
 
-def test_redact_name_function_should_return_string_and_integer(obj):
-    set1 = (f'{mask_names},{mask_names},{mask_names},{mask_names}',count_names)
-    assert obj.redact_name(people_names) == set1, 'redact_name function should return masked data and count'
+def test_redact_name_function_should_return_string_and_integer(redactor_obj):
+    set1 = (f'{mask_names},{mask_names},{mask_names},{mask_names}', count_names)
+    assert redactor_obj.redact_name(
+        people_names) == set1, 'redact_name function should return masked data and count'
