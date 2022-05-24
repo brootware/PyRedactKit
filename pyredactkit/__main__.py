@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     if major != 3 or (major == 3 and minor < 7):
         print(
-            f"PyRedactKit requires Python 3.8+, you are using {python_version}. Please install a higher Python version."
+            f"PyRedactKit requires Python 3.7+, you are using {python_version}. Please install a higher Python version."
         )
         sys.exit(1)
 
