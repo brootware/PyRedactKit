@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyredactkit"
-version = "0.1.8"
+version = "0.2.0"
 description = "Python cli tool to redact sensitive data"
 authors = ["brootware <brootware@outlook.com>"]
 license = "GNU"

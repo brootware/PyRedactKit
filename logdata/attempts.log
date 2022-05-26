@@ -1,0 +1,354 @@
+4056 2021-04-30 00:51:46.896 debug3: mm_answer_pwnamallow
+4056 2021-04-30 00:51:46.896 debug2: parse_server_config: config reprocess config len 291
+4056 2021-04-30 00:51:46.896 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+5620 2021-04-30 00:51:47.031 debug3: spawning "C:\\OpenSSH-Win64\\sshd.exe" -y
+7452 2021-04-30 00:51:47.032 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+4056 2021-04-30 00:51:47.032 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8792 2021-04-30 00:52:07.739 debug3: monitor_read: checking request 8
+8792 2021-04-30 00:52:07.739 debug3: mm_answer_pwnamallow
+8792 2021-04-30 00:52:07.740 debug2: parse_server_config: config reprocess config len 291
+8792 2021-04-30 00:52:07.740 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8792 2021-04-30 00:52:07.741 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8892 2021-04-30 00:52:10.227 debug3: monitor_read: checking request 8
+8892 2021-04-30 00:52:10.227 debug3: mm_answer_pwnamallow
+8892 2021-04-30 00:52:10.228 debug2: parse_server_config: config reprocess config len 291
+8892 2021-04-30 00:52:10.228 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8892 2021-04-30 00:52:10.229 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+2400 2021-04-30 00:52:14.173 debug1: Local version string SSH-2.0-OpenSSH_for_Windows_8.1
+2400 2021-04-30 00:52:14.173 debug1: Remote protocol version 2.0, remote software version libssh_0.9.3
+2400 2021-04-30 00:52:14.173 debug1: no match: libssh_0.9.3
+2400 2021-04-30 00:52:14.173 debug2: fd 4 setting O_NONBLOCK
+7100 2021-04-30 00:52:14.190 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+2400 2021-04-30 00:52:14.572 debug2: set_newkeys: mode 0 [preauth]
+2400 2021-04-30 00:52:14.572 debug1: rekey in after 4294967296 blocks [preauth]
+2400 2021-04-30 00:52:14.572 debug1: KEX done [preauth]
+1156 2021-04-30 00:52:14.575 debug3: spawning "C:\\OpenSSH-Win64\\sshd.exe" -y
+6404 2021-04-30 00:52:14.575 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+1156 2021-04-30 00:52:14.659 debug3: monitor_read: checking request 8
+1156 2021-04-30 00:52:14.659 debug3: mm_answer_pwnamallow
+1156 2021-04-30 00:52:14.659 debug2: parse_server_config: config reprocess config len 291
+1156 2021-04-30 00:52:14.659 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+1156 2021-04-30 00:52:14.661 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8552 2021-04-30 00:52:15.252 debug3: monitor_read: checking request 8
+8552 2021-04-30 00:52:15.252 debug3: mm_answer_pwnamallow
+8552 2021-04-30 00:52:15.253 debug2: parse_server_config: config reprocess config len 291
+8552 2021-04-30 00:52:15.253 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8552 2021-04-30 00:52:15.254 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+3348 2021-04-30 00:52:15.811 debug3: monitor_read: checking request 8
+3348 2021-04-30 00:52:15.811 debug3: mm_answer_pwnamallow
+3348 2021-04-30 00:52:15.812 debug2: parse_server_config: config reprocess config len 291
+3348 2021-04-30 00:52:15.812 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+3348 2021-04-30 00:52:15.813 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8500 2021-04-30 00:52:17.142 debug3: monitor_read: checking request 8
+8500 2021-04-30 00:52:17.142 debug3: mm_answer_pwnamallow
+8500 2021-04-30 00:52:17.143 debug2: parse_server_config: config reprocess config len 291
+8500 2021-04-30 00:52:17.143 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8500 2021-04-30 00:52:17.144 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+3560 2021-04-30 00:52:18.772 debug3: mm_answer_pwnamallow
+3560 2021-04-30 00:52:18.772 debug2: parse_server_config: config reprocess config len 291
+3560 2021-04-30 00:52:18.772 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6612 2021-04-30 00:52:18.808 debug3: spawning "C:\\OpenSSH-Win64\\sshd.exe" -y
+3560 2021-04-30 00:52:18.808 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8628 2021-04-30 00:52:19.031 debug3: send_rexec_state: done
+8628 2021-04-30 00:52:19.031 debug3: ssh_msg_send: type 0
+8628 2021-04-30 00:52:19.031 debug3: ssh_msg_send: type 0
+8628 2021-04-30 00:52:19.031 debug3: preauth child monitor started
+5116 2021-04-30 00:52:19.068 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+5116 2021-04-30 00:52:19.154 debug1: do_cleanup [preauth]
+5116 2021-04-30 00:52:19.156 debug3: mm_request_receive entering
+5116 2021-04-30 00:52:19.156 debug1: do_cleanup
+5116 2021-04-30 00:52:19.156 debug1: Killing privsep child 5580
+8628 2021-04-30 00:52:19.167 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7492 2021-04-30 00:52:19.334 debug3: monitor_read: checking request 8
+7492 2021-04-30 00:52:19.334 debug3: mm_answer_pwnamallow
+7492 2021-04-30 00:52:19.334 debug2: parse_server_config: config reprocess config len 291
+7492 2021-04-30 00:52:19.334 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+7492 2021-04-30 00:52:19.401 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+2396 2021-04-30 00:52:19.577 debug3: mm_answer_pwnamallow
+2396 2021-04-30 00:52:19.578 debug2: parse_server_config: config reprocess config len 291
+2396 2021-04-30 00:52:19.578 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8220 2021-04-30 00:52:19.609 debug3: spawning "C:\\OpenSSH-Win64\\sshd.exe" -y
+3300 2021-04-30 00:52:19.609 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8220 2021-04-30 00:52:19.640 debug2: set_newkeys: mode 0 [preauth]
+8220 2021-04-30 00:52:19.640 debug1: rekey in after 4294967296 blocks [preauth]
+8220 2021-04-30 00:52:19.640 debug1: KEX done [preauth]
+7556 2021-04-30 00:52:19.645 debug3: spawning "C:\\OpenSSH-Win64\\sshd.exe" -y
+2396 2021-04-30 00:52:19.645 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8220 2021-04-30 00:52:19.692 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+3300 2021-04-30 00:52:19.692 debug3: mm_auth_password: user not authenticated [preauth]
+3300 2021-04-30 00:52:19.692 debug3: user_specific_delay: user specific delay 0.000ms [preauth]
+3300 2021-04-30 00:52:19.692 debug3: ensure_minimum_time_since: elapsed 0.999ms, delaying 4.050ms (requested 5.049ms) [preauth]
+8220 2021-04-30 00:52:19.694 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8220 2021-04-30 00:52:19.728 debug3: mm_request_receive entering [preauth]
+8220 2021-04-30 00:52:19.728 debug3: mm_auth_password: user not authenticated [preauth]
+8220 2021-04-30 00:52:19.728 debug3: user_specific_delay: user specific delay 0.000ms [preauth]
+8220 2021-04-30 00:52:19.728 debug3: ensure_minimum_time_since: elapsed 1.986ms, delaying 3.063ms (requested 5.049ms) [preauth]
+7556 2021-04-30 00:52:19.729 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8368 2021-04-30 00:52:40.176 debug3: monitor_read: checking request 8
+8368 2021-04-30 00:52:40.176 debug3: mm_answer_pwnamallow
+8368 2021-04-30 00:52:40.177 debug2: parse_server_config: config reprocess config len 291
+8368 2021-04-30 00:52:40.177 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8368 2021-04-30 00:52:40.178 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+5008 2021-04-30 00:52:42.674 debug3: monitor_read: checking request 8
+5008 2021-04-30 00:52:42.674 debug3: mm_answer_pwnamallow
+5008 2021-04-30 00:52:42.675 debug2: parse_server_config: config reprocess config len 291
+5008 2021-04-30 00:52:42.675 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+5008 2021-04-30 00:52:42.677 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8528 2021-04-30 00:52:47.028 debug1: SSH2_MSG_NEWKEYS sent [preauth]
+8528 2021-04-30 00:52:47.028 debug1: Sending SSH2_MSG_EXT_INFO [preauth]
+8528 2021-04-30 00:52:47.028 debug3: send packet: type 7 [preauth]
+8528 2021-04-30 00:52:47.028 debug1: expecting SSH2_MSG_NEWKEYS [preauth]
+6340 2021-04-30 00:52:47.028 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6340 2021-04-30 00:52:47.079 debug3: userauth_finish: failure partial=0 next methods="publickey,password,keyboard-interactive" [preauth]
+6340 2021-04-30 00:52:47.079 debug3: send packet: type 51 [preauth]
+8528 2021-04-30 00:52:47.080 debug2: parse_server_config: config reprocess config len 291
+8528 2021-04-30 00:52:47.080 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8528 2021-04-30 00:52:47.081 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8632 2021-04-30 00:52:47.129 debug3: mm_answer_pwnamallow
+8528 2021-04-30 00:52:47.130 debug3: userauth_finish: failure partial=0 next methods="publickey,password,keyboard-interactive" [preauth]
+8528 2021-04-30 00:52:47.130 debug3: send packet: type 51 [preauth]
+strators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8632 2021-04-30 00:52:47.131 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+3936 2021-04-30 00:52:47.564 debug3: monitor_read: checking request 8
+3936 2021-04-30 00:52:47.564 debug3: mm_answer_pwnamallow
+3936 2021-04-30 00:52:47.565 debug2: parse_server_config: config reprocess config len 291
+3936 2021-04-30 00:52:47.565 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+3936 2021-04-30 00:52:47.566 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7092 2021-04-30 00:52:48.330 debug3: monitor_read: checking request 8
+7092 2021-04-30 00:52:48.330 debug3: mm_answer_pwnamallow
+7092 2021-04-30 00:52:48.331 debug2: parse_server_config: config reprocess config len 291
+7092 2021-04-30 00:52:48.331 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+7092 2021-04-30 00:52:48.334 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+2224 2021-04-30 00:52:49.468 debug3: monitor_read: checking request 8
+2224 2021-04-30 00:52:49.468 debug3: mm_answer_pwnamallow
+2224 2021-04-30 00:52:49.468 debug2: parse_server_config: config reprocess config len 291
+2224 2021-04-30 00:52:49.468 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+2224 2021-04-30 00:52:49.469 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+2996 2021-04-30 00:52:51.158 debug3: monitor_read: checking request 8
+2996 2021-04-30 00:52:51.158 debug3: mm_answer_pwnamallow
+2996 2021-04-30 00:52:51.158 debug2: parse_server_config: config reprocess config len 291
+2996 2021-04-30 00:52:51.158 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+2996 2021-04-30 00:52:51.159 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+4848 2021-04-30 00:52:51.436 debug3: monitor_read: checking request 8
+4848 2021-04-30 00:52:51.436 debug3: mm_answer_pwnamallow
+4848 2021-04-30 00:52:51.436 debug2: parse_server_config: config reprocess config len 291
+4848 2021-04-30 00:52:51.436 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+4848 2021-04-30 00:52:51.444 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6448 2021-04-30 00:52:51.600 debug3: monitor_read: checking request 8
+6448 2021-04-30 00:52:51.600 debug3: mm_answer_pwnamallow
+6448 2021-04-30 00:52:51.601 debug2: parse_server_config: config reprocess config len 291
+6448 2021-04-30 00:52:51.601 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6448 2021-04-30 00:52:51.622 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6452 2021-04-30 00:52:51.740 debug3: monitor_read: checking request 8
+6452 2021-04-30 00:52:51.740 debug3: mm_answer_pwnamallow
+6452 2021-04-30 00:52:51.741 debug2: parse_server_config: config reprocess config len 291
+6452 2021-04-30 00:52:51.741 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6452 2021-04-30 00:52:51.742 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+3348 2021-04-30 00:52:52.396 debug3: send packet: type 1 [preauth]
+3348 2021-04-30 00:52:52.396 debug1: do_cleanup [preauth]
+1384 2021-04-30 00:52:52.396 debug2: parse_server_config: config reprocess config len 291
+1384 2021-04-30 00:52:52.396 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+1384 2021-04-30 00:52:52.398 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6256 2021-04-30 00:52:52.484 debug3: monitor_read: checking request 8
+6256 2021-04-30 00:52:52.484 debug3: mm_answer_pwnamallow
+6256 2021-04-30 00:52:52.485 debug2: parse_server_config: config reprocess config len 291
+6256 2021-04-30 00:52:52.485 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6256 2021-04-30 00:52:52.486 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7548 2021-04-30 00:53:12.561 debug3: monitor_read: checking request 8
+7548 2021-04-30 00:53:12.561 debug3: mm_answer_pwnamallow
+7548 2021-04-30 00:53:12.561 debug2: parse_server_config: config reprocess config len 291
+7548 2021-04-30 00:53:12.561 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+7548 2021-04-30 00:53:12.563 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+2500 2021-04-30 00:53:15.138 debug3: monitor_read: checking request 8
+2500 2021-04-30 00:53:15.138 debug3: mm_answer_pwnamallow
+2500 2021-04-30 00:53:15.138 debug2: parse_server_config: config reprocess config len 291
+2500 2021-04-30 00:53:15.138 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+2500 2021-04-30 00:53:15.140 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6280 2021-04-30 00:53:19.679 debug1: Remote protocol version 2.0, remote software version libssh_0.9.3
+6280 2021-04-30 00:53:19.679 debug1: no match: libssh_0.9.3
+6280 2021-04-30 00:53:19.679 debug2: fd 4 setting O_NONBLOCK
+2292 2021-04-30 00:53:19.690 debug3: spawning "C:\\OpenSSH-Win64\\sshd.exe" -y
+8364 2021-04-30 00:53:19.690 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+2292 2021-04-30 00:53:19.772 debug3: monitor_read: checking request 8
+2292 2021-04-30 00:53:19.772 debug3: mm_answer_pwnamallow
+2292 2021-04-30 00:53:19.773 debug2: parse_server_config: config reprocess config len 291
+2292 2021-04-30 00:53:19.773 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+2292 2021-04-30 00:53:19.781 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6280 2021-04-30 00:53:19.898 debug3: monitor_read: checking request 8
+6280 2021-04-30 00:53:19.898 debug3: mm_answer_pwnamallow
+6280 2021-04-30 00:53:19.898 debug2: parse_server_config: config reprocess config len 291
+6280 2021-04-30 00:53:19.898 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6280 2021-04-30 00:53:19.899 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+4872 2021-04-30 00:53:20.741 debug3: monitor_read: checking request 8
+4872 2021-04-30 00:53:20.741 debug3: mm_answer_pwnamallow
+4872 2021-04-30 00:53:20.741 debug2: parse_server_config: config reprocess config len 291
+4872 2021-04-30 00:53:20.741 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+4872 2021-04-30 00:53:20.743 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7208 2021-04-30 00:53:21.974 debug3: monitor_read: checking request 8
+7208 2021-04-30 00:53:21.974 debug3: mm_answer_pwnamallow
+7208 2021-04-30 00:53:21.975 debug2: parse_server_config: config reprocess config len 291
+7208 2021-04-30 00:53:21.975 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+7208 2021-04-30 00:53:21.976 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8600 2021-04-30 00:53:23.522 debug3: monitor_read: checking request 8
+8600 2021-04-30 00:53:23.522 debug3: mm_answer_pwnamallow
+8600 2021-04-30 00:53:23.522 debug2: parse_server_config: config reprocess config len 291
+8600 2021-04-30 00:53:23.522 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8600 2021-04-30 00:53:23.524 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7380 2021-04-30 00:53:23.758 debug3: monitor_read: checking request 8
+7380 2021-04-30 00:53:23.758 debug3: mm_answer_pwnamallow
+7380 2021-04-30 00:53:23.758 debug2: parse_server_config: config reprocess config len 291
+7380 2021-04-30 00:53:23.758 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+7380 2021-04-30 00:53:23.788 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6400 2021-04-30 00:53:23.958 debug3: monitor_read: checking request 8
+6400 2021-04-30 00:53:23.958 debug3: mm_answer_pwnamallow
+6400 2021-04-30 00:53:23.958 debug2: parse_server_config: config reprocess config len 291
+6400 2021-04-30 00:53:23.958 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6400 2021-04-30 00:53:23.965 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+5464 2021-04-30 00:53:24.090 debug3: monitor_read: checking request 8
+5464 2021-04-30 00:53:24.090 debug3: mm_answer_pwnamallow
+5464 2021-04-30 00:53:24.090 debug2: parse_server_config: config reprocess config len 291
+5464 2021-04-30 00:53:24.091 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+5464 2021-04-30 00:53:24.092 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7176 2021-04-30 00:53:24.728 debug3: monitor_read: checking request 8
+7176 2021-04-30 00:53:24.728 debug3: mm_answer_pwnamallow
+7176 2021-04-30 00:53:24.728 debug2: parse_server_config: config reprocess config len 291
+7176 2021-04-30 00:53:24.728 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+7176 2021-04-30 00:53:24.808 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8764 2021-04-30 00:53:25.040 debug3: monitor_read: checking request 8
+8764 2021-04-30 00:53:25.040 debug3: mm_answer_pwnamallow
+8764 2021-04-30 00:53:25.041 debug2: parse_server_config: config reprocess config len 291
+8764 2021-04-30 00:53:25.041 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8764 2021-04-30 00:53:25.042 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6300 2021-04-30 00:53:25.080 debug3: monitor_read: checking request 8
+6300 2021-04-30 00:53:25.080 debug3: mm_answer_pwnamallow
+6300 2021-04-30 00:53:25.081 debug2: parse_server_config: config reprocess config len 291
+6300 2021-04-30 00:53:25.081 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6300 2021-04-30 00:53:25.082 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6300 2021-04-30 00:53:25.097 debug3: mm_answer_authpassword: sending result 0
+6300 2021-04-30 00:53:25.098 debug3: mm_request_send entering: type 13
+2984 2021-04-30 00:53:25.099 debug3: send_rexec_state: entering fd = 11 config len 291
+2984 2021-04-30 00:53:25.099 debug3: ssh_msg_send: type 0
+3340 2021-04-30 00:53:25.099 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+2968 2021-04-30 00:53:44.951 debug3: monitor_read: checking request 8
+2968 2021-04-30 00:53:44.951 debug3: mm_answer_pwnamallow
+2968 2021-04-30 00:53:44.952 debug2: parse_server_config: config reprocess config len 291
+2968 2021-04-30 00:53:44.952 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+2968 2021-04-30 00:53:44.955 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8084 2021-04-30 00:53:47.512 debug3: monitor_read: checking request 8
+8084 2021-04-30 00:53:47.512 debug3: mm_answer_pwnamallow
+8084 2021-04-30 00:53:47.513 debug2: parse_server_config: config reprocess config len 291
+8084 2021-04-30 00:53:47.513 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8084 2021-04-30 00:53:47.514 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7628 2021-04-30 00:53:52.654 debug3: mm_request_receive entering
+7628 2021-04-30 00:53:52.654 debug3: monitor_read: checking request 6
+7628 2021-04-30 00:53:52.654 debug3: mm_answer_sign
+8388 2021-04-30 00:53:52.658 debug3: spawning "C:\\OpenSSH-Win64\\sshd.exe" -y
+3352 2021-04-30 00:53:52.658 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7628 2021-04-30 00:53:52.716 debug3: monitor_read: checking request 8
+7628 2021-04-30 00:53:52.716 debug3: mm_answer_pwnamallow
+7628 2021-04-30 00:53:52.717 debug2: parse_server_config: config reprocess config len 291
+7628 2021-04-30 00:53:52.717 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+7628 2021-04-30 00:53:52.718 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+4364 2021-04-30 00:53:52.742 debug3: monitor_read: checking request 8
+4364 2021-04-30 00:53:52.742 debug3: mm_answer_pwnamallow
+4364 2021-04-30 00:53:52.742 debug2: parse_server_config: config reprocess config len 291
+4364 2021-04-30 00:53:52.743 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+4364 2021-04-30 00:53:52.744 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7956 2021-04-30 00:53:52.778 debug1: Local version string SSH-2.0-OpenSSH_for_Windows_8.1
+7956 2021-04-30 00:53:52.778 debug1: Remote protocol version 2.0, remote software version libssh_0.9.3
+7956 2021-04-30 00:53:52.778 debug1: no match: libssh_0.9.3
+7956 2021-04-30 00:53:52.778 debug2: fd 4 setting O_NONBLOCK
+8388 2021-04-30 00:53:52.784 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+5480 2021-04-30 00:53:53.505 debug3: monitor_read: checking request 8
+5480 2021-04-30 00:53:53.505 debug3: mm_answer_pwnamallow
+5480 2021-04-30 00:53:53.505 debug2: parse_server_config: config reprocess config len 291
+5480 2021-04-30 00:53:53.505 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+5480 2021-04-30 00:53:53.506 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+9112 2021-04-30 00:53:54.304 debug3: monitor_read: checking request 8
+9112 2021-04-30 00:53:54.305 debug3: mm_answer_pwnamallow
+9112 2021-04-30 00:53:54.305 debug2: parse_server_config: config reprocess config len 291
+9112 2021-04-30 00:53:54.305 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+9112 2021-04-30 00:53:54.307 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8792 2021-04-30 00:53:55.906 debug1: Local version string SSH-2.0-OpenSSH_for_Windows_8.1
+8792 2021-04-30 00:53:55.907 debug1: Remote protocol version 2.0, remote software version libssh_0.9.3
+8792 2021-04-30 00:53:55.907 debug1: no match: libssh_0.9.3
+8792 2021-04-30 00:53:55.907 debug2: fd 4 setting O_NONBLOCK
+4196 2021-04-30 00:53:55.907 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8792 2021-04-30 00:53:56.434 debug3: mm_answer_pwnamallow
+8792 2021-04-30 00:53:56.435 debug2: parse_server_config: config reprocess config len 291
+8792 2021-04-30 00:53:56.435 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6220 2021-04-30 00:53:56.475 debug3: spawning "C:\\OpenSSH-Win64\\sshd.exe" -y
+8792 2021-04-30 00:53:56.475 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+6220 2021-04-30 00:53:56.557 debug3: monitor_read: checking request 8
+6220 2021-04-30 00:53:56.557 debug3: mm_answer_pwnamallow
+6220 2021-04-30 00:53:56.558 debug2: parse_server_config: config reprocess config len 291
+6220 2021-04-30 00:53:56.558 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+6220 2021-04-30 00:53:56.559 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+8864 2021-04-30 00:53:56.639 debug3: monitor_read: checking request 8
+8864 2021-04-30 00:53:56.639 debug3: mm_answer_pwnamallow
+8864 2021-04-30 00:53:56.640 debug2: parse_server_config: config reprocess config len 291
+8864 2021-04-30 00:53:56.640 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+8864 2021-04-30 00:53:56.755 debug3: LsaLogonUser Succeeded (Impersonation: 0)
+--
+7300 2021-04-30 01:01:08.103 debug3: monitor_read: checking request 8
+7300 2021-04-30 01:01:08.103 debug3: mm_answer_pwnamallow
+7300 2021-04-30 01:01:08.104 debug2: parse_server_config: config reprocess config len 291
+7300 2021-04-30 01:01:08.104 debug3: checking match for 'Group administrators' user sophia host 192.168.1.17 addr 192.168.1.17 laddr 192.168.1.20 lport 22
+7300 2021-04-30 01:01:08.105 debug3: LsaLogonUser Succeeded (Impersonation: 0)
