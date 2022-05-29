@@ -1,10 +1,11 @@
 [tool.poetry]
 name = "pyredactkit"
-version = "0.2.3"
+version = "0.2.4"
 description = "Python cli tool to redact sensitive data"
 authors = ["brootware <brootware@outlook.com>"]
 license = "GPL-3.0-or-later"
 readme = "README.md"
+repository = "https://github.com/brootware/PyRedactKit"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.7",
