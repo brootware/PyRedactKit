@@ -57,48 +57,31 @@ def salt_hash(to_hash):
 
 def redact_all(line):
     hash_map = {}
-
     for id in regexes:
         redact_pattern = id['pattern']
         if re.search(redact_pattern, line):
+            pattern_string = re.search(redact_pattern, line)
+            pattern_string = pattern_string.group(0)
+            masked_data = str(uuid.uuid4())
+            hash_map.update({masked_data: pattern_string})
+            line = re.sub(redact_pattern, masked_data, line)
+    return line, hash_map
+
+
+def redact_specific(line=str, option=str):
+    kv_pairs = {}
+    for id in regexes:
+        redact_pattern = id['pattern']
+        if option in id['type'] and re.search(
+                redact_pattern, line):
             pattern_string = re.search(
                 redact_pattern, line)
             pattern_string = pattern_string.group(0)
             masked_data = str(uuid.uuid4())
-            hash_map.update({masked_data: pattern_string})
+            kv_pairs.update({masked_data: pattern_string})
             line = re.sub(
                 redact_pattern, masked_data, line)
-
-    write_hashmap(hash_map)
-    return line
-
-
-# def redact_specific(self, line=str, option=str, filename=str):
-#     """Function to redact specific option
-#     Args:
-#         line (str) : line to be supplied to redact
-#         option (str): (optional) choice for redaction
-#         filename (str): name of supplied file
-
-#     Returns:
-#         line (str): redacted line
-#     """
-#     hash_map = {}
-
-#     for id in id_object.regexes:
-#         redact_pattern = id['pattern']
-#         if option in id['type'] and re.search(
-#                 redact_pattern, line):
-#             pattern_string = re.search(
-#                 redact_pattern, line)
-#             pattern_string = pattern_string.group(0)
-#             masked_data = str(uuid.uuid4())
-#             hash_map.update({masked_data: pattern_string})
-#             line = re.sub(
-#                 redact_pattern, masked_data, line)
-
-#     self.write_hashmap(hash_map, filename)
-#     return line
+    return line, kv_pairs
 
 
 def process_redact():
@@ -108,9 +91,14 @@ def process_redact():
             "w",
             encoding="utf-8",
         ) as result:
+            hash_map = {}
             for line in target_file:
-                line = redact_all(line)
-                result.write(line)
+                data = redact_all(line)
+                redacted_line = data[0]
+                hash_pairs = data[1]
+                hash_map.update(hash_pairs)
+                result.write(redacted_line)
+            write_hashmap(hash_map)
 
 
 process_redact()
