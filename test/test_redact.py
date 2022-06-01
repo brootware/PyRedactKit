@@ -1,5 +1,6 @@
 import pytest
 from pyredactkit.redact import Redactor
+import uuid
 
 data = """John, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com
 this is my IP: 102.23.5.1
@@ -42,6 +43,7 @@ Card_Number,Card_Family,Credit_Limit,Cust_ID
 people_names = "John,Jones,Alex,Bruce"
 mask_names = "\u2588" * 15
 count_names = 4
+hash_table = {}
 
 
 @pytest.fixture
@@ -72,3 +74,15 @@ def test_redact_name_function_should_return_string_and_integer(redactor_obj):
     set1 = (f'{mask_names},{mask_names},{mask_names},{mask_names}', count_names)
     assert redactor_obj.redact_name(
         people_names) == set1, 'redact_name function should return masked data and count'
+
+
+def test_redact_all_function_should_return_string_and_dictionary(redactor_obj):
+    set1 = ("This is a string", hash_table)
+    assert type(redactor_obj.redact_all(data)
+                ) == type(set1), "redact_all function should return a tuple"
+
+
+def test_redact_specific_function_should_return_string_and_dictionary(redactor_obj):
+    set1 = ("This is a string", hash_table)
+    assert type(redactor_obj.redact_specific(data)
+                ) == type(set1), "redact_specific function should return a tuple"
