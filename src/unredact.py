@@ -48,12 +48,13 @@ class Unredactor:
                 with open(lookup_file, encoding="utf-8") as lookup_target:
                     content = json.load(lookup_target)
                     with open(f"unredacted_{os.path.basename(redacted_file)}", "w", encoding="utf-8") as write_file:
+                        print("[+] Unredaction started. This will take some time.")
                         for line in redacted_target:
                             line = self.replace_all(line, content)
                             write_file.write(line)
                         print(
-                            f"[ + ] Unredacted results saved to unredacted_{os.path.basename(redacted_file)}")
+                            f"[+] Unredacted results saved to unredacted_{os.path.basename(redacted_file)}")
             except FileNotFoundError:
-                sys.exit(f"[ - ] {lookup_file} file was not found")
+                sys.exit(f"[-] {lookup_file} file was not found")
             except json.JSONDecodeError:
-                sys.exit(f"[ - ] Issue decoding {lookup_file} file")
+                sys.exit(f"[-] Issue decoding {lookup_file} file")

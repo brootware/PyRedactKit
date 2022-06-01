@@ -3,10 +3,10 @@
 import mimetypes
 import os
 import sys
-import math
 import re
-import uuid
+import math
 import json
+import uuid
 
 from src.identifiers import Identifier
 
@@ -92,8 +92,6 @@ class Redactor:
         """
         with open(f".hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
-            print(
-                f"[ + ].hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
 
     def valid_options(self):
         """Function to read in valid options from Identifier.regexes
@@ -108,7 +106,7 @@ class Redactor:
             option_tuple += id['type']
         return option_tuple
 
-    def redact_specific(self, line=str, option=str, filename=str):
+    def redact_specific(self, line=str, option=str):
         """Function to redact specific option
         Args:
             line (str) : line to be supplied to redact
@@ -117,23 +115,41 @@ class Redactor:
 
         Returns:
             line (str): redacted line
+            kv_pair (dict) : key value pair of uuid to sensitive data.
         """
-        hash_map = {}
-
+        kv_pairs = {}
         for id in id_object.regexes:
             redact_pattern = id['pattern']
             if option in id['type'] and re.search(
-                    redact_pattern, line, flags=re.IGNORECASE):
+                    redact_pattern, line):
                 pattern_string = re.search(
-                    redact_pattern, line, flags=re.IGNORECASE)
+                    redact_pattern, line)
+                pattern_string = pattern_string.group(0)
+                masked_data = str(uuid.uuid4())
+                kv_pairs.update({masked_data: pattern_string})
+                line = re.sub(
+                    redact_pattern, masked_data, line)
+        return line, kv_pairs
+
+    def redact_all(self, line=str):
+        """Function to redact specific option
+        Args:
+            line (str) : line to be supplied to redact
+
+        Returns:
+            line (str): redacted line
+            kv_pair (dict) : key value pair of uuid to sensitive data.
+        """
+        hash_map = {}
+        for id in id_object.regexes:
+            redact_pattern = id['pattern']
+            if re.search(redact_pattern, line):
+                pattern_string = re.search(redact_pattern, line)
                 pattern_string = pattern_string.group(0)
                 masked_data = str(uuid.uuid4())
                 hash_map.update({masked_data: pattern_string})
-                line = re.sub(
-                    redact_pattern, masked_data, line, flags=re.IGNORECASE)
-
-        self.write_hashmap(hash_map, filename)
-        return line
+                line = re.sub(redact_pattern, masked_data, line)
+        return line, hash_map
 
     def redact_name(self, data=str):
         """Main function to redact
@@ -171,14 +187,14 @@ class Redactor:
                 # created the directory if not present
                 if not os.path.exists(os.path.dirname(savedir)):
                     print(
-                        "[ + ] "
+                        "[+] "
                         + os.path.dirname(savedir)
                         + " directory does not exist, creating it."
                     )
                     os.makedirs(os.path.dirname(savedir))
 
                 print(
-                    "[ + ] Processing starts now. This may take some time "
+                    "[+] Processing starts now. This may take some time "
                     "depending on the file size. Monitor the redacted file "
                     "size to monitor progress"
                 )
@@ -192,22 +208,22 @@ class Redactor:
                     # Check if any redaction type option is given in argument. If none, will redact all sensitive data.
                     if type(option) is not str:
                         print(
-                            f"[ + ] No option supplied, will be redacting all the sensitive data supported")
+                            f"[+] No option supplied, will be redacting all the sensitive data supported")
+                        hash_map = {}
                         for line in target_file:
-                            for p in id_object.regexes:
-                                redact_pattern = p['pattern']
-                                if re.search(redact_pattern, line, flags=re.IGNORECASE):
+                            # count elements to be redacted
+                            for id in id_object.regexes:
+                                if re.search(id['pattern'], line):
                                     count += 1
-                                    pattern_string = re.search(
-                                        redact_pattern, line, flags=re.IGNORECASE)
-                                    pattern_string = pattern_string.group(0)
-                                    masked_data = str(uuid.uuid4())
-                                    hash_map.update(
-                                        {masked_data: pattern_string})
-                                    line = re.sub(redact_pattern, masked_data, line,
-                                                  flags=re.IGNORECASE)
-                            result.write(line)
+                            # redact all and write hashshadow
+                            data = self.redact_all(line)
+                            redacted_line = data[0]
+                            kv_pairs = data[1]
+                            hash_map.update(kv_pairs)
+                            result.write(redacted_line)
                         self.write_hashmap(hash_map, filename)
+                        print(
+                            f"[+] .hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
                     # Separate option to redact names
                     elif option in ("name", "names"):
                         content = target_file.read()
@@ -218,25 +234,34 @@ class Redactor:
                         os.remove(
                             f"{savedir}redacted_{os.path.basename(filename)}")
                         sys.exit(
-                            "[ - ] Not a valid option for redaction type.")
+                            "[-] Not a valid option for redaction type.")
                     # Redacts all other options here
                     else:
-                        print(f"[ + ] Redacting {option} from the file")
+                        print(f"[+] Redacting {option} from the file")
+                        hash_map = {}
                         for line in target_file:
+                            # count elements to be redacted
                             for id in id_object.regexes:
-                                if option in id['type'] and re.search(id['pattern'], line, flags=re.IGNORECASE):
+                                if option in id['type'] and re.search(id['pattern'], line):
                                     count += 1
-                            line = self.redact_specific(line, option, filename)
-                            result.write(line)
+                            # redact specific option and write hashshadow
+                            data = self.redact_specific(line, option)
+                            redacted_line = data[0]
+                            kv_pairs = data[1]
+                            hash_map.update(kv_pairs)
+                            result.write(redacted_line)
+                        self.write_hashmap(hash_map, filename)
+                        print(
+                            f"[+].hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
 
-                    print(f"[ + ] Redacted {count} targets...")
+                    print(f"[+] Redacted {count} targets...")
                     print(
-                        f"[ + ] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
+                        f"[+] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
 
         except UnicodeDecodeError:
             os.remove(f"{savedir}redacted_{os.path.basename(filename)}")
-            print("[ - ] Removed incomplete redact file")
-            sys.exit("[ - ] Unable to read file")
+            print("[-] Removed incomplete redact file")
+            sys.exit("[-] Unable to read file")
 
     def process_report(self, filename, savedir="./"):
         """Function to process calculate and generate report of man hour saved.
@@ -255,7 +280,7 @@ class Redactor:
                 # created the directory if not present
                 if not os.path.exists(os.path.dirname(savedir)):
                     print(
-                        "[ + ] "
+                        "[+] "
                         + os.path.dirname(savedir)
                         + " directory does not exist, creating it."
                     )
@@ -277,9 +302,9 @@ class Redactor:
                 reading_minutes = math.ceil(total_words/WPM)
                 reading_hours = math.floor(reading_minutes/60)
 
-                word_report = f"[ + ] Estimated total words : {total_words}"
-                minutes_saved = f"[ + ] Estimated total minutes saved : {reading_minutes}"
-                man_hours_saved = f"[ + ] Estimated total man hours saved : {reading_hours}"
+                word_report = f"[+] Estimated total words : {total_words}"
+                minutes_saved = f"[+] Estimated total minutes saved : {reading_minutes}"
+                man_hours_saved = f"[+] Estimated total man hours saved : {reading_hours}"
 
                 # Open a file write pointer as result
                 with open(
@@ -290,9 +315,9 @@ class Redactor:
                     result.write(word_report + "\n" +
                                  minutes_saved + "\n" + man_hours_saved)
                     print(
-                        f"[ + ] Estimated man hours saved report saved to {savedir}manhours_saved_{os.path.basename(filename)}")
+                        f"[+] Estimated man hours saved report saved to {savedir}manhours_saved_{os.path.basename(filename)}")
 
         except UnicodeDecodeError:
             os.remove(f"manhour_saved_report_{os.path.basename(filename)}")
-            print("[ - ] Removed incomplete report")
-            sys.exit("[ - ] Unable to read target file")
+            print("[-] Removed incomplete report")
+            sys.exit("[-] Unable to read target file")

@@ -8,7 +8,6 @@ from src.redact import Redactor
 from src.unredact import Unredactor
 import os
 import glob
-# lintertest
 
 banner = """
     ______       ______         _            _     _   ___ _   
@@ -53,6 +52,7 @@ def main():
     parser.add_argument(
         "-t", "--redactiontype",
         help="""Type of data to redact. 
+        names,
         nric,
         dns,
         emails,
