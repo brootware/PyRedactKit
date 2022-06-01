@@ -1,7 +1,6 @@
 
 """ Data identifier class implementation """
 import nltk
-import re
 
 
 class Identifier:

@@ -4,7 +4,6 @@ Utility to redact sensitive data
 """
 
 import argparse
-from ast import arg
 from pyredactkit.redact import Redactor
 from pyredactkit.unredact import Unredactor
 import os
