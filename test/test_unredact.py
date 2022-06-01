@@ -1,6 +1,5 @@
 import pytest
 from pyredactkit.unredact import Unredactor
-from pyredactkit.identifiers import Identifier
 
 key_mapping = {
     "2b21e939-abc9-4d06-9c5a-de9bf2aa22b4": "10.10.10.1"}

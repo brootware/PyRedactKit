@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 """
-Py Redact Kit: Py Redact Kit type.
+Py Redact Kit: Py Redact Kit version checker.
 """
 
 import sys

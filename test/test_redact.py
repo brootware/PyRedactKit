@@ -42,6 +42,7 @@ Card_Number,Card_Family,Credit_Limit,Cust_ID
 people_names = "John,Jones,Alex,Bruce"
 mask_names = "\u2588" * 15
 count_names = 4
+hash_table = {}
 
 
 @pytest.fixture
@@ -72,3 +73,15 @@ def test_redact_name_function_should_return_string_and_integer(redactor_obj):
     set1 = (f'{mask_names},{mask_names},{mask_names},{mask_names}', count_names)
     assert redactor_obj.redact_name(
         people_names) == set1, 'redact_name function should return masked data and count'
+
+
+def test_redact_all_function_should_return_string_and_dictionary(redactor_obj):
+    set1 = ("This is a string", hash_table)
+    assert type(redactor_obj.redact_all(data)
+                ) == type(set1), "redact_all function should return a tuple"
+
+
+def test_redact_specific_function_should_return_string_and_dictionary(redactor_obj):
+    set1 = ("This is a string", hash_table)
+    assert type(redactor_obj.redact_specific(data)
+                ) == type(set1), "redact_specific function should return a tuple"
