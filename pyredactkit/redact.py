@@ -121,14 +121,14 @@ class Redactor:
         for id in id_object.regexes:
             redact_pattern = id['pattern']
             if option in id['type'] and re.search(
-                    redact_pattern, line, flags=re.IGNORECASE):
+                    redact_pattern, line):
                 pattern_string = re.search(
-                    redact_pattern, line, flags=re.IGNORECASE)
+                    redact_pattern, line)
                 pattern_string = pattern_string.group(0)
                 masked_data = str(uuid.uuid4())
                 hash_map.update({masked_data: pattern_string})
                 line = re.sub(
-                    redact_pattern, masked_data, line, flags=re.IGNORECASE)
+                    redact_pattern, masked_data, line)
 
         self.write_hashmap(hash_map, filename)
         return line
@@ -194,16 +194,16 @@ class Redactor:
                         for line in target_file:
                             for p in id_object.regexes:
                                 redact_pattern = p['pattern']
-                                if re.search(redact_pattern, line, flags=re.IGNORECASE):
+                                if re.search(redact_pattern, line):
                                     count += 1
                                     pattern_string = re.search(
-                                        redact_pattern, line, flags=re.IGNORECASE)
+                                        redact_pattern, line)
                                     pattern_string = pattern_string.group(0)
                                     masked_data = str(uuid.uuid4())
                                     hash_map.update(
                                         {masked_data: pattern_string})
-                                    line = re.sub(redact_pattern, masked_data, line,
-                                                  flags=re.IGNORECASE)
+                                    line = re.sub(redact_pattern,
+                                                  masked_data, line)
                             result.write(line)
                         self.write_hashmap(hash_map, filename)
                         print(
@@ -224,7 +224,7 @@ class Redactor:
                         print(f"[ + ] Redacting {option} from the file")
                         for line in target_file:
                             for id in id_object.regexes:
-                                if option in id['type'] and re.search(id['pattern'], line, flags=re.IGNORECASE):
+                                if option in id['type'] and re.search(id['pattern'], line):
                                     count += 1
                             line = self.redact_specific(line, option, filename)
                             result.write(line)
