@@ -92,8 +92,6 @@ class Redactor:
         """
         with open(f".hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
-            print(
-                f"[ + ].hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
 
     def valid_options(self):
         """Function to read in valid options from Identifier.regexes
@@ -208,6 +206,8 @@ class Redactor:
                                                   flags=re.IGNORECASE)
                             result.write(line)
                         self.write_hashmap(hash_map, filename)
+                        print(
+                            f"[ + ].hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
                     # Separate option to redact names
                     elif option in ("name", "names"):
                         content = target_file.read()
@@ -228,6 +228,8 @@ class Redactor:
                                     count += 1
                             line = self.redact_specific(line, option, filename)
                             result.write(line)
+                        print(
+                            f"[ + ].hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
 
                     print(f"[ + ] Redacted {count} targets...")
                     print(
