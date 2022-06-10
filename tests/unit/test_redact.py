@@ -69,7 +69,7 @@ def test_valid_option_function_should_return_tuple(redactor_obj):
                 ) == tuple, 'redact function should return tuple'
 
 
-def test_redact_name_function_should_return_string_and_integer(redactor_obj):
+def test_redact_name_function_should_return_masked_data_and_count(redactor_obj):
     set1 = (f'{mask_names},{mask_names},{mask_names},{mask_names}', count_names)
     assert redactor_obj.redact_name(
         people_names) == set1, 'redact_name function should return masked data and count'
