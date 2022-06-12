@@ -9,6 +9,10 @@ from pyredactkit.unredact import Unredactor
 import os
 import glob
 
+# Creating instances of redact and unredact classes
+redact_obj = Redactor()
+unredact_obj = Unredactor()
+
 banner = """
     ______       ______         _            _     _   ___ _   
     | ___ \      | ___ \       | |          | |   | | / (_) |  
@@ -26,90 +30,81 @@ banner = """
     https://brootware.github.io                                                                             
     """
 
+parser = argparse.ArgumentParser(
+    description='Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f , and return the result.',
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter
+)
+parser.add_argument(
+    "text",
+    help="""Redact sensitive data of a sentence from command prompt.""",
+    type=str
+)
+parser.add_argument(
+    "-f",
+    "--file",
+    nargs="+",
+    help="""
+        Path of a file or a directory of files.
+        Usage: pyredactkit [file/filestoredact]"""
+)
+parser.add_argument(
+    "-u",
+    "--unredact",
+    help="""
+        Option to unredact masked data.
+        Usage: pyredactkit [redacted_file] -u [.hashshadow.json]
+        """
+)
+parser.add_argument(
+    "-d",
+    "--dirout",
+    help="""
+        Output directory of the file.
+        Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
+        """
+)
+parser.add_argument(
+    '-r',
+    '--recursive',
+    action='store_true',
+    default=True,
+    help='Search through subfolders'
+)
+parser.add_argument(
+    '-e',
+    '--extension',
+    default='',
+    help='File extension to filter by.'
+)
+args = parser.parse_args()
+
 
 def main():
     print(banner)
 
-    parser = argparse.ArgumentParser(
-        description='Read in a file or set of files, and return the result.',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-    parser.add_argument(
-        "file",
-        nargs="+",
-        help="""
-        Path of a file or a directory of files.
-        Usage: pyredactkit [file/filestoredact]"""
-    )
-    parser.add_argument(
-        "-u",
-        "--unredact",
-        help="""
-        Option to unredact masked data.
-        Usage: pyredactkit [redacted_file] -u [.hashshadow.json]
-        """
-    )
-    parser.add_argument(
-        "-t", "--redactiontype",
-        help="""Type of data to redact. 
-        names,
-        nric,
-        dns,
-        emails,
-        ipv4,
-        ipv6,
-        base64.
-        Usage: pyredactkit [file/filestoredact] -t ip"""
-    )
-    parser.add_argument(
-        "-d",
-        "--dirout",
-        help="""
-        Output directory of the file.
-        Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
-        """
-    )
-    parser.add_argument(
-        '-r',
-        '--recursive',
-        action='store_true',
-        default=True,
-        help='Search through subfolders'
-    )
-    parser.add_argument(
-        '-e',
-        '--extension',
-        default='',
-        help='File extension to filter by.'
-    )
-    args = parser.parse_args()
+    if args.text:
+        redact_obj.process_text(args.text)
+    else:
+        full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
+        files = set()
 
-    full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
-    files = set()
+        for path in full_paths:
+            if os.path.isfile(path):
+                file_name, file_ext = os.path.splitext(path)
+                if args.extension in ('', file_ext):
+                    files.add(path)
+            elif args.recursive:
+                full_paths += glob.glob(path + '/*')
 
-    for path in full_paths:
-        if os.path.isfile(path):
-            file_name, file_ext = os.path.splitext(path)
-            if args.extension in ('', file_ext):
-                files.add(path)
-        elif args.recursive:
-            full_paths += glob.glob(path + '/*')
-
-    # redact file
-    redact_obj = Redactor()
-    unredact_obj = Unredactor()
-
-    for file in files:
-        if args.redactiontype:
-            redact_obj.process_file(file, args.redactiontype)
-        elif args.dirout:
-            redact_obj.process_file(file, args.redactiontype, args.dirout)
-            redact_obj.process_report(file, args.dirout)
-        elif args.unredact:
-            unredact_obj.unredact(file, args.unredact)
-        else:
-            redact_obj.process_file(file)
-            redact_obj.process_report(file)
+        for file in files:
+            if args.dirout:
+                redact_obj.process_file(file, args.dirout)
+                redact_obj.process_report(file, args.dirout)
+            elif args.unredact:
+                unredact_obj.unredact(file, args.unredact)
+            else:
+                redact_obj.process_file(file)
+                redact_obj.process_report(file)
 
 
 if __name__ == "__main__":

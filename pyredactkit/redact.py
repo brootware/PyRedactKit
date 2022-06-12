@@ -106,7 +106,7 @@ class Redactor:
             option_tuple += id['type']
         return option_tuple
 
-    def redact_specific(self, line=str, option=str):
+    def redact_specific(self, line=str, option=str) -> tuple:
         """Function to redact specific option
         Args:
             line (str) : line to be supplied to redact
@@ -131,7 +131,7 @@ class Redactor:
                     redact_pattern, masked_data, line)
         return line, kv_pairs
 
-    def redact_all(self, line=str):
+    def redact_all(self, line=str) -> tuple:
         """Function to redact specific option
         Args:
             line (str) : line to be supplied to redact
@@ -165,6 +165,35 @@ class Redactor:
         for name in name_list:
             data = data.replace(name, self.block)
         return data, name_count
+
+    def process_text(self, text=str):
+        """Function to process supplied text from cli.
+        Args:
+            text (str): string to redact
+            savedir (str): [Optional] directory to place results
+
+        Returns:
+            Creates redacted file.
+        """
+        hash_map = {}
+        generated_file = f"redacted_file_{str(uuid.uuid1())}.txt"
+        text = text.strip().split('\n')
+        with open(
+            f"{generated_file}",
+            "w",
+            encoding="utf-8",
+        ) as result:
+            for line in text:
+                data = self.redact_all(line)
+                redacted_line = data[0]
+                kv_pairs = data[1]
+                hash_map.update(kv_pairs)
+                result.write(f"{redacted_line}\n")
+            self.write_hashmap(hash_map, generated_file)
+            print(
+                f"[+] .hashshadow_{os.path.basename(generated_file)}.json file generated. Keep this safe if you need to undo the redaction.")
+            print(
+                f"[+] Redacted and results saved to {os.path.basename(generated_file)}")
 
     def process_file(self, filename, option=str, savedir="./"):
         """Function to process supplied file from cli.
@@ -306,16 +335,19 @@ class Redactor:
                 minutes_saved = f"[+] Estimated total minutes saved : {reading_minutes}"
                 man_hours_saved = f"[+] Estimated total man hours saved : {reading_hours}"
 
+                print(word_report)
+                print(minutes_saved)
+                print(man_hours_saved)
                 # Open a file write pointer as result
-                with open(
-                    f"{savedir}manhours_saved_{os.path.basename(filename)}",
-                    "w",
-                    encoding="utf-8",
-                ) as result:
-                    result.write(word_report + "\n" +
-                                 minutes_saved + "\n" + man_hours_saved)
-                    print(
-                        f"[+] Estimated man hours saved report saved to {savedir}manhours_saved_{os.path.basename(filename)}")
+                # with open(
+                #     f"{savedir}manhours_saved_{os.path.basename(filename)}",
+                #     "w",
+                #     encoding="utf-8",
+                # ) as result:
+                #     result.write(word_report + "\n" +
+                #                  minutes_saved + "\n" + man_hours_saved)
+                #     print(
+                #         f"[+] Estimated man hours saved report saved to {savedir}manhours_saved_{os.path.basename(filename)}")
 
         except UnicodeDecodeError:
             os.remove(f"manhour_saved_report_{os.path.basename(filename)}")
