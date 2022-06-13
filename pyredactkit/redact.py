@@ -151,7 +151,7 @@ class Redactor:
                 line = re.sub(redact_pattern, masked_data, line)
         return line, hash_map
 
-    def redact_name(self, data=str):
+    def redact_name(self, data=str) -> tuple:
         """Main function to redact
         Args:
             data (str) : data to be supplied to identify names
@@ -177,7 +177,6 @@ class Redactor:
         """
         hash_map = {}
         generated_file = f"redacted_file_{str(uuid.uuid1())}.txt"
-        text = text.strip().split('\n')
         with open(
             f"{generated_file}",
             "w",

@@ -4,6 +4,7 @@ Utility to redact sensitive data
 """
 
 import argparse
+
 from pyredactkit.redact import Redactor
 from pyredactkit.unredact import Unredactor
 import os
@@ -34,34 +35,36 @@ parser = argparse.ArgumentParser(
     description='Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f , and return the result.',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
 )
+
 parser.add_argument(
     "text",
+    type=str,
     help="""Redact sensitive data of a sentence from command prompt.""",
-    type=str
+    nargs="*"
 )
 parser.add_argument(
     "-f",
     "--file",
     nargs="+",
     help="""
-        Path of a file or a directory of files.
-        Usage: pyredactkit [file/filestoredact]"""
+            Path of a file or a directory of files.
+            Usage: pyredactkit [file/filestoredact]"""
 )
 parser.add_argument(
     "-u",
     "--unredact",
     help="""
-        Option to unredact masked data.
-        Usage: pyredactkit [redacted_file] -u [.hashshadow.json]
-        """
+            Option to unredact masked data.
+            Usage: pyredactkit -f [redacted_file] -u [.hashshadow.json]
+            """
 )
 parser.add_argument(
     "-d",
     "--dirout",
     help="""
-        Output directory of the file.
-        Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
-        """
+            Output directory of the file.
+            Usage: pyredactkit -f [file/filestoredact] -d [redacted_dir]
+            """
 )
 parser.add_argument(
     '-r',
@@ -79,32 +82,36 @@ parser.add_argument(
 args = parser.parse_args()
 
 
+def execute_file_arg():
+    full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
+    files = set()
+
+    for path in full_paths:
+        if os.path.isfile(path):
+            file_name, file_ext = os.path.splitext(path)
+            if args.extension in ('', file_ext):
+                files.add(path)
+        elif args.recursive:
+            full_paths += glob.glob(path + '/*')
+
+    for file in files:
+        if args.dirout:
+            redact_obj.process_file(file, args.dirout)
+            redact_obj.process_report(file, args.dirout)
+        elif args.unredact:
+            unredact_obj.unredact(file, args.unredact)
+        else:
+            redact_obj.process_file(file)
+            redact_obj.process_report(file)
+
+
 def main():
     print(banner)
 
-    if args.text:
-        redact_obj.process_text(args.text)
+    if args.file:
+        execute_file_arg()
     else:
-        full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
-        files = set()
-
-        for path in full_paths:
-            if os.path.isfile(path):
-                file_name, file_ext = os.path.splitext(path)
-                if args.extension in ('', file_ext):
-                    files.add(path)
-            elif args.recursive:
-                full_paths += glob.glob(path + '/*')
-
-        for file in files:
-            if args.dirout:
-                redact_obj.process_file(file, args.dirout)
-                redact_obj.process_report(file, args.dirout)
-            elif args.unredact:
-                unredact_obj.unredact(file, args.unredact)
-            else:
-                redact_obj.process_file(file)
-                redact_obj.process_report(file)
+        redact_obj.process_text(args.text)
 
 
 if __name__ == "__main__":
