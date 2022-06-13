@@ -194,7 +194,7 @@ class Redactor:
             print(
                 f"[+] Redacted and results saved to {os.path.basename(generated_file)}")
 
-    def process_file(self, filename, option=str, savedir="./"):
+    def process_file(self, filename, savedir="./", option=str):
         """Function to process supplied file from cli.
         Args:
             filename (str): File to redact
@@ -258,11 +258,11 @@ class Redactor:
                         data = self.redact_name(content)
                         result.write(data[0])
                         count = data[1]
-                    elif option not in options_list:
-                        os.remove(
-                            f"{savedir}redacted_{os.path.basename(filename)}")
-                        sys.exit(
-                            "[-] Not a valid option for redaction type.")
+                    # elif option not in options_list:
+                    #     os.remove(
+                    #         f"{savedir}redacted_{os.path.basename(filename)}")
+                    #     sys.exit(
+                    #         "[-] Not a valid option for redaction type.")
                     # Redacts all other options here
                     else:
                         print(f"[+] Redacting {option} from the file")

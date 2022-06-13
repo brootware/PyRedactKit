@@ -108,7 +108,7 @@ def execute_file_arg():
 def main():
     print(banner)
 
-    if args.file:
+    if args.file or (args.file and args.dirout):
         execute_file_arg()
     else:
         redact_obj.process_text(args.text)
