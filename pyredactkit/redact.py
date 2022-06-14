@@ -81,7 +81,7 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
-    def write_hashmap(self, hash_map=dict, filename=str):
+    def write_hashmap(self, hash_map=dict, filename=str, savedir="./") -> dict:
         """Function that writes a .hashshadow_file.txt.json to os directory.
         Args:
             hash_map (dictionary): dictionary object to be written to file.
@@ -90,10 +90,10 @@ class Redactor:
         Returns:
             Writes .hashshadow_file.txt.json to os directory
         """
-        with open(f".hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
+        with open(f"{savedir}.hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
 
-    def valid_options(self):
+    def valid_options(self) -> tuple:
         """Function to read in valid options from Identifier.regexes
         Args:
             None
@@ -166,7 +166,7 @@ class Redactor:
             data = data.replace(name, self.block)
         return data, name_count
 
-    def process_text(self, text=str):
+    def process_text(self, text=str, savedir="./"):
         """Function to process supplied text from cli.
         Args:
             text (str): string to redact
@@ -188,7 +188,7 @@ class Redactor:
                 kv_pairs = data[1]
                 hash_map.update(kv_pairs)
                 result.write(f"{redacted_line}\n")
-            self.write_hashmap(hash_map, generated_file)
+            self.write_hashmap(hash_map, generated_file, savedir)
             print(
                 f"[+] .hashshadow_{os.path.basename(generated_file)}.json file generated. Keep this safe if you need to undo the redaction.")
             print(
@@ -249,7 +249,7 @@ class Redactor:
                             kv_pairs = data[1]
                             hash_map.update(kv_pairs)
                             result.write(redacted_line)
-                        self.write_hashmap(hash_map, filename)
+                        self.write_hashmap(hash_map, filename, savedir)
                         print(
                             f"[+] .hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
                     # Separate option to redact names
@@ -278,9 +278,9 @@ class Redactor:
                             kv_pairs = data[1]
                             hash_map.update(kv_pairs)
                             result.write(redacted_line)
-                        self.write_hashmap(hash_map, filename)
+                        self.write_hashmap(hash_map, filename, savedir)
                         print(
-                            f"[+].hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
+                            f"[+]{savedir}.hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
 
                     print(f"[+] Redacted {count} targets...")
                     print(

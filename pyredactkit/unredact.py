@@ -10,7 +10,7 @@ class Unredactor:
 
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Class Initialization
         Args:
@@ -20,7 +20,7 @@ class Unredactor:
             None
         """
 
-    def replace_all(self, text, dictionary):
+    def replace_all(self, text, dictionary) -> str:
         """Function to replace all the text from string
         Args:
             text (str): A line of text in string format
@@ -33,7 +33,7 @@ class Unredactor:
             text = text.replace(k, v)
         return text
 
-    def unredact(self, redacted_file=str, lookup_file=str):
+    def unredact(self, redacted_file=str, lookup_file=str) -> None:
         """Function to unredact masked data and produces original unredacted data.
         Args:
             redacted_file (str): Name of the redacted file

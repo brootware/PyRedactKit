@@ -10,9 +10,6 @@ class Identifier:
         regexes (array-dict): an array list of dictionaries for identifying different type of data.
             pattern (str): regular expression to identify
             type (tuple): description of options for type of data.
-
-    Returns:
-        None
     """
     regexes = [
         {
@@ -45,10 +42,10 @@ class Identifier:
         }
     ]
 
-    def __init__(self):
+    def __init__(self) -> None:
         return None
 
-    def names(self, data):
+    def names(self, data) -> list:
         """ Identify names and return them from the supplied data
         Args:
             data (str): data in alpha-numeric format

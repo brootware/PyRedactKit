@@ -32,32 +32,7 @@ banner = """
     """
 
 
-def execute_file_arg():
-    full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
-    files = set()
-
-    for path in full_paths:
-        if os.path.isfile(path):
-            file_name, file_ext = os.path.splitext(path)
-            if args.extension in ('', file_ext):
-                files.add(path)
-        elif args.recursive:
-            full_paths += glob.glob(path + '/*')
-
-    for file in files:
-        if args.dirout:
-            redact_obj.process_file(file, args.dirout)
-            redact_obj.process_report(file, args.dirout)
-        elif args.unredact:
-            unredact_obj.unredact(file, args.unredact)
-        else:
-            redact_obj.process_file(file)
-            redact_obj.process_report(file)
-
-
-def main():
-    print(banner)
-
+def arg_helper() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description='Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f , and return the result.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
@@ -106,6 +81,38 @@ def main():
         help='File extension to filter by.'
     )
     args = parser.parse_args()
+
+    return args
+
+
+def execute_file_arg() -> None:
+    args = arg_helper()
+    full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
+    files = set()
+
+    for path in full_paths:
+        if os.path.isfile(path):
+            file_name, file_ext = os.path.splitext(path)
+            if args.extension in ('', file_ext):
+                files.add(path)
+        elif args.recursive:
+            full_paths += glob.glob(path + '/*')
+
+    for file in files:
+        if args.dirout:
+            redact_obj.process_file(file, args.dirout)
+            redact_obj.process_report(file, args.dirout)
+        elif args.unredact:
+            unredact_obj.unredact(file, args.unredact)
+        else:
+            redact_obj.process_file(file)
+            redact_obj.process_report(file)
+
+
+def main():
+    print(banner)
+
+    args = arg_helper()
 
     if args.file or (args.file and args.dirout):
         execute_file_arg()
