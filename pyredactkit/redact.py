@@ -209,12 +209,12 @@ class Redactor:
             print(
                 f"[+] Redacted and results saved to {os.path.basename(generated_file)}")
 
-    def process_custom_file(self, filename, customfile=str, savedir="./"):
+    def process_custom_file(self, file_name, customfile=str, make_dir="./"):
         """Function to process supplied file with custom regex file from cli.
         Args:
-            filename (str): File to redact
+            file_name (str): File to redact
             customfile (str): custom regex pattern for redaction
-            savedir (str): [Optional] directory to place results
+            make_dir (str): [Optional] directory to place results
 
         Returns:
             Creates redacted file.
@@ -223,18 +223,18 @@ class Redactor:
         secret_map = {}
         try:
             # Open a file read pointer as target_file
-            with open(filename, encoding="utf-8") as target_file:
-                if savedir != "./" and savedir[-1] != "/":
-                    savedir = savedir + "/"
+            with open(file_name, encoding="utf-8") as target_file:
+                if make_dir != "./" and make_dir[-1] != "/":
+                    make_dir = make_dir + "/"
 
                 # created the directory if not present
-                if not os.path.exists(os.path.dirname(savedir)):
+                if not os.path.exists(os.path.dirname(make_dir)):
                     print(
                         "[+] "
-                        + os.path.dirname(savedir)
+                        + os.path.dirname(make_dir)
                         + f"{self.dir_create}"
                     )
-                    os.makedirs(os.path.dirname(savedir))
+                    os.makedirs(os.path.dirname(make_dir))
 
                 print(
                     "[+] Processing starts now. This may take some time "
@@ -244,7 +244,7 @@ class Redactor:
 
                 # Open a file write pointer as result
                 with open(
-                    f"{savedir}redacted_{os.path.basename(filename)}",
+                    f"{make_dir}redacted_{os.path.basename(file_name)}",
                     "w",
                     encoding="utf-8",
                 ) as result:
@@ -263,15 +263,15 @@ class Redactor:
                         kv_pairs = data[1]
                         secret_map.update(kv_pairs)
                         result.write(redacted_line)
-                    self.write_hashmap(secret_map, filename, savedir)
+                    self.write_hashmap(secret_map, file_name, make_dir)
                     print(
-                        f"[+] .hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
+                        f"[+] .hashshadow_{os.path.basename(file_name)}.json file generated. Keep this safe if you need to undo the redaction.")
                     print(f"[+] Redacted {redact_count} targets...")
                     print(
-                        f"[+] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
+                        f"[+] Redacted results saved to {make_dir}redacted_{os.path.basename(file_name)}")
 
         except UnicodeDecodeError:
-            os.remove(f"{savedir}redacted_{os.path.basename(filename)}")
+            os.remove(f"{make_dir}redacted_{os.path.basename(file_name)}")
             print("[-] Removed incomplete redact file")
             sys.exit("[-] Unable to read file")
 
