@@ -16,34 +16,26 @@ redact_obj = Redactor()
 unredact_obj = Unredactor()
 
 
-banner = """
-    ______       ______         _            _     _   ___ _   
-    | ___ \      | ___ \       | |          | |   | | / (_) |  
-    | |_/ /   _  | |_/ /___  __| | __ _  ___| |_  | |/ / _| |_ 
-    |  __/ | | | |    // _ \/ _` |/ _` |/ __| __| |    \| | __|
-    | |  | |_| | | |\ \  __/ (_| | (_| | (__| |_  | |\  \ | |_ 
-    \_|   \__, | \_| \_\___|\__,_|\__,_|\___|\__| \_| \_/_|\__|
-           __/ |                                               
-           |___/                                                                                                           
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
-            |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
+banner = r"""
+__________         __________           .___              __     ____  __.__  __   
+\______   \___.__. \______   \ ____   __| _/____    _____/  |_  |    |/ _|__|/  |_ 
+ |     ___<   |  |  |       _// __ \ / __ |\__  \ _/ ___\   __\ |      < |  \   __\
+ |    |    \___  |  |    |   \  ___// /_/ | / __ \\  \___|  |   |    |  \|  ||  |  
+ |____|    / ____|  |____|_  /\___  >____ |(____  /\___  >__|   |____|__ \__||__|  
+           \/              \/     \/     \/     \/     \/               \/                                                                                                                 
+                    +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
+                    |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
+                    +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
             
     https://github.com/brootware
-    https://brootware.github.io                                                                             
+    https://brootware.github.io     
+    https://twitter.com/brootware                                                                        
     """
 
 help_menu = """
     PyRedactKit - Redact and Un-redact any sensitive data from your text files!
-
-    Github:\n
-    https://github.com/brootware/pyredactkit
-    
-    Follow me on Twitter!\n
-    https://twitter.com/brootware
-    
     Example usage:\n
-        pyredactkit --text 'This is my ip: 127.0.0.1. My email is brute@gmail.com'\n
+        pyredactkit 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'\n
         pyredactkit --file [file/filestoredact]\n
         pyredactkit --file redacted_file --unredact .hashshadow.json\n
         pyredactkit --file file --customfile custom.json\n
@@ -62,6 +54,7 @@ def arg_helper() -> argparse.Namespace:
         nargs="*"
     )
     if len(sys.argv) == 1:
+        print(help_menu)
         parser.print_help(sys.stderr)
         sys.exit(1)
     parser.add_argument(

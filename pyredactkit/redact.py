@@ -7,7 +7,6 @@ import re
 import math
 import json
 import uuid
-import importlib
 
 from pyredactkit.identifiers import Identifier
 id_object = Identifier()
@@ -24,6 +23,7 @@ class Redactor:
     """
 
     block = "\u2588" * 15
+    dir_create = " directory does not exist, creating it."
 
     def __init__(self) -> None:
         """
@@ -232,7 +232,7 @@ class Redactor:
                     print(
                         "[+] "
                         + os.path.dirname(savedir)
-                        + " directory does not exist, creating it."
+                        + f"{self.dir_create}"
                     )
                     os.makedirs(os.path.dirname(savedir))
 
@@ -297,7 +297,7 @@ class Redactor:
                     print(
                         "[+] "
                         + os.path.dirname(savedir)
-                        + " directory does not exist, creating it."
+                        + f"{self.dir_create}"
                     )
                     os.makedirs(os.path.dirname(savedir))
 
@@ -358,7 +358,7 @@ class Redactor:
                     print(
                         "[+] "
                         + os.path.dirname(savedir)
-                        + " directory does not exist, creating it."
+                        + f"{self.dir_create}"
                     )
                     os.makedirs(os.path.dirname(savedir))
 

@@ -21,7 +21,6 @@
 
 Redacts and Unredacts the following from your text files. 📄 ✍️
 
-- names 👤
 - sg nric 🆔
 - credit cards 🏧
 - domain names 🌐
@@ -46,6 +45,12 @@ Quick install
 python -m pip install pyredactkit
 ```
 
+Redact from terminal
+
+```bash
+pyredactkit 'this is my ip:127.0.0.1. my email is broot@outlook.com. secret link is github.com'
+```
+
 Redact a single file
 
 ```bash
@@ -58,7 +63,13 @@ Unredact the file
 pyredactkit -f redacted_test.txt -u .hashshadow_test.txt.json 
 ```
 
-Install nltk data for redacting names
+Redact using custom regex pattern
+
+```bash
+pyredactkit -f file -c custom.json
+```
+
+<!-- Install nltk data for redacting names
 
 ```bash
 python -c "import nltk
@@ -74,11 +85,11 @@ else:
 nltk.download('popular')"
 ```
 
-Redact names from text file
+Redact names from a text file
 
 ```bash
 pyredactkit test.txt -t name
-```
+``` -->
 
 ### Use from github source
 
@@ -211,7 +222,7 @@ My router is: 10.10.10.1
 71.159.188.33
 ```
 
-To redact multiple files from a directory and place it in a new directory
+To redact multiple files from a directory and place them in a new directory
 
 ```bash
 poetry run pyredactkit dir_test -d redacted_dir
