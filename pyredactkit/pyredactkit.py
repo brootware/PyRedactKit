@@ -4,70 +4,88 @@ Utility to redact sensitive data
 """
 
 import argparse
+
 from pyredactkit.redact import Redactor
 from pyredactkit.unredact import Unredactor
 import os
 import glob
+import sys
 
-banner = """
-    ______       ______         _            _     _   ___ _   
-    | ___ \      | ___ \       | |          | |   | | / (_) |  
-    | |_/ /   _  | |_/ /___  __| | __ _  ___| |_  | |/ / _| |_ 
-    |  __/ | | | |    // _ \/ _` |/ _` |/ __| __| |    \| | __|
-    | |  | |_| | | |\ \  __/ (_| | (_| | (__| |_  | |\  \ | |_ 
-    \_|   \__, | \_| \_\___|\__,_|\__,_|\___|\__| \_| \_/_|\__|
-           __/ |                                               
-           |___/                                                                                                           
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
-            |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
+# Creating instances of redact and unredact classes
+redact_obj = Redactor()
+unredact_obj = Unredactor()
+
+
+banner = r"""
+__________         __________           .___              __     ____  __.__  __   
+\______   \___.__. \______   \ ____   __| _/____    _____/  |_  |    |/ _|__|/  |_ 
+ |     ___<   |  |  |       _// __ \ / __ |\__  \ _/ ___\   __\ |      < |  \   __\
+ |    |    \___  |  |    |   \  ___// /_/ | / __ \\  \___|  |   |    |  \|  ||  |  
+ |____|    / ____|  |____|_  /\___  >____ |(____  /\___  >__|   |____|__ \__||__|  
+           \/              \/     \/     \/     \/     \/               \/                                                                                                                 
+                    +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
+                    |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
+                    +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
             
     https://github.com/brootware
-    https://brootware.github.io                                                                             
+    https://brootware.github.io     
+    https://twitter.com/brootware                                                                        
+    """
+
+help_menu = """
+    PyRedactKit - Redact and Un-redact any sensitive data from your text files!
+    Example usage:\n
+        pyredactkit 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'\n
+        pyredactkit --file [file/filestoredact]\n
+        pyredactkit --file redacted_file --unredact .hashshadow.json\n
+        pyredactkit --file file --customfile custom.json\n
     """
 
 
-def main():
-    print(banner)
-
+def arg_helper() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description='Read in a file or set of files, and return the result.',
+        description="Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f to redact",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
-        "file",
+        "text",
+        type=str,
+        help="""Redact sensitive data of a sentence from command prompt.""",
+        nargs="*"
+    )
+    if len(sys.argv) == 1:
+        print(help_menu)
+        parser.print_help(sys.stderr)
+        sys.exit(1)
+    parser.add_argument(
+        "-f",
+        "--file",
         nargs="+",
-        help="""
-        Path of a file or a directory of files.
-        Usage: pyredactkit [file/filestoredact]"""
+        help="""Path of a file or a directory of files."""
     )
     parser.add_argument(
         "-u",
         "--unredact",
         help="""
-        Option to unredact masked data.
-        Usage: pyredactkit [redacted_file] -u [.hashshadow.json]
-        """
-    )
-    parser.add_argument(
-        "-t", "--redactiontype",
-        help="""Type of data to redact. 
-        names,
-        nric,
-        dns,
-        emails,
-        ipv4,
-        ipv6,
-        base64.
-        Usage: pyredactkit [file/filestoredact] -t ip"""
+                Option to unredact masked data.
+                Usage: pyredactkit -f [redacted_file] -u [.hashshadow.json]
+                """
     )
     parser.add_argument(
         "-d",
         "--dirout",
         help="""
-        Output directory of the file.
-        Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
-        """
+                Output directory of the file.
+                Usage: pyredactkit -f [file/filestoredact] -d [redacted_dir]
+                """
+    )
+    parser.add_argument(
+        "-c",
+        "--customfile",
+        help="""
+                User defined custom regex pattern for redaction.
+                Usage: pyredactkit -f [file/filestoredact] -c [customfile.json]
+                """
     )
     parser.add_argument(
         '-r',
@@ -84,6 +102,11 @@ def main():
     )
     args = parser.parse_args()
 
+    return args
+
+
+def execute_file_arg() -> None:
+    args = arg_helper()
     full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
     files = set()
 
@@ -95,21 +118,31 @@ def main():
         elif args.recursive:
             full_paths += glob.glob(path + '/*')
 
-    # redact file
-    redact_obj = Redactor()
-    unredact_obj = Unredactor()
-
     for file in files:
-        if args.redactiontype:
-            redact_obj.process_file(file, args.redactiontype)
+        if args.customfile and args.dirout:
+            redact_obj.process_custom_file(file, args.customfile, args.dirout)
+            redact_obj.process_report(file)
+        elif args.customfile:
+            redact_obj.process_custom_file(file, args.customfile)
+            redact_obj.process_report(file)
         elif args.dirout:
-            redact_obj.process_file(file, args.redactiontype, args.dirout)
+            redact_obj.process_core_file(file, args.dirout)
             redact_obj.process_report(file, args.dirout)
         elif args.unredact:
             unredact_obj.unredact(file, args.unredact)
         else:
-            redact_obj.process_file(file)
+            redact_obj.process_core_file(file)
             redact_obj.process_report(file)
+
+
+def main():
+    print(banner)
+
+    args = arg_helper()
+    if args.file or (args.file and args.dirout):
+        execute_file_arg()
+    else:
+        redact_obj.process_text(args.text)
 
 
 if __name__ == "__main__":

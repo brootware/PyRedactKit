@@ -1,6 +1,10 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
 name = "pyredactkit"
-version = "0.2.5"
+version = "0.3.2"
 description = "Python cli tool to redact sensitive data"
 authors = ["brootware <brootware@outlook.com>"]
 license = "GPL-3.0-or-later"
@@ -40,12 +44,32 @@ tqdm = "^4.64.0"
 nltk = "^3.7"
 numpy = "<1.22.0"
 rich = "^12.4.0"
-
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+mypy = "^0.961"
+flake8 = "^4.0.1"
+tox = "^3.25.0"
+pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
 pyredactkit = "pyredactkit.pyredactkit:main"
 pyredactor = "pyredactkit.pyredactkit:main"
+
+[tool.pytest.ini_options]
+minversion = "2.0"
+addopts = "-rfEX -p pytester --strict-markers"
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
+python_classes = ["Test", "Acceptance"]
+python_functions = ["test"]
+
+[tool.mypy]
+mypy_path = "pyredactkit"
+check_untyped_defs = true
+disallow_any_generics = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+no_implicit_reexport = true

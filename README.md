@@ -21,7 +21,6 @@
 
 Redacts and Unredacts the following from your text files. 📄 ✍️
 
-- names 👤
 - sg nric 🆔
 - credit cards 🏧
 - domain names 🌐
@@ -46,6 +45,12 @@ Quick install
 python -m pip install pyredactkit
 ```
 
+Redact from terminal
+
+```bash
+pyredactkit 'this is my ip:127.0.0.1. my email is broot@outlook.com. secret link is github.com'
+```
+
 Redact a single file
 
 ```bash
@@ -55,10 +60,16 @@ pyredactkit test.txt
 Unredact the file
 
 ```bash
-pyredactkit redacted_test.txt -u .hashshadow_test.txt.json 
+pyredactkit -f redacted_test.txt -u .hashshadow_test.txt.json 
 ```
 
-Install nltk data for redacting names
+Redact using custom regex pattern
+
+```bash
+pyredactkit -f file -c custom.json
+```
+
+<!-- Install nltk data for redacting names
 
 ```bash
 python -c "import nltk
@@ -74,11 +85,11 @@ else:
 nltk.download('popular')"
 ```
 
-Redact names from text file
+Redact names from a text file
 
 ```bash
 pyredactkit test.txt -t name
-```
+``` -->
 
 ### Use from github source
 
@@ -190,12 +201,6 @@ e0b66cbd-6174-4491-b938-408a47d38fb9,Platinum,142000,CC90518
 24f31233-cba6-4f6a-a2d6-0ce49952b2cb,Premium,781000,CC66746
 ```
 
-To redact specific type of data. E.g (name)
-
-```bash
-poetry run pyredactkit test.txt -t name
-```
-
 Sample result:
 
 ```txt
@@ -217,7 +222,7 @@ My router is: 10.10.10.1
 71.159.188.33
 ```
 
-To redact multiple files from a directory and place it in a new directory
+To redact multiple files from a directory and place them in a new directory
 
 ```bash
 poetry run pyredactkit dir_test -d redacted_dir
@@ -226,21 +231,21 @@ poetry run pyredactkit dir_test -d redacted_dir
 ## Optional Help Menu as below
 
 ```bash
-usage: pyredactkit [-h] [-u UNREDACT] [-t REDACTIONTYPE] [-d DIROUT] [-r] [-e EXTENSION] file [file ...]
+usage: pyredactkit [-h] [-f FILE [FILE ...]] [-u UNREDACT] [-d DIROUT] [-r] [-e EXTENSION] [text ...]
 
-Read in a file or set of files, and return the result.
+Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f , and return the result.
 
 positional arguments:
-  file                  Path of a file or a directory of files. Usage: pyredactkit [file/filestoredact]
+  text                  Redact sensitive data of a sentence from command prompt. (default: None)
 
 optional arguments:
   -h, --help            show this help message and exit
+  -f FILE [FILE ...], --file FILE [FILE ...]
+                        Path of a file or a directory of files. Usage: pyredactkit [file/filestoredact] (default: None)
   -u UNREDACT, --unredact UNREDACT
-                        Option to unredact masked data. Usage: pyredactkit [redacted_file] -u [.hashshadow.json] (default: None)
-  -t REDACTIONTYPE, --redactiontype REDACTIONTYPE
-                        Type of data to redact. names, nric, dns, emails, ipv4, ipv6, base64. Usage: pyredactkit [file/filestoredact] -t ip (default: None)
+                        Option to unredact masked data. Usage: pyredactkit -f [redacted_file] -u [.hashshadow.json] (default: None)
   -d DIROUT, --dirout DIROUT
-                        Output directory of the file. Usage: pyredactkit [file/filestoredact] -d [redacted_dir] (default: None)
+                        Output directory of the file. Usage: pyredactkit -f [file/filestoredact] -d [redacted_dir] (default: None)
   -r, --recursive       Search through subfolders (default: True)
   -e EXTENSION, --extension EXTENSION
                         File extension to filter by. (default: )
@@ -248,6 +253,6 @@ optional arguments:
 
 ## Sample files
 
-- [All types of data](https://raw.githubusercontent.com/brootware/PyRedactKit/main/test/test.txt)
-- [itcont.txt - 4GB uncompressed](https://sanitizationbq.s3.ap-southeast-1.amazonaws.com/itcont.tar.gz)
+- [All types of data](./logdata/test.txt)
+- [Differnt log file types](./logdata/)
 - [test_sample2.txt - 10002 lines of IP addresses](https://sanitizationbq.s3.ap-southeast-1.amazonaws.com/test_sample2.txt)
