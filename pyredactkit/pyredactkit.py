@@ -9,10 +9,12 @@ from pyredactkit.redact import Redactor
 from pyredactkit.unredact import Unredactor
 import os
 import glob
+import sys
 
 # Creating instances of redact and unredact classes
 redact_obj = Redactor()
 unredact_obj = Unredactor()
+
 
 banner = """
     ______       ______         _            _     _   ___ _   
@@ -31,10 +33,26 @@ banner = """
     https://brootware.github.io                                                                             
     """
 
+help_menu = """
+    PyRedactKit - Redact and Un-redact any sensitive data from your text files!
+
+    Github:\n
+    https://github.com/brootware/pyredactkit
+    
+    Follow me on Twitter!\n
+    https://twitter.com/brootware
+    
+    Example usage:\n
+        pyredactkit --text 'This is my ip: 127.0.0.1. My email is brute@gmail.com'\n
+        pyredactkit --file [file/filestoredact]\n
+        pyredactkit --file redacted_file --unredact .hashshadow.json\n
+        pyredactkit --file file --customfile custom.json\n
+    """
+
 
 def arg_helper() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description='Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f , and return the result.',
+        description="Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f to redact",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
@@ -43,13 +61,14 @@ def arg_helper() -> argparse.Namespace:
         help="""Redact sensitive data of a sentence from command prompt.""",
         nargs="*"
     )
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
     parser.add_argument(
         "-f",
         "--file",
         nargs="+",
-        help="""
-                Path of a file or a directory of files.
-                Usage: pyredactkit [file/filestoredact]"""
+        help="""Path of a file or a directory of files."""
     )
     parser.add_argument(
         "-u",
@@ -65,6 +84,14 @@ def arg_helper() -> argparse.Namespace:
         help="""
                 Output directory of the file.
                 Usage: pyredactkit -f [file/filestoredact] -d [redacted_dir]
+                """
+    )
+    parser.add_argument(
+        "-c",
+        "--customfile",
+        help="""
+                User defined custom regex pattern for redaction.
+                Usage: pyredactkit -f [file/filestoredact] -c [customfile.json]
                 """
     )
     parser.add_argument(
@@ -99,13 +126,16 @@ def execute_file_arg() -> None:
             full_paths += glob.glob(path + '/*')
 
     for file in files:
-        if args.dirout:
-            redact_obj.process_file(file, args.dirout)
+        if args.customfile:
+            redact_obj.process_custom_file(file, args.customfile)
+        elif args.dirout:
+            redact_obj.process_core_file(file, args.dirout)
+            redact_obj.process_custom_file(file, args.custom, args.dirout)
             redact_obj.process_report(file, args.dirout)
         elif args.unredact:
             unredact_obj.unredact(file, args.unredact)
         else:
-            redact_obj.process_file(file)
+            redact_obj.process_core_file(file)
             redact_obj.process_report(file)
 
 
@@ -113,7 +143,6 @@ def main():
     print(banner)
 
     args = arg_helper()
-
     if args.file or (args.file and args.dirout):
         execute_file_arg()
     else:

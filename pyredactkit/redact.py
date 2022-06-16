@@ -7,9 +7,9 @@ import re
 import math
 import json
 import uuid
+import importlib
 
 from pyredactkit.identifiers import Identifier
-
 id_object = Identifier()
 """ Main redactor library """
 
@@ -25,7 +25,7 @@ class Redactor:
 
     block = "\u2588" * 15
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Class Initialization
         Args:
@@ -81,6 +81,23 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
+    def custom_patterns(self, custom_file):
+        '''Load Rules
+        Loads either a default ruleset or a self defined ruleset.
+        Rules are loaded to patterns variable
+        Args:
+            custom_file (str): Custom rule file to be loaded
+        Returns:
+            json
+        '''
+        try:
+            with open(custom_file, encoding="utf-8") as customfile:
+                return json.load(customfile)
+        except FileNotFoundError:
+            sys.exit("[-] Pattern file was not found")
+        except json.JSONDecodeError:
+            sys.exit("[-] Issue decoding json file. This might be an error with your regex pattern.")
+
     def write_hashmap(self, hash_map=dict, filename=str, savedir="./") -> dict:
         """Function that writes a .hashshadow_file.txt.json to os directory.
         Args:
@@ -106,8 +123,8 @@ class Redactor:
             option_tuple += id['type']
         return option_tuple
 
-    def redact_specific(self, line=str, option=str) -> tuple:
-        """Function to redact specific option
+    def redact_custom(self, line=str, customfile=str) -> tuple:
+        """Function to redact custom option
         Args:
             line (str) : line to be supplied to redact
             option (str): (optional) choice for redaction
@@ -117,18 +134,16 @@ class Redactor:
             line (str): redacted line
             kv_pair (dict) : key value pair of uuid to sensitive data.
         """
+        custom_pattern = self.custom_patterns(customfile)
         kv_pairs = {}
-        for id in id_object.regexes:
-            redact_pattern = id['pattern']
-            if option in id['type'] and re.search(
-                    redact_pattern, line):
-                pattern_string = re.search(
-                    redact_pattern, line)
+        for id in range(len(custom_pattern)):
+            redact_pattern = custom_pattern[id]['pattern']
+            if re.search(redact_pattern, line, re.IGNORECASE):
+                pattern_string = re.search(redact_pattern, line)
                 pattern_string = pattern_string.group(0)
                 masked_data = str(uuid.uuid4())
                 kv_pairs.update({masked_data: pattern_string})
-                line = re.sub(
-                    redact_pattern, masked_data, line)
+                line = re.sub(redact_pattern, masked_data, line)
         return line, kv_pairs
 
     def redact_all(self, line=str) -> tuple:
@@ -194,7 +209,73 @@ class Redactor:
             print(
                 f"[+] Redacted and results saved to {os.path.basename(generated_file)}")
 
-    def process_file(self, filename, savedir="./", option=str):
+    def process_custom_file(self, filename, customfile=str, savedir="./"):
+        """Function to process supplied file with custom regex file from cli.
+        Args:
+            filename (str): File to redact
+            customfile (str): custom regex pattern for redaction
+            savedir (str): [Optional] directory to place results
+
+        Returns:
+            Creates redacted file.
+        """
+        count = 0
+        hash_map = {}
+        try:
+            # Open a file read pointer as target_file
+            with open(filename, encoding="utf-8") as target_file:
+                if savedir != "./" and savedir[-1] != "/":
+                    savedir = savedir + "/"
+
+                # created the directory if not present
+                if not os.path.exists(os.path.dirname(savedir)):
+                    print(
+                        "[+] "
+                        + os.path.dirname(savedir)
+                        + " directory does not exist, creating it."
+                    )
+                    os.makedirs(os.path.dirname(savedir))
+
+                print(
+                    "[+] Processing starts now. This may take some time "
+                    "depending on the file size. Monitor the redacted file "
+                    "size to monitor progress"
+                )
+
+                # Open a file write pointer as result
+                with open(
+                    f"{savedir}redacted_{os.path.basename(filename)}",
+                    "w",
+                    encoding="utf-8",
+                ) as result:
+                    # The supplied custom regex pattern file will be used to redact the file
+                    print(f"[+] {customfile} file supplied, will be redacting all supplied custom regex patterns")
+                    hash_map = {}
+
+                    for line in target_file:
+                        # count elements to be redacted
+                        for id in id_object.regexes:
+                            if re.search(id['pattern'], line):
+                                count += 1
+                        # redact all and write hashshadow
+                        data = self.redact_custom(line, customfile)
+                        redacted_line = data[0]
+                        kv_pairs = data[1]
+                        hash_map.update(kv_pairs)
+                        result.write(redacted_line)
+                    self.write_hashmap(hash_map, filename, savedir)
+                    print(
+                        f"[+] .hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
+                    print(f"[+] Redacted {count} targets...")
+                    print(
+                        f"[+] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
+
+        except UnicodeDecodeError:
+            os.remove(f"{savedir}redacted_{os.path.basename(filename)}")
+            print("[-] Removed incomplete redact file")
+            sys.exit("[-] Unable to read file")
+
+    def process_core_file(self, filename, savedir="./"):
         """Function to process supplied file from cli.
         Args:
             filename (str): File to redact
@@ -205,7 +286,6 @@ class Redactor:
         """
         count = 0
         hash_map = {}
-        options_list = self.valid_options()
         try:
             # Open a file read pointer as target_file
             with open(filename, encoding="utf-8") as target_file:
@@ -234,54 +314,22 @@ class Redactor:
                     encoding="utf-8",
                 ) as result:
                     # Check if any redaction type option is given in argument. If none, will redact all sensitive data.
-                    if type(option) is not str:
-                        print(
-                            f"[+] No option supplied, will be redacting all the sensitive data supported")
-                        hash_map = {}
-                        for line in target_file:
-                            # count elements to be redacted
-                            for id in id_object.regexes:
-                                if re.search(id['pattern'], line):
-                                    count += 1
-                            # redact all and write hashshadow
-                            data = self.redact_all(line)
-                            redacted_line = data[0]
-                            kv_pairs = data[1]
-                            hash_map.update(kv_pairs)
-                            result.write(redacted_line)
-                        self.write_hashmap(hash_map, filename, savedir)
-                        print(
-                            f"[+] .hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
-                    # Separate option to redact names
-                    elif option in ("name", "names"):
-                        content = target_file.read()
-                        data = self.redact_name(content)
-                        result.write(data[0])
-                        count = data[1]
-                    # elif option not in options_list:
-                    #     os.remove(
-                    #         f"{savedir}redacted_{os.path.basename(filename)}")
-                    #     sys.exit(
-                    #         "[-] Not a valid option for redaction type.")
-                    # Redacts all other options here
-                    else:
-                        print(f"[+] Redacting {option} from the file")
-                        hash_map = {}
-                        for line in target_file:
-                            # count elements to be redacted
-                            for id in id_object.regexes:
-                                if option in id['type'] and re.search(id['pattern'], line):
-                                    count += 1
-                            # redact specific option and write hashshadow
-                            data = self.redact_specific(line, option)
-                            redacted_line = data[0]
-                            kv_pairs = data[1]
-                            hash_map.update(kv_pairs)
-                            result.write(redacted_line)
-                        self.write_hashmap(hash_map, filename, savedir)
-                        print(
-                            f"[+]{savedir}.hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
-
+                    print("[+] No custom regex pattern supplied, will be redacting all the core sensitive data supported")
+                    hash_map = {}
+                    for line in target_file:
+                        # count elements to be redacted
+                        for id in id_object.regexes:
+                            if re.search(id['pattern'], line):
+                                count += 1
+                        # redact all and write hashshadow
+                        data = self.redact_all(line)
+                        redacted_line = data[0]
+                        kv_pairs = data[1]
+                        hash_map.update(kv_pairs)
+                        result.write(redacted_line)
+                    self.write_hashmap(hash_map, filename, savedir)
+                    print(
+                        f"[+] .hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
                     print(f"[+] Redacted {count} targets...")
                     print(
                         f"[+] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
