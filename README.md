@@ -132,27 +132,30 @@ nltk.download()" -->
 Run as below to redact a single file
 
 ```bash
-$ poetry run pyredactkit ip_test.txt 
+$ poetry run pyredactkit -f logdata/test.txt                                    
 
-    ______       ______         _            _     _   ___ _   
-    | ___ \      | ___ \       | |          | |   | | / (_) |  
-    | |_/ /   _  | |_/ /___  __| | __ _  ___| |_  | |/ / _| |_ 
-    |  __/ | | | |    // _ \/ _` |/ _` |/ __| __| |    \| | __|
-    | |  | |_| | | |\ \  __/ (_| | (_| | (__| |_  | |\  \ | |_ 
-    \_|   \__, | \_| \_\___|\__,_|\__,_|\___|\__| \_| \_/_|\__|
-           __/ |                                               
-           |___/                                                                                                           
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
-            |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
-            +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
+__________         __________           .___              __     ____  __.__  __   
+\______   \___.__. \______   \ ____   __| _/____    _____/  |_  |    |/ _|__|/  |_ 
+ |     ___<   |  |  |       _// __ \ / __ |\__  \ _/ ___\   __\ |      < |  \   __\
+ |    |    \___  |  |    |   \  ___// /_/ | / __ \\  \___|  |   |    |  \|  ||  |  
+ |____|    / ____|  |____|_  /\___  >____ |(____  /\___  >__|   |____|__ \__||__|  
+           \/              \/     \/     \/     \/     \/               \/                                                                                                                 
+                    +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
+                    |P|o|w|e|r|e|d| |b|y| |B|r|o|o|t|w|a|r|e|
+                    +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+
             
     https://github.com/brootware
-    https://brootware.github.io                                                                             
+    https://brootware.github.io     
+    https://twitter.com/brootware                                                                        
     
-[ + ] Processing starts now. This may take some time depending on the file size. Monitor the redacted file size to monitor progress
-[ + ] No option supplied, will be redacting all the sensitive data supported
-[ + ] Redacted 10064 targets...
-[ + ] Redacted results saved to ./redacted_ip_test.txt
+[+] Processing starts now. This may take some time depending on the file size. Monitor the redacted file size to monitor progress
+[+] No custom regex pattern supplied, will be redacting all the core sensitive data supported
+[+] .hashshadow_test.txt.json file generated. Keep this safe if you need to undo the redaction.
+[+] Redacted 10068 targets...
+[+] Redacted results saved to ./redacted_test.txt
+[+] Estimated total words : 30316
+[+] Estimated total minutes saved : 405
+[+] Estimated total man hours saved : 6
 ```
 
 Sample Result:
