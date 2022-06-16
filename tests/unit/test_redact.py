@@ -1,4 +1,5 @@
 import pytest
+import os
 from pyredactkit.redact import Redactor
 
 data = """John, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com
@@ -39,21 +40,6 @@ Card_Number,Card_Family,Credit_Limit,Cust_ID
 7908-3850-6633-2606,Gold,43000,CC71044
 """
 
-custom = [
-    {
-        "pattern": "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)",
-        "type": ["ip", "ipv4"]
-    },
-    {
-        "pattern": "([a-z0-9!#$%&'*+/=?^_`{|.}~-]+@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)",
-        "type": ["email", "emails"]
-    },
-    {
-        "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
-        "type": ["base64", "b64"]
-    }
-]
-
 
 people_names = "John,Jones,Alex,Bruce"
 mask_names = "\u2588" * 15
@@ -85,19 +71,17 @@ def test_valid_option_function_should_return_tuple(redactor_obj):
                 ) == tuple, 'redact function should return tuple'
 
 
-def test_redact_name_function_should_return_masked_data_and_count(redactor_obj):
-    set1 = (f'{mask_names},{mask_names},{mask_names},{mask_names}', count_names)
-    assert redactor_obj.redact_name(
-        people_names) == set1, 'redact_name function should return masked data and count'
-
-
 def test_redact_all_function_should_return_string_and_dictionary(redactor_obj):
     set1 = ("This is a string", hash_table)
     assert type(redactor_obj.redact_all(data)
                 ) == type(set1), "redact_all function should return a tuple"
 
 
-def test_redact_custom_function_should_return_string_and_dictionary(redactor_obj):
-    set1 = ("This is a string", hash_table)
-    assert type(redactor_obj.redact_custom(data, custom)
-                ) == type(set1), "redact_custom function should return a tuple"
+# def test_read_custom_patterns_should_return_list(redactor_obj):
+#     assert type(redactor_obj.read_custom_patterns(os.path.dirname(os.path.abspath(__file__)) + '/../custom.json')) == type(list), "custom_patterns function should return a tuple"
+
+
+# def test_redact_custom_function_should_return_string_and_dictionary(redactor_obj):
+#     set1 = ("This is a string", hash_table)
+#     assert type(redactor_obj.redact_custom(data, )
+#                 ) == type(set1), "redact_custom function should return a tuple"

@@ -81,14 +81,14 @@ class Redactor:
             return False
         return mimetypes.guess_type(file)[0] in self.get_allowed_files()
 
-    def custom_patterns(self, custom_file):
+    def read_custom_patterns(self, custom_file) -> list:
         '''Load Rules
         Loads either a default ruleset or a self defined ruleset.
         Rules are loaded to patterns variable
         Args:
             custom_file (str): Custom rule file to be loaded
         Returns:
-            json
+            patterns (list): list of custom patterns
         '''
         try:
             with open(custom_file, encoding="utf-8") as customfile:
@@ -134,7 +134,7 @@ class Redactor:
             line (str): redacted line
             kv_pair (dict) : key value pair of uuid to sensitive data.
         """
-        custom_pattern = self.custom_patterns(customfile)
+        custom_pattern = self.read_custom_patterns(customfile)
         kv_pairs = {}
         for id in range(len(custom_pattern)):
             redact_pattern = custom_pattern[id]['pattern']
