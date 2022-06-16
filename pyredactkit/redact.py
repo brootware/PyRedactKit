@@ -219,8 +219,8 @@ class Redactor:
         Returns:
             Creates redacted file.
         """
-        count = 0
-        hash_map = {}
+        redact_count = 0
+        secret_map = {}
         try:
             # Open a file read pointer as target_file
             with open(filename, encoding="utf-8") as target_file:
@@ -250,23 +250,23 @@ class Redactor:
                 ) as result:
                     # The supplied custom regex pattern file will be used to redact the file
                     print(f"[+] {customfile} file supplied, will be redacting all supplied custom regex patterns")
-                    hash_map = {}
-
+                    secret_map = {}
+                    custom_pattern = self.read_custom_patterns(customfile)
                     for line in target_file:
-                        # count elements to be redacted
-                        for id in id_object.regexes:
-                            if re.search(id['pattern'], line):
-                                count += 1
+                        # redact_count elements to be redacted
+                        for id in range(len(custom_pattern)):
+                            if re.search(custom_pattern[id]['pattern'], line):
+                                redact_count += 1
                         # redact all and write hashshadow
                         data = self.redact_custom(line, customfile)
                         redacted_line = data[0]
                         kv_pairs = data[1]
-                        hash_map.update(kv_pairs)
+                        secret_map.update(kv_pairs)
                         result.write(redacted_line)
-                    self.write_hashmap(hash_map, filename, savedir)
+                    self.write_hashmap(secret_map, filename, savedir)
                     print(
                         f"[+] .hashshadow_{os.path.basename(filename)}.json file generated. Keep this safe if you need to undo the redaction.")
-                    print(f"[+] Redacted {count} targets...")
+                    print(f"[+] Redacted {redact_count} targets...")
                     print(
                         f"[+] Redacted results saved to {savedir}redacted_{os.path.basename(filename)}")
 
