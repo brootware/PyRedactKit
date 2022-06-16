@@ -128,6 +128,7 @@ def execute_file_arg() -> None:
     for file in files:
         if args.customfile:
             redact_obj.process_custom_file(file, args.customfile)
+            redact_obj.process_report(file)
         elif args.dirout:
             redact_obj.process_core_file(file, args.dirout)
             redact_obj.process_custom_file(file, args.custom, args.dirout)
