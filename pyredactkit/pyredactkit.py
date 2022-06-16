@@ -119,11 +119,12 @@ def execute_file_arg() -> None:
             full_paths += glob.glob(path + '/*')
 
     for file in files:
-        if args.customfile or (args.customfile and args.dirout):
+        if args.customfile and args.dirout:
+            redact_obj.process_custom_file(file, args.customfile, args.dirout)
+            redact_obj.process_report(file)
+        elif args.customfile:
             redact_obj.process_custom_file(file, args.customfile)
             redact_obj.process_report(file)
-        elif args.customfile and args.dirout:
-            redact_obj.process_custom_file(file, args.customfile, args.dirout)
         elif args.dirout:
             redact_obj.process_core_file(file, args.dirout)
             redact_obj.process_report(file, args.dirout)
