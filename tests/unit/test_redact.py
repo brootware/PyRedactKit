@@ -39,6 +39,22 @@ Card_Number,Card_Family,Credit_Limit,Cust_ID
 7908-3850-6633-2606,Gold,43000,CC71044
 """
 
+custom = [
+    {
+        "pattern": "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)",
+        "type": ["ip", "ipv4"]
+    },
+    {
+        "pattern": "([a-z0-9!#$%&'*+/=?^_`{|.}~-]+@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)",
+        "type": ["email", "emails"]
+    },
+    {
+        "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+        "type": ["base64", "b64"]
+    }
+]
+
+
 people_names = "John,Jones,Alex,Bruce"
 mask_names = "\u2588" * 15
 count_names = 4
@@ -81,7 +97,7 @@ def test_redact_all_function_should_return_string_and_dictionary(redactor_obj):
                 ) == type(set1), "redact_all function should return a tuple"
 
 
-def test_redact_specific_function_should_return_string_and_dictionary(redactor_obj):
+def test_redact_custom_function_should_return_string_and_dictionary(redactor_obj):
     set1 = ("This is a string", hash_table)
-    assert type(redactor_obj.redact_specific(data)
-                ) == type(set1), "redact_specific function should return a tuple"
+    assert type(redactor_obj.redact_custom(data, custom)
+                ) == type(set1), "redact_custom function should return a tuple"
