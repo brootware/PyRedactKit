@@ -54,7 +54,7 @@ pyredactkit 'this is my ip:127.0.0.1. my email is broot@outlook.com. secret link
 Redact a single file
 
 ```bash
-pyredactkit test.txt 
+pyredactkit -f test.txt 
 ```
 
 Unredact the file
