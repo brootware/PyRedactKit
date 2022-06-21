@@ -1,7 +1,7 @@
 # PyRedactKit 🔐📝
 
 <p align="center">
-  <img src="./images/pyredacthead.gif" alt="Python Redactor Kit!" width="540"/>
+  <img src="./images/pyredacthead.gif" alt="Python Redactor Kit!" width="300" height="300"/>
 <br />
 <i>CLI tool to redact and unredact sensitive information like ip addresses, emails and domains.</i>
 <br/>
