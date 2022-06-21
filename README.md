@@ -1,7 +1,7 @@
 # PyRedactKit 🔐📝
 
 <p align="center">
-  <img src="./images/asciiRedact.png" alt="Python Redactor Kit!"/>
+  <img src="./images/pyredacthead.gif" alt="Python Redactor Kit!" width="300" height="300"/>
 <br />
 <i>CLI tool to redact and unredact sensitive information like ip addresses, emails and domains.</i>
 <br/>
@@ -37,7 +37,7 @@ Redacts and Unredacts the following from your text files. 📄 ✍️
 ## How to use
 
 Demo:
-![demo](./images/pyredact.gif)
+![demo](./images/pyredactdemo.gif)
 
 Quick install
 
