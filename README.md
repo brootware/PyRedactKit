@@ -234,3 +234,13 @@ optional arguments:
 - [All types of data](./logdata/test.txt)
 - [Different log file types](./logdata/)
 - [test_sample2.txt - 10002 lines of IP addresses](https://sanitizationbq.s3.ap-southeast-1.amazonaws.com/test_sample2.txt)
+
+## Contributing 💡
+
+Please read the [contributing guide](https://github.com/brootware/PyRedactKit/wiki/Contributing). You can propose a feature request opening an issue or a pull request.
+
+<a href="https://github.com/brootware/PyRedactKit/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=brootware/PyRedactKit" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
