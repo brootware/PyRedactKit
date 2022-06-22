@@ -235,7 +235,7 @@ optional arguments:
 - [Different log file types](./logdata/)
 - [test_sample2.txt - 10002 lines of IP addresses](https://sanitizationbq.s3.ap-southeast-1.amazonaws.com/test_sample2.txt)
 
-## Contributing💡
+## Contributing 💡
 
 Please read the [contributing guide](https://github.com/brootware/PyRedactKit/wiki/Contributing). You can propose a feature request opening an issue or a pull request.
 
