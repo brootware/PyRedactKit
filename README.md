@@ -45,6 +45,8 @@ Quick install
 python -m pip install pyredactkit
 ```
 
+**For more elaborate usage, please [refer to the docs](https://github.com/brootware/PyRedactKit/wiki/Usage).**
+
 Redact from terminal
 
 ```bash
