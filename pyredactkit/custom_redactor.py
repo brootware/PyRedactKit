@@ -29,7 +29,7 @@ class CustomRedactorEngine:
         """
         return None
 
-    def read_custom_patterns(self, custom_file) -> list:
+    def read_custom_patterns(self, custom_file: str) -> list:
         '''Load Rules
         Loads either a default ruleset or a self defined ruleset.
         Rules are loaded to patterns variable
@@ -46,12 +46,11 @@ class CustomRedactorEngine:
         except json.JSONDecodeError:
             sys.exit("[-] Issue decoding json file. This might be an error with your regex pattern.")
 
-    def redact_custom(self, line=str, customfile=str) -> tuple:
+    def redact_custom(self, line: str, customfile: str) -> tuple:
         """Function to redact custom option
         Args:
             line (str) : line to be supplied to redact
-            option (str): (optional) choice for redaction
-            filename (str): name of supplied file
+            customfile (str): (optional) choice for redaction
 
         Returns:
             line (str): redacted line
@@ -69,7 +68,7 @@ class CustomRedactorEngine:
                 line = re.sub(redact_pattern, masked_data, line)
         return line, kv_pairs
 
-    def process_custom_file(self, file_name, customfile=str, make_dir="./"):
+    def process_custom_file(self, file_name: str, customfile: str, make_dir="./"):
         """Function to process supplied file with custom regex file from cli.
         Args:
             file_name (str): File to redact

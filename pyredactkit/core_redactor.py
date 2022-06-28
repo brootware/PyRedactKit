@@ -35,7 +35,7 @@ class CoreRedactorEngine:
         """
         return None
 
-    def redact_all(self, line=str) -> tuple:
+    def redact_all(self, line: str) -> tuple:
         """Function to redact specific option
         Args:
             line (str) : line to be supplied to redact
@@ -55,7 +55,7 @@ class CoreRedactorEngine:
                 line = re.sub(redact_pattern, masked_data, line)
         return line, hash_map
 
-    def process_text(self, text=str, savedir="./"):
+    def process_text(self, text: str, savedir="./"):
         """Function to process supplied text from cli.
         Args:
             text (str): string to redact
@@ -83,7 +83,7 @@ class CoreRedactorEngine:
             print(
                 f"[+] Redacted and results saved to {os.path.basename(generated_file)}")
 
-    def process_core_file(self, filename, savedir="./"):
+    def process_core_file(self, filename: str, savedir="./"):
         """Function to process supplied file from cli.
         Args:
             filename (str): File to redact

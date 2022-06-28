@@ -45,7 +45,7 @@ class Identifier:
     def __init__(self) -> None:
         return None
 
-    def names(self, data) -> list:
+    def names(self, data: str) -> list:
         """ Identify names and return them from the supplied data
         Args:
             data (str): data in alpha-numeric format
