@@ -6,6 +6,7 @@ Utility to redact sensitive data
 import argparse
 
 from pyredactkit.core_redactor import CoreRedactorEngine
+from pyredactkit.custom_redactor import CustomRedactorEngine
 from pyredactkit.unredact import Unredactor
 import os
 import glob
@@ -13,6 +14,7 @@ import sys
 
 # Creating instances of redact and unredact classes
 redact_obj = CoreRedactorEngine()
+customrd_obj = CustomRedactorEngine()
 unredact_obj = Unredactor()
 
 
@@ -120,19 +122,15 @@ def execute_file_arg() -> None:
 
     for file in files:
         if args.customfile and args.dirout:
-            redact_obj.process_custom_file(file, args.customfile, args.dirout)
-            redact_obj.process_report(file)
+            customrd_obj.process_custom_file(file, args.customfile, args.dirout)
         elif args.customfile:
-            redact_obj.process_custom_file(file, args.customfile)
-            redact_obj.process_report(file)
+            customrd_obj.process_custom_file(file, args.customfile)
         elif args.dirout:
             redact_obj.process_core_file(file, args.dirout)
-            redact_obj.process_report(file, args.dirout)
         elif args.unredact:
             unredact_obj.unredact(file, args.unredact)
         else:
             redact_obj.process_core_file(file)
-            redact_obj.process_report(file)
 
 
 def main():
