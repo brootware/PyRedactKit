@@ -71,28 +71,6 @@ Redact using custom regex pattern
 pyredactkit -f file -c custom.json
 ```
 
-<!-- Install nltk data for redacting names
-
-```bash
-python -c "import nltk
-import ssl
-
-try:
-    _create_unverified_https_context = ssl._create_unverified_context
-except AttributeError:
-    pass
-else:
-    ssl._create_default_https_context =_create_unverified_https_context
-
-nltk.download('popular')"
-```
-
-Redact names from a text file
-
-```bash
-pyredactkit test.txt -t name
-``` -->
-
 ### Use from github source
 
 Clone the repo

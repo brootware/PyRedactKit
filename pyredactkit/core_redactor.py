@@ -1,4 +1,4 @@
-""" Main redactor class implementation """
+""" Core redactor engine class implementation """
 
 import mimetypes
 import os
@@ -10,13 +10,13 @@ import uuid
 
 from pyredactkit.identifiers import Identifier
 id_object = Identifier()
-""" Main redactor library """
+""" Coreredactor library """
 
 
-class Redactor:
-    """Redactor class
+class CoreRedactorEngine:
+    """CoreRedactorEngine class
     Class containing all methods to support redaction
-    of sensitive data
+    of core sensitive data type
 
     Static variables:
         block (unicode string): To redact sensitive data
@@ -34,52 +34,7 @@ class Redactor:
         Returns:
             None
         """
-        self.__allowed_files__ = [
-            "text/plain",
-            "text/x-python",
-            "application/json",
-            "application/javascript",
-            "text/html",
-            "text/csv",
-            "text/tab-separated-values",
-            "text/css",
-            "text/cache-manifest",
-            "text/calendar",
-        ]
-
-    @staticmethod
-    def check_file_type(file):
-        """Checks for the supplied file type
-        Args:
-            file (str): Filename of file to check
-        Returns:
-            mime (str): Mime type
-        """
-        if not os.path.isfile(file):
-            return (None, None)
-        return mimetypes.guess_type(file)[0]
-
-    def get_allowed_files(self):
-        """Gets a list of allowed files
-        Args:
-            None
-        Returns:
-            allowed_file (list): List of allowed files
-        """
-        return self.__allowed_files__
-
-    def allowed_file(self, file):
-        """Checks if supplied file is allowed
-        Checks the supplied file to see if it is in the allowed_files list
-        Args:
-            file (str): File to check
-        Returns:
-            False: File not found / File type is not allowed
-            True: File is allowed
-        """
-        if not os.path.isfile(file):
-            return False
-        return mimetypes.guess_type(file)[0] in self.get_allowed_files()
+        return None
 
     def read_custom_patterns(self, custom_file) -> list:
         '''Load Rules

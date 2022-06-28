@@ -5,14 +5,14 @@ Utility to redact sensitive data
 
 import argparse
 
-from pyredactkit.redact import Redactor
+from pyredactkit.core_redactor import CoreRedactorEngine
 from pyredactkit.unredact import Unredactor
 import os
 import glob
 import sys
 
 # Creating instances of redact and unredact classes
-redact_obj = Redactor()
+redact_obj = CoreRedactorEngine()
 unredact_obj = Unredactor()
 
 
