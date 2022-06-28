@@ -30,7 +30,7 @@ class CommonJobs:
         """
         return None
 
-    def write_hashmap(self, hash_map=dict, filename=str, savedir="./") -> dict:
+    def write_hashmap(self, hash_map: dict, filename: str, savedir="./") -> dict:
         """Function that writes a .hashshadow_file.txt.json to os directory.
         Args:
             hash_map (dictionary): dictionary object to be written to file.
@@ -55,7 +55,7 @@ class CommonJobs:
             option_tuple += id['type']
         return option_tuple
 
-    def process_report(self, filename):
+    def process_report(self, filename: str):
         """Function to process calculate and generate report of man hour saved.
         Args:
             filename (str): File to count the words
