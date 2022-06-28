@@ -7,6 +7,8 @@ import math
 import json
 import uuid
 
+from pyredactkit.identifiers import Identifier
+id_object = Identifier()
 
 class CommonJobs:
     """Common Jobs class
@@ -39,6 +41,19 @@ class CommonJobs:
         """
         with open(f"{savedir}.hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
+
+    def valid_options(self) -> tuple:
+        """Function to read in valid options from Identifier.regexes
+        Args:
+            None
+
+        Returns:
+            option_tupe (tuple): redacted line
+        """
+        option_tuple = ()
+        for id in id_object.regexes:
+            option_tuple += id['type']
+        return option_tuple
 
     def process_report(self, filename, savedir="./"):
         """Function to process calculate and generate report of man hour saved.

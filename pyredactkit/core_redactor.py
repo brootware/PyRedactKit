@@ -67,19 +67,6 @@ class CoreRedactorEngine:
         with open(f"{savedir}.hashshadow_{os.path.basename(filename)}.json", "w", encoding="utf-8") as file:
             json.dump(hash_map, file)
 
-    def valid_options(self) -> tuple:
-        """Function to read in valid options from Identifier.regexes
-        Args:
-            None
-
-        Returns:
-            option_tupe (tuple): redacted line
-        """
-        option_tuple = ()
-        for id in id_object.regexes:
-            option_tuple += id['type']
-        return option_tuple
-
     def redact_custom(self, line=str, customfile=str) -> tuple:
         """Function to redact custom option
         Args:
