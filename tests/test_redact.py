@@ -1,5 +1,5 @@
 import pytest
-from pyredactkit.core_redactor import Redactor
+from pyredactkit.core_redactor import CoreRedactorEngine
 
 data = """John, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com
 this is my IP: 102.23.5.1
@@ -48,7 +48,7 @@ hash_table = {}
 
 @pytest.fixture
 def redactor_obj():
-    return Redactor()
+    return CoreRedactorEngine()
 
 
 def test_check_python_file(redactor_obj):
