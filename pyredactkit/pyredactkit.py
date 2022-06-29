@@ -37,10 +37,10 @@ __________         __________           .___              __     ____  __.__  __
 help_menu = """
     PyRedactKit - Redact and Un-redact any sensitive data from your text files!
     Example usage:\n
-        pyredactkit 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'\n
-        pyredactkit --file [file/filestoredact]\n
-        pyredactkit --file redacted_file --unredact .hashshadow.json\n
-        pyredactkit --file file --customfile custom.json\n
+        prk 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'\n
+        prk --file [file/filestoredact]\n
+        prk --file redacted_file --unredact .hashshadow.json\n
+        prk --file file --customfile custom.json\n
     """
 
 

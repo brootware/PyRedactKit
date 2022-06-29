@@ -5,7 +5,7 @@
 <br />
 <i>CLI tool to redact and unredact sensitive information like ip addresses, emails and domains.</i>
 <br/>
-<code>pip install --upgrade pyredactkit && pyredactor</code>
+<code>pip install --upgrade pyredactkit && prk</code>
 </p>
 
 <p align="center">

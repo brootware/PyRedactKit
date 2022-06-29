@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pyredactkit"
-version = "0.3.2"
+version = "0.3.3"
 description = "Python cli tool to redact sensitive data"
 authors = ["brootware <brootware@outlook.com>"]
 license = "GPL-3.0-or-later"
@@ -51,7 +51,7 @@ pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
 pyredactkit = "pyredactkit.pyredactkit:main"
-pyredactor = "pyredactkit.pyredactkit:main"
+prk = "pyredactkit.pyredactkit:main"
 
 [tool.pytest.ini_options]
 minversion = "2.0"
