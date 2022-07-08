@@ -25,7 +25,7 @@ class Identifier:
             "type": ("ip", "ipv4")
         },
         {
-            "pattern": '((?:(?:\\d{4}[- ]?){3}\\d{4}|\\d{15,16}))(?![\\d])',
+            "pattern": r'((?:(?:\\d{4}[- ]?){3}\\d{4}|\\d{15,16}))(?![\\d])',
             "type": ("cc", "creditcard")
         },
         {
@@ -45,7 +45,7 @@ class Identifier:
     def __init__(self) -> None:
         return None
 
-    def names(self, data) -> list:
+    def names(self, data: str) -> list:
         """ Identify names and return them from the supplied data
         Args:
             data (str): data in alpha-numeric format

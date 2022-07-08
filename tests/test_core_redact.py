@@ -1,5 +1,5 @@
 import pytest
-from pyredactkit.redact import Redactor
+from pyredactkit.core_redactor import CoreRedactorEngine
 
 data = """John, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com
 this is my IP: 102.23.5.1
@@ -48,39 +48,12 @@ hash_table = {}
 
 @pytest.fixture
 def redactor_obj():
-    return Redactor()
-
-
-def test_check_python_file(redactor_obj):
-    assert redactor_obj.check_file_type(
-        __file__) == 'text/x-python', 'Failed python file check'
-
-
-def test_number_of_allowed_types(redactor_obj):
-    assert len(redactor_obj.get_allowed_files()
-               ) == 10, 'Number of allowed tests does not match expected'
-
-
-def test_current_file_is_allowed(redactor_obj):
-    assert redactor_obj.allowed_file(__file__), f'{__file__} should be allowed'
-
-
-def test_valid_option_function_should_return_tuple(redactor_obj):
-    assert type(redactor_obj.valid_options()
-                ) == tuple, 'redact function should return tuple'
+    return CoreRedactorEngine()
 
 
 def test_redact_all_function_should_return_string_and_dictionary(redactor_obj):
-    set1 = ("This is a string", hash_table)
-    assert type(redactor_obj.redact_all(data)
-                ) == type(set1), "redact_all function should return a tuple"
-
-
-# def test_read_custom_patterns_should_return_list(redactor_obj):
-#     assert type(redactor_obj.read_custom_patterns(os.path.dirname(os.path.abspath(__file__)) + '/../custom.json')) == type(list), "custom_patterns function should return a tuple"
-
-
-# def test_redact_custom_function_should_return_string_and_dictionary(redactor_obj):
-#     set1 = ("This is a string", hash_table)
-#     assert type(redactor_obj.redact_custom(data, )
-#                 ) == type(set1), "redact_custom function should return a tuple"
+    set1 = redactor_obj.redact_all(data)
+    set2 = ("This is a string", hash_table)
+    assert type(set1[0]) == type(set2[0]), "1st element of redact_all function should return string"
+    assert type(set1[1]) == type(set2[1]), "2nd element of redact_all function should return dictionary"
+    assert type(set1) == type(set2), "redact_all function should return a tuple"

@@ -5,7 +5,7 @@
 <br />
 <i>CLI tool to redact and unredact sensitive information like ip addresses, emails and domains.</i>
 <br/>
-<code>pip install --upgrade pyredactkit && pyredactor</code>
+<code>pip install --upgrade pyredactkit && prk</code>
 </p>
 
 <p align="center">
@@ -70,28 +70,6 @@ Redact using custom regex pattern
 ```bash
 pyredactkit -f file -c custom.json
 ```
-
-<!-- Install nltk data for redacting names
-
-```bash
-python -c "import nltk
-import ssl
-
-try:
-    _create_unverified_https_context = ssl._create_unverified_context
-except AttributeError:
-    pass
-else:
-    ssl._create_default_https_context =_create_unverified_https_context
-
-nltk.download('popular')"
-```
-
-Redact names from a text file
-
-```bash
-pyredactkit test.txt -t name
-``` -->
 
 ### Use from github source
 
