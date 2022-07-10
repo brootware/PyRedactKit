@@ -55,6 +55,33 @@ class CommonJobs:
             option_tuple += id['type']
         return option_tuple
 
+    def compute_total_words(self, filename: str) -> int:
+        """Function to compute total words in a file.
+        Args:
+            filename (str): File to count the words
+
+        Returns:
+            total_words (int): total words in file
+        """
+        total_words = 0
+        word_length = 5
+        try:
+            with open(filename, encoding="utf-8") as target_file:
+                text_chunk = target_file.read()
+                for current_text in text_chunk:
+                    total_words += len(current_text)/word_length
+        except UnicodeDecodeError:
+            sys.exit("[-] Unable to read target file")
+        return math.ceil(total_words)
+
+    def compute_reading_minutes(self, total_words: int) -> int:
+        # Words per minute
+        WPM = 75
+        return math.ceil(total_words/WPM)
+
+    def compute_reading_hours(self, reading_minutes: int) -> int:
+        return math.floor(reading_minutes/60)
+
     def process_report(self, filename: str):
         """Function to process calculate and generate report of man hour saved.
         Args:
@@ -63,34 +90,14 @@ class CommonJobs:
         Returns:
             Creates a report on estimated man hours/minutes saved.
         """
-        try:
-            # Open a file read pointer as target_file
-            with open(filename, encoding="utf-8") as target_file:
-                text_chunk = target_file.read()
+        total_words = self.compute_total_words(filename)
+        reading_minutes = self.compute_reading_minutes(total_words)
+        reading_hours = self.compute_reading_hours(reading_minutes)
 
-                # Words per minute
-                WPM = 75
+        word_report = f"[+] Estimated total words : {total_words}"
+        minutes_saved = f"[+] Estimated total minutes saved : {reading_minutes}"
+        man_hours_saved = f"[+] Estimated total man hours saved : {reading_hours}"
 
-                word_length = 5
-                total_words = 0
-                for current_text in text_chunk:
-                    total_words += len(current_text)/word_length
-
-                total_words = math.ceil(total_words)
-
-                # Divide total words by words per minute read to get minutes and hour estimate.
-                reading_minutes = math.ceil(total_words/WPM)
-                reading_hours = math.floor(reading_minutes/60)
-
-                word_report = f"[+] Estimated total words : {total_words}"
-                minutes_saved = f"[+] Estimated total minutes saved : {reading_minutes}"
-                man_hours_saved = f"[+] Estimated total man hours saved : {reading_hours}"
-
-                print(word_report)
-                print(minutes_saved)
-                print(man_hours_saved)
-
-        except UnicodeDecodeError:
-            os.remove(f"manhour_saved_report_{os.path.basename(filename)}")
-            print("[-] Removed incomplete report")
-            sys.exit("[-] Unable to read target file")
+        print(word_report)
+        print(minutes_saved)
+        print(man_hours_saved)
