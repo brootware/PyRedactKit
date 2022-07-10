@@ -1,4 +1,5 @@
 import pytest
+import os
 from pyredactkit.core_redactor import CoreRedactorEngine
 
 data = """John, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com
@@ -51,9 +52,29 @@ def redactor_obj():
     return CoreRedactorEngine()
 
 
+@pytest.fixture
+def mocker_text_file(mocker):
+    content = "Message to write on file to be written"
+    mocked_open = mocker.mock_open(read_data=content)
+    builtin_open = "builtins.open"
+    mocker.patch(builtin_open, mocked_open)
+
+
 def test_redact_all_function_should_return_string_and_dictionary(redactor_obj):
     set1 = redactor_obj.redact_all(data)
     set2 = ("This is a string", hash_table)
     assert type(set1[0]) == type(set2[0]), "1st element of redact_all function should return string"
     assert type(set1[1]) == type(set2[1]), "2nd element of redact_all function should return dictionary"
     assert type(set1) == type(set2), "redact_all function should return a tuple"
+
+
+# def test_process_text_function_should_create_redacted_file_and_json(redactor_obj, tmp_path):
+#     redactor_obj.process_text(data, tmp_path)
+#     assert os.path.isfile(tmp_path / "redacted_file.txt"), "redacted_file.txt should be created"
+#     assert os.path.isfile(tmp_path / "redacted_file.json"), "redacted_file.json should be created"
+
+
+# def test_process_core_file_function_should_create_redacted_file_and_json(redactor_obj, mocker_text_file, tmp_path):
+#     redactor_obj.process_core_file(filename='fakefile', savedir=tmp_path)
+#     assert os.path.isfile(tmp_path / "redacted_fakefile.txt"), "redacted_fakefile.txt should be created"
+#     assert os.path.isfile(tmp_path / "redacted_fakefile.json"), "redacted_fakefile.json should be created"
