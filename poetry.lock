@@ -316,7 +316,7 @@ testing = ["fields", "hunter", "process-tests", "six", "pytest-xdist", "virtuale
 
 [[package]]
 name = "regex"
-version = "2022.6.2"
+version = "2022.7.9"
 description = "Alternative regular expression module, to replace re."
 category = "main"
 optional = false
@@ -452,7 +452,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "20d1638f5eba9a6e25f4aabe68db4e55a9cf55108510153d71652faab4841a99"
+content-hash = "094d0bfb34c20a9188be844df04e24e4f5c4eb0f9d2f8191a1f34a0669a7033e"
 
 [metadata.files]
 atomicwrites = []
