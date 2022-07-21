@@ -1,5 +1,4 @@
 import pytest
-import json
 import os
 from pyredactkit.common_jobs import CommonJobs
 

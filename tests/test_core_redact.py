@@ -60,6 +60,10 @@ def mocker_text_file(mocker):
     mocker.patch(builtin_open, mocked_open)
 
 
+def test_identify_data_should_return_list(redactor_obj):
+    assert type(redactor_obj.identify_data(data)) == list, "identify_data function should return a list"
+
+
 def test_redact_all_function_should_return_string_and_dictionary(redactor_obj):
     set1 = redactor_obj.redact_all(data)
     set2 = ("This is a string", hash_table)

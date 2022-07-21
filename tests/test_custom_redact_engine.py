@@ -58,6 +58,10 @@ def mocker_text_file(mocker):
     mocker.patch(builtin_open, mocked_open)
 
 
+# def test_write_hashmap_should_create_json_file(custom_redactor, tmp_path):
+#     hash_map = {"key": "value"}
+#     custom_redactor.write_hashmap(hash_map, filename='fakefile', savedir=tmp_path)
+
 # def test_redact_custom_function_should_return_string_and_dictionary(custom_redactor):
 #     set1 = custom_redactor.redact_custom(data)
 #     set2 = ("This is a string", hash_table)
