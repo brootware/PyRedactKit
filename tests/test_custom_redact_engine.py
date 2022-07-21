@@ -1,5 +1,6 @@
 import pytest
 import os
+import json
 from pyredactkit.custom_redactor import CustomRedactorEngine
 data = """John, please get that article on www.linkedin.com to me by 5:00PM on Jan 9th 2012. 4:00 would be ideal, actually. If you have any questions, You can reach me at(519)-236-2723 or get in touch with my associate at harold.smith@gmail.com
 this is my IP: 102.23.5.1
@@ -51,18 +52,13 @@ def custom_redactor():
 
 
 @pytest.fixture
-def mocker_text_file(mocker):
-    content = "Message to write on file to be written"
+def mocker_json_file(mocker):
+    content = {"key": "value"}
     mocked_open = mocker.mock_open(read_data=content)
     builtin_open = "builtins.open"
     mocker.patch(builtin_open, mocked_open)
 
-
-# def test_write_hashmap_should_create_json_file(custom_redactor, tmp_path):
-#     hash_map = {"key": "value"}
-#     custom_redactor.write_hashmap(hash_map, filename='fakefile', savedir=tmp_path)
-
-# def test_redact_custom_function_should_return_string_and_dictionary(custom_redactor):
+# def test_redact_custom_function_should_return_string_and_dictionary(custom_redactor,mocker_json_file):
 #     set1 = custom_redactor.redact_custom(data)
 #     set2 = ("This is a string", hash_table)
 #     assert isinstance(type(set1[0]), str), "1st element of redact_custom function should return string"
