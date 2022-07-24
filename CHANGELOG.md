@@ -12,11 +12,19 @@ and simply didn't have the time to go back and retroactively create one.
 
 ### Fixed
 
-- None at the moment
+- None at the moment.
 
 ### Added
 
-- API capability to be used as a library function
+- None at the moment.
+
+## [0.3.4] - 2022-07-24
+
+Added API support to identify core redaction patterns.
+
+### Changed
+
+- No notable changes in CLI functionality
 
 ## [0.3.3] - 2022-07-24
 
