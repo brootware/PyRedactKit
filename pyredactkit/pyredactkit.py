@@ -143,5 +143,9 @@ def main():
         redact_obj.process_text(args.text)
 
 
+def api_return_core_identifier(text: str) -> list:
+    return redact_obj.identify_data(text)
+
+
 if __name__ == "__main__":
     main()
