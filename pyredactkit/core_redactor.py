@@ -35,20 +35,18 @@ class CoreRedactorEngine:
         """
         return None
 
-    def identify_data(self, line: str) -> list:
+    def identify_data(self, textchunk: str) -> list:
         """Function to identify specific option
         Args:
-            line (str) : line to be supplied to identify pattern
+            textchunk (str) : textchunk to be supplied to identify pattern
         Returns:
             list (list): list of sensitive data found in lines
         """
         sensitive_data = []
         for id in id_object.regexes:
             redact_pattern = id['pattern']
-            if re.search(redact_pattern, line):
-                pattern_string = re.search(redact_pattern, line)
-                pattern_string = pattern_string.group(0)
-                sensitive_data.append(pattern_string)
+            sensitive_data.append(re.findall(redact_pattern, textchunk))
+        sensitive_data = sum(sensitive_data, [])
         return sensitive_data
 
     def redact_all(self, line: str) -> tuple:

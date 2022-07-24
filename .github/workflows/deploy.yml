@@ -25,7 +25,7 @@ jobs:
       - name: Installing Python Poetry
         run: pip install poetry
 
-      - name: Install and Build pwncat-cs Package
+      - name: Install and Build pyredactkit Package
         run: |
           poetry install
           poetry build
