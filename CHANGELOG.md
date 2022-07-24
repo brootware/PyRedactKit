@@ -18,6 +18,14 @@ and simply didn't have the time to go back and retroactively create one.
 
 - None at the moment.
 
+## [0.3.5] - 2022-07-24
+
+Made fixes to the api, refactored pyredactkit to runner.
+
+### Changed
+
+- No notable changes in this version.
+
 ## [0.3.4] - 2022-07-24
 
 Added API support to identify core redaction patterns.
