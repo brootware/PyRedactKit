@@ -18,6 +18,14 @@ and simply didn't have the time to go back and retroactively create one.
 
 - None at the moment.
 
+## [0.3.7] - 2022-07-24
+
+Credit card redaction should be working properly now.
+
+### Changed
+
+- Credit card redaction should be working properly now.
+
 ## [0.3.6] - 2022-07-24
 
 Noticed cli breaking changes in 0.3.5. Fixed in 0.3.6.
