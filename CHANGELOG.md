@@ -12,12 +12,11 @@ and simply didn't have the time to go back and retroactively create one.
 
 ### Fixed
 
-- Fixed `shlex.join` use with non-str type objects (e.g. `RemotePath`)
-- Fixed `set` command use with incorrect keys (e.g. `set invalid value`)
+- None at the moment
 
 ### Added
 
-- Added missed `PlatformError` for `upload` command (e.g. "no gtfobins writers available")
+- API capability to be used as a library function
 
 ## [0.3.3] - 2022-07-24
 
