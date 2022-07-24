@@ -143,7 +143,7 @@ def main():
         redact_obj.process_text(args.text)
 
 
-def api_return_core_identifier(text: str) -> list:
+def api_identify_sensitive_data(text: str) -> list:
     return redact_obj.identify_data(text)
 
 
