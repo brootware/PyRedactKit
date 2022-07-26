@@ -1,7 +1,7 @@
 # Automatically pull down the required versions of windows plugins
 # and bundle them up for releases. This makes staging on non-internet
 # connected systems easier.
-name: "DEPLOY"
+name: "CD"
 
 on:
   push:

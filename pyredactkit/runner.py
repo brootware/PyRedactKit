@@ -104,7 +104,7 @@ def arg_helper() -> argparse.Namespace:
 
 
 def is_it_text(file_path: str) -> bool:
-    return not os.path.isfile(file_path) or not os.path.isdir(file_path)
+    return os.path.isfile(file_path) or os.path.isdir(file_path)
 
 
 def recursive_file_search(full_path: str, extension: str, recursive: bool) -> set:
