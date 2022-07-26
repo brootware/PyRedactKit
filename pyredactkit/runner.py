@@ -16,8 +16,8 @@ import glob
 import sys
 
 # Creating instances of redact and unredact classes
-redact_obj = CoreRedactorEngine()
-customrd_obj = CustomRedactorEngine()
+core_redact = CoreRedactorEngine()
+custom_redact = CustomRedactorEngine()
 unredact_obj = Unredactor()
 
 
@@ -61,12 +61,6 @@ def arg_helper() -> argparse.Namespace:
         print(help_menu)
         parser.print_help(sys.stderr)
         sys.exit(1)
-    # parser.add_argument(
-    #     "-f",
-    #     "--file",
-    #     nargs="+",
-    #     help="""Path of a file or a directory of files."""
-    # )
     parser.add_argument(
         "-u",
         "--unredact",
@@ -109,51 +103,52 @@ def arg_helper() -> argparse.Namespace:
     return args
 
 
-def execute_file_arg() -> None:
-    args = arg_helper()
-    print(args.text)
+def is_it_text(file_path: str) -> bool:
+    return not os.path.isfile(file_path) or not os.path.isdir(file_path)
 
-    if not os.path.isfile(args.text[0]) or not os.path.isdir(args.text[0]):
-        redact_obj.process_text(args.text)
 
-    full_paths = [os.path.join(os.getcwd(), path) for path in args.text]
-    print(full_paths)
+def recursive_file_search(full_path: str, extension: str, recursive: bool) -> set:
+    full_paths = [os.path.join(os.getcwd(), path) for path in full_path]
     files = set()
     for path in full_paths:
         if os.path.isfile(path):
             file_name, file_ext = os.path.splitext(path)
-            if args.extension in ('', file_ext):
+            if extension in ('', file_ext):
                 files.add(path)
-        elif args.recursive:
+        elif recursive:
             full_paths += glob.glob(path + '/*')
+    return files
+
+
+def execute_redact_logic() -> None:
+    args = arg_helper()
+
+    is_text = is_it_text(args.text[0])
+    if not is_text:
+        core_redact.process_text(args.text)
+
+    files = recursive_file_search(args.text, args.extension, args.recursive)
 
     for file in files:
         if args.customfile and args.dirout:
-            customrd_obj.process_custom_file(file, args.customfile, args.dirout)
+            custom_redact.process_custom_file(file, args.customfile, args.dirout)
         elif args.customfile:
-            customrd_obj.process_custom_file(file, args.customfile)
+            custom_redact.process_custom_file(file, args.customfile)
         elif args.dirout:
-            redact_obj.process_core_file(file, args.dirout)
+            core_redact.process_core_file(file, args.dirout)
         elif args.unredact:
             unredact_obj.unredact(file, args.unredact)
         else:
-            redact_obj.process_core_file(file)
-    
+            core_redact.process_core_file(file)
 
 
 def main():
     print(banner)
-
-    args = arg_helper()
-    execute_file_arg()
-    # if args.file or (args.file and args.dirout):
-    #     execute_file_arg()
-    # else:
-    #     redact_obj.process_text(args.text)
+    execute_redact_logic()
 
 
 def api_identify_sensitive_data(text: str) -> list:
-    return redact_obj.identify_data(text)
+    return core_redact.identify_data(text)
 
 
 if __name__ == "__main__":
