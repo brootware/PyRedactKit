@@ -4,6 +4,9 @@ Utility to redact sensitive data
 """
 
 import argparse
+from genericpath import isdir
+
+from numpy import full
 
 from pyredactkit.core_redactor import CoreRedactorEngine
 from pyredactkit.custom_redactor import CustomRedactorEngine
@@ -13,8 +16,8 @@ import glob
 import sys
 
 # Creating instances of redact and unredact classes
-redact_obj = CoreRedactorEngine()
-customrd_obj = CustomRedactorEngine()
+core_redact = CoreRedactorEngine()
+custom_redact = CustomRedactorEngine()
 unredact_obj = Unredactor()
 
 
@@ -38,21 +41,20 @@ help_menu = """
     PyRedactKit - Redact and Un-redact any sensitive data from your text files!
     Example usage:\n
         prk 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'\n
-        prk --file [file/filestoredact]\n
-        prk --file redacted_file --unredact .hashshadow.json\n
-        prk --file file --customfile custom.json\n
+        prk [file/directory_with_files]\n
+        prk redacted_file --unredact .hashshadow.json\n
+        prk file --customfile custom.json\n
     """
 
 
 def arg_helper() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f to redact",
+        description="Supply either a text chunk or file name path to redact sensitive data from it.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
         "text",
-        type=str,
-        help="""Redact sensitive data of a sentence from command prompt.""",
+        help="""Supply either a text chunk or file name path to redact sensitive data from command prompt.""",
         nargs="*"
     )
     if len(sys.argv) == 1:
@@ -60,17 +62,11 @@ def arg_helper() -> argparse.Namespace:
         parser.print_help(sys.stderr)
         sys.exit(1)
     parser.add_argument(
-        "-f",
-        "--file",
-        nargs="+",
-        help="""Path of a file or a directory of files."""
-    )
-    parser.add_argument(
         "-u",
         "--unredact",
         help="""
                 Option to unredact masked data.
-                Usage: pyredactkit -f [redacted_file] -u [.hashshadow.json]
+                Usage: pyredactkit [redacted_file] -u [.hashshadow.json]
                 """
     )
     parser.add_argument(
@@ -78,7 +74,7 @@ def arg_helper() -> argparse.Namespace:
         "--dirout",
         help="""
                 Output directory of the file.
-                Usage: pyredactkit -f [file/filestoredact] -d [redacted_dir]
+                Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
                 """
     )
     parser.add_argument(
@@ -86,7 +82,7 @@ def arg_helper() -> argparse.Namespace:
         "--customfile",
         help="""
                 User defined custom regex pattern for redaction.
-                Usage: pyredactkit -f [file/filestoredact] -c [customfile.json]
+                Usage: pyredactkit [file/filestoredact] -c [customfile.json]
                 """
     )
     parser.add_argument(
@@ -107,44 +103,52 @@ def arg_helper() -> argparse.Namespace:
     return args
 
 
-def execute_file_arg() -> None:
-    args = arg_helper()
-    full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
-    files = set()
+def is_it_text(file_path: str) -> bool:
+    return os.path.isfile(file_path) or os.path.isdir(file_path)
 
+
+def recursive_file_search(full_path: str, extension: str, recursive: bool) -> set:
+    full_paths = [os.path.join(os.getcwd(), path) for path in full_path]
+    files = set()
     for path in full_paths:
         if os.path.isfile(path):
             file_name, file_ext = os.path.splitext(path)
-            if args.extension in ('', file_ext):
+            if extension in ('', file_ext):
                 files.add(path)
-        elif args.recursive:
+        elif recursive:
             full_paths += glob.glob(path + '/*')
+    return files
+
+
+def execute_redact_logic() -> None:
+    args = arg_helper()
+
+    is_text = is_it_text(args.text[0])
+    if not is_text:
+        core_redact.process_text(args.text)
+
+    files = recursive_file_search(args.text, args.extension, args.recursive)
 
     for file in files:
         if args.customfile and args.dirout:
-            customrd_obj.process_custom_file(file, args.customfile, args.dirout)
+            custom_redact.process_custom_file(file, args.customfile, args.dirout)
         elif args.customfile:
-            customrd_obj.process_custom_file(file, args.customfile)
+            custom_redact.process_custom_file(file, args.customfile)
         elif args.dirout:
-            redact_obj.process_core_file(file, args.dirout)
+            core_redact.process_core_file(file, args.dirout)
         elif args.unredact:
             unredact_obj.unredact(file, args.unredact)
         else:
-            redact_obj.process_core_file(file)
+            core_redact.process_core_file(file)
 
 
 def main():
     print(banner)
-
-    args = arg_helper()
-    if args.file or (args.file and args.dirout):
-        execute_file_arg()
-    else:
-        redact_obj.process_text(args.text)
+    execute_redact_logic()
 
 
 def api_identify_sensitive_data(text: str) -> list:
-    return redact_obj.identify_data(text)
+    return core_redact.identify_data(text)
 
 
 if __name__ == "__main__":
