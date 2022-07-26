@@ -4,6 +4,9 @@ Utility to redact sensitive data
 """
 
 import argparse
+from genericpath import isdir
+
+from numpy import full
 
 from pyredactkit.core_redactor import CoreRedactorEngine
 from pyredactkit.custom_redactor import CustomRedactorEngine
@@ -51,7 +54,6 @@ def arg_helper() -> argparse.Namespace:
     )
     parser.add_argument(
         "text",
-        type=str,
         help="""Redact sensitive data of a sentence from command prompt.""",
         nargs="*"
     )
@@ -59,12 +61,12 @@ def arg_helper() -> argparse.Namespace:
         print(help_menu)
         parser.print_help(sys.stderr)
         sys.exit(1)
-    parser.add_argument(
-        "-f",
-        "--file",
-        nargs="+",
-        help="""Path of a file or a directory of files."""
-    )
+    # parser.add_argument(
+    #     "-f",
+    #     "--file",
+    #     nargs="+",
+    #     help="""Path of a file or a directory of files."""
+    # )
     parser.add_argument(
         "-u",
         "--unredact",
@@ -109,9 +111,14 @@ def arg_helper() -> argparse.Namespace:
 
 def execute_file_arg() -> None:
     args = arg_helper()
-    full_paths = [os.path.join(os.getcwd(), path) for path in args.file]
-    files = set()
+    print(args.text)
 
+    if not os.path.isfile(args.text[0]) or not os.path.isdir(args.text[0]):
+        redact_obj.process_text(args.text)
+
+    full_paths = [os.path.join(os.getcwd(), path) for path in args.text]
+    print(full_paths)
+    files = set()
     for path in full_paths:
         if os.path.isfile(path):
             file_name, file_ext = os.path.splitext(path)
@@ -131,16 +138,18 @@ def execute_file_arg() -> None:
             unredact_obj.unredact(file, args.unredact)
         else:
             redact_obj.process_core_file(file)
+    
 
 
 def main():
     print(banner)
 
     args = arg_helper()
-    if args.file or (args.file and args.dirout):
-        execute_file_arg()
-    else:
-        redact_obj.process_text(args.text)
+    execute_file_arg()
+    # if args.file or (args.file and args.dirout):
+    #     execute_file_arg()
+    # else:
+    #     redact_obj.process_text(args.text)
 
 
 def api_identify_sensitive_data(text: str) -> list:
