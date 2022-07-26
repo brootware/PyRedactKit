@@ -41,20 +41,20 @@ help_menu = """
     PyRedactKit - Redact and Un-redact any sensitive data from your text files!
     Example usage:\n
         prk 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'\n
-        prk --file [file/filestoredact]\n
-        prk --file redacted_file --unredact .hashshadow.json\n
-        prk --file file --customfile custom.json\n
+        prk [file/directory_with_files]\n
+        prk redacted_file --unredact .hashshadow.json\n
+        prk file --customfile custom.json\n
     """
 
 
 def arg_helper() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f to redact",
+        description="Supply either a text chunk or file name path to redact sensitive data from it.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
         "text",
-        help="""Redact sensitive data of a sentence from command prompt.""",
+        help="""Supply either a text chunk or file name path to redact sensitive data from command prompt.""",
         nargs="*"
     )
     if len(sys.argv) == 1:
@@ -66,7 +66,7 @@ def arg_helper() -> argparse.Namespace:
         "--unredact",
         help="""
                 Option to unredact masked data.
-                Usage: pyredactkit -f [redacted_file] -u [.hashshadow.json]
+                Usage: pyredactkit [redacted_file] -u [.hashshadow.json]
                 """
     )
     parser.add_argument(
@@ -74,7 +74,7 @@ def arg_helper() -> argparse.Namespace:
         "--dirout",
         help="""
                 Output directory of the file.
-                Usage: pyredactkit -f [file/filestoredact] -d [redacted_dir]
+                Usage: pyredactkit [file/filestoredact] -d [redacted_dir]
                 """
     )
     parser.add_argument(
@@ -82,7 +82,7 @@ def arg_helper() -> argparse.Namespace:
         "--customfile",
         help="""
                 User defined custom regex pattern for redaction.
-                Usage: pyredactkit -f [file/filestoredact] -c [customfile.json]
+                Usage: pyredactkit [file/filestoredact] -c [customfile.json]
                 """
     )
     parser.add_argument(
