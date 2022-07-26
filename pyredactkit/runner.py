@@ -3,14 +3,10 @@
 Utility to redact sensitive data
 """
 
-import argparse
-from genericpath import isdir
-
-from numpy import full
-
 from pyredactkit.core_redactor import CoreRedactorEngine
 from pyredactkit.custom_redactor import CustomRedactorEngine
 from pyredactkit.unredact import Unredactor
+import argparse
 import os
 import glob
 import sys
