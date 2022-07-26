@@ -18,6 +18,14 @@ and simply didn't have the time to go back and retroactively create one.
 
 - None at the moment.
 
+## [0.3.8] - 2022-07-26
+
+PyRedactKit can now smartly detect if your input is a text sentence or a file thanks to the latest AI based on 'If,else' implemented by the author. :D
+
+### Changed
+
+- No need to use -f switch to redact file anymore. `prk [file/directory_with_files]` will redact the file just fine.
+
 ## [0.3.7] - 2022-07-24
 
 Credit card redaction should be working properly now.
