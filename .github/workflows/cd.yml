@@ -52,3 +52,10 @@ jobs:
           echo "## Changelog" >> this_version_changelog.md
           cat CHANGELOG.md | sed -n '/^## \['"$version"'\]/,/^## /p' | head -n -1 | tail -n +2 >> this_version_changelog.md
           echo "[Full Changelog](https://github.com/brootware/PyRedactKit/blob/v$version/CHANGELOG.md)" >> this_version_changelog.md
+
+      - name: Publish Changelog
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: this_version_changelog.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
