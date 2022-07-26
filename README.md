@@ -42,7 +42,7 @@ Demo:
 Quick install
 
 ```bash
-python -m pip install pyredactkit
+python -m pip install --upgrade pyredactkit
 ```
 
 **For more elaborate usage, please [refer to the docs](https://github.com/brootware/PyRedactKit/wiki/Usage).**
@@ -50,25 +50,25 @@ python -m pip install pyredactkit
 Redact from terminal
 
 ```bash
-pyredactkit 'this is my ip:127.0.0.1. my email is broot@outlook.com. secret link is github.com'
+prk 'this is my ip:127.0.0.1. my email is broot@outlook.com. secret link is github.com'
 ```
 
-Redact a single file
+Redact a single file.
 
 ```bash
-pyredactkit -f test.txt 
+prk test.txt 
 ```
 
-Unredact the file
+Un-redact the file with redacted data
 
 ```bash
-pyredactkit -f redacted_test.txt -u .hashshadow_test.txt.json 
+prk redacted_test.txt -u .hashshadow_test.txt.json 
 ```
 
 Redact using custom regex pattern
 
 ```bash
-pyredactkit -f file -c custom.json
+prk file -c custom.json
 ```
 
 ### Use from github source
