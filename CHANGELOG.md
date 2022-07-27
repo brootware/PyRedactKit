@@ -18,6 +18,14 @@ and simply didn't have the time to go back and retroactively create one.
 
 - None at the moment.
 
+## [0.4.0] - 2022-07-27
+
+Making sure only sensitive string is in the api detection
+
+### Changed
+
+- FMaking sure only sensitive string is in the api detection
+
 ## [0.3.9] - 2022-07-27
 
 Fixed the api from not identifying base64 text.
