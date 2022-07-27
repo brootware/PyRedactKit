@@ -47,7 +47,9 @@ class CoreRedactorEngine:
             for id in id_object.regexes:
                 redact_pattern = id['pattern']
                 if re.search(redact_pattern, line):
-                    sensitive_data.append(line)
+                    pattern_string = re.search(redact_pattern, line)
+                    sensitive_string = pattern_string.group(0)
+                    sensitive_data.append(sensitive_string)
         return sensitive_data
 
     def redact_all(self, line: str) -> tuple:
