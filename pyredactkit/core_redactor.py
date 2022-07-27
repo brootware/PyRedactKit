@@ -43,10 +43,11 @@ class CoreRedactorEngine:
             list (list): list of sensitive data found in lines
         """
         sensitive_data = []
-        for id in id_object.regexes:
-            redact_pattern = id['pattern']
-            sensitive_data.append(re.findall(redact_pattern, textchunk))
-        sensitive_data = sum(sensitive_data, [])
+        for line in textchunk.splitlines():
+            for id in id_object.regexes:
+                redact_pattern = id['pattern']
+                if re.search(redact_pattern, line):
+                    sensitive_data.append(line)
         return sensitive_data
 
     def redact_all(self, line: str) -> tuple:

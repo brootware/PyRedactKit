@@ -99,7 +99,7 @@ def arg_helper() -> argparse.Namespace:
     return args
 
 
-def is_it_text(file_path: str) -> bool:
+def is_it_file(file_path: str) -> bool:
     return os.path.isfile(file_path) or os.path.isdir(file_path)
 
 
@@ -119,7 +119,7 @@ def recursive_file_search(full_path: str, extension: str, recursive: bool) -> se
 def execute_redact_logic() -> None:
     args = arg_helper()
 
-    is_text = is_it_text(args.text[0])
+    is_text = is_it_file(args.text[0])
     if not is_text:
         core_redact.process_text(args.text)
 
