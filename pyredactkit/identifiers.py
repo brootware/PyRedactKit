@@ -1,6 +1,5 @@
 
 """ Data identifier class implementation """
-import nltk
 
 
 class Identifier:
@@ -45,27 +44,3 @@ class Identifier:
     def __init__(self) -> None:
         return None
 
-    def names(self, data: str) -> list:
-        """ Identify names and return them from the supplied data
-        Args:
-            data (str): data in alpha-numeric format
-
-        Returns:
-            name_list (array): array of names identified from the supplied data
-        """
-        name = ""
-        name_list = []
-        words = nltk.word_tokenize(data)
-        part_of_speech_tagsets = nltk.pos_tag(words)
-        named_ent = nltk.ne_chunk(part_of_speech_tagsets, binary=False)
-
-        for subtree in named_ent.subtrees():
-            if subtree.label() == 'PERSON':
-                l = []
-                for leaf in subtree.leaves():
-                    l.append(leaf[0])
-                name = ' '.join(l)
-                if name not in name_list:
-                    name_list.append(name)
-
-        return name_list
