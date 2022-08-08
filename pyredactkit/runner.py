@@ -40,7 +40,7 @@ help_menu = """
         prk [file/directory_with_files]
         prk redacted_file --unredact .hashshadow.json
         prk file --customfile custom.json
-        echo 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com' | prk \n
+        echo 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com' | prk
     """
 
 
