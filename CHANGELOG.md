@@ -18,6 +18,7 @@ and simply didn't have the time to go back and retroactively create one.
 
 - Added in redaction support from linux piped input.
   - echo 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com' | prk
+- Added docker support to run the app from docker.
 
 ## [0.4.0] - 2022-07-27
 
