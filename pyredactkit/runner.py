@@ -36,10 +36,11 @@ __________         __________           .___              __     ____  __.__  __
 help_menu = """
     PyRedactKit - Redact and Un-redact any sensitive data from your text files!
     Example usage:\n
-        prk 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'\n
-        prk [file/directory_with_files]\n
-        prk redacted_file --unredact .hashshadow.json\n
-        prk file --customfile custom.json\n
+        prk 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'
+        prk [file/directory_with_files]
+        prk redacted_file --unredact .hashshadow.json
+        prk file --customfile custom.json
+        echo 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com' | prk
     """
 
 
@@ -51,12 +52,9 @@ def arg_helper() -> argparse.Namespace:
     parser.add_argument(
         "text",
         help="""Supply either a text chunk or file name path to redact sensitive data from command prompt.""",
-        nargs="*"
+        nargs="*",
+        default=sys.stdin
     )
-    if len(sys.argv) == 1:
-        print(help_menu)
-        parser.print_help(sys.stderr)
-        sys.exit(1)
     parser.add_argument(
         "-u",
         "--unredact",
@@ -94,9 +92,8 @@ def arg_helper() -> argparse.Namespace:
         default='',
         help='File extension to filter by.'
     )
-    args = parser.parse_args()
 
-    return args
+    return parser
 
 
 def is_it_file(file_path: str) -> bool:
@@ -117,12 +114,29 @@ def recursive_file_search(full_path: str, extension: str, recursive: bool) -> se
 
 
 def execute_redact_logic() -> None:
-    args = arg_helper()
+    # Access main parser namespace first
+    parser = arg_helper()
+    # Parse the arguments from parser object
+    args = parser.parse_args()
 
+    if len(sys.argv) == 1:
+        # If there is no input argument and no piped input, print help menu and exit
+        if sys.stdin.isatty():
+            print(help_menu)
+            parser.print_help(sys.stderr)
+            sys.exit(1)
+
+        # This is reading in from linux piped stdin to redact. - echo 'This is my ip: 127.0.0.1.' | prk
+        stdin = parser.parse_args().text.read().splitlines()
+        core_redact.process_text(stdin)
+        sys.exit(1)
+
+    # This is detecting if it's a text or file input and redacting argument supplied like - prk 'This is my ip: 127.0.0.1.'
     is_text = is_it_file(args.text[0])
     if not is_text:
         core_redact.process_text(args.text)
 
+    # This is redacting all the files.
     files = recursive_file_search(args.text, args.extension, args.recursive)
 
     for file in files:

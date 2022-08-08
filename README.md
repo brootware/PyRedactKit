@@ -39,6 +39,12 @@ Redacts and Unredacts the following from your text files. 📄 ✍️
 Demo:
 ![demo](./images/pyredactdemo.gif)
 
+To use via docker
+
+```bash
+docker run -v "$(pwd):/home/nonroot/workdir" brootware/pyredactkit 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'
+```
+
 Quick install
 
 ```bash
