@@ -33,7 +33,6 @@ jobs:
       - name: Publish Package to TestPyPi
         run: |
           # Test that package publishing is going to work with the testpypi
-          # instance first before trying to package plugins.
           poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_TOKEN }}
           poetry config repositories.testpypi https://test.pypi.org/legacy/
           poetry publish --repository testpypi
@@ -43,6 +42,15 @@ jobs:
           # Everything looks good, publish to pypi
           poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
           poetry publish
+
+      - name: Build and push Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: brootware/pyredactkit
+          registry: hub.docker.com
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Extract Release Body
         run: |
