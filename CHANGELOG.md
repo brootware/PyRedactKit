@@ -20,6 +20,10 @@ and simply didn't have the time to go back and retroactively create one.
   - echo 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com' | prk
 - Added docker support to run the app from docker.
 
+## [1.0.2] - 2022-08-11
+
+- testing docker build and push action from github.
+
 ## [1.0.1] - 2022-08-11
 
 - testing docker build and push action from github.
