@@ -39,6 +39,19 @@ Redacts and Unredacts the following from your text files. 📄 ✍️
 Demo:
 ![demo](./images/pyredactdemo.gif)
 
+## [Usage Guide](https://github.com/brootware/PyRedactKit/wiki/Usage)
+
+| <p align="center"><a href="https://pypi.org/project/pyredactkit">🐍 Python | <p align="center"><a href="https://hub.docker.com/r/brootware/pyredactkit">🐋 Docker (Universal) | <p align="center"><a href="https://ports.macports.org/port/pyredactkit/summary">🍎 MacPorts (macOS) | <p align="center"><a href="https://formulae.brew.sh/formula/pyredactkit">🍺 Homebrew (macOS/Linux) |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |--------------------------------------------------------------------------------- |
+| <p align="center"><img src="https://github.com/brootware/pyredactkit/raw/master/images/python.png" /></p>    | <p align="center"><img src="https://github.com/brootware/pyredactkit/raw/master/images/docker.png" /></p> | <p align="center"><img src="https://github.com/brootware/pyredactkit/raw/master/images/macports.png" /></p> | <p align="center"><img src="https://github.com/brootware/pyredactkit/raw/master/images/homebrew.png" /></p> |
+| `python3 -m pip install pyredactkit --upgrade prk` | `docker run -it --rm brootware/pyredactkit` | Coming soon | Coming soon |
+
+| Linux                                                                                                                   | Mac OS                                                                                                                     | Windows                                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brootware/pyredactkit/CI?label=Linux&branch=main) | ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brootware/pyredactkit/CI?label=Mac%20OS&branch=main) | ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/brootware/pyredactkit/CI?label=Windows&branch=main) |
+
+<hr>
+
 To use via docker
 
 ```bash
