@@ -94,11 +94,15 @@ Clone the repo
 git clone https://github.com/brootware/PyRedactKit.git && cd PyRedactKit
 ```
 
-Install required dependencies via poetry and download nltk.
+Activate a virtual environment and install required dependencies
 
 ```bash
-python -m pip install --user poetry
-poetry install 
+python -m venv venv
+source ./venv/bin/activate
+python -m pip install pyproject.toml
+```
+
+<!-- poetry install 
 python -c "import nltk
 import ssl
 
@@ -109,25 +113,12 @@ except AttributeError:
 else:
     ssl._create_default_https_context =_create_unverified_https_context
 
-nltk.download('popular')"
-```
-
-<!-- python -c "import nltk
-import ssl
-
-try:
-    _create_unverified_https_context = ssl._create_unverified_context
-except AttributeError:
-    pass
-else:
-    ssl._create_default_https_context =_create_unverified_https_context
-
-nltk.download()" -->
+nltk.download('popular')" -->
 
 Run as below to redact a single file
 
 ```bash
-$ poetry run pyredactkit -f logdata/test.txt                                    
+$ prk logdata/test.txt                                    
 
 __________         __________           .___              __     ____  __.__  __   
 \______   \___.__. \______   \ ____   __| _/____    _____/  |_  |    |/ _|__|/  |_ 
@@ -202,29 +193,28 @@ e0b66cbd-6174-4491-b938-408a47d38fb9,Platinum,142000,CC90518
 ## Optional Help Menu as below
 
 ```bash
-usage: pyredactkit [-h] [-f FILE [FILE ...]] [-u UNREDACT] [-d DIROUT] [-c CUSTOMFILE] [-r] [-e EXTENSION] [text ...]
+usage: prk [-h] [-u UNREDACT] [-d DIROUT] [-c CUSTOMFILE] [-r] [-e EXTENSION] [text ...]
 
-Supply a sentence or paragraph to redact sensitive data from it. Or read in a file or set of files with -f to redact
+Supply either a text chunk or file name path to redact sensitive data from it.
 
 positional arguments:
-  text                  Redact sensitive data of a sentence from command prompt. (default: None)
+  text                  Supply either a text chunk or file name path to redact sensitive data from command prompt. (default: <_io.TextIOWrapper name='<stdin>'
+                        mode='r' encoding='utf-8'>)
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
-  -f FILE [FILE ...], --file FILE [FILE ...]
-                        Path of a file or a directory of files. (default: None)
   -u UNREDACT, --unredact UNREDACT
-                        Option to unredact masked data. Usage: pyredactkit -f [redacted_file] -u [.hashshadow.json] (default: None)
+                        Option to unredact masked data. Usage: pyredactkit [redacted_file] -u [.hashshadow.json] (default: None)
   -d DIROUT, --dirout DIROUT
-                        Output directory of the file. Usage: pyredactkit -f [file/filestoredact] -d [redacted_dir] (default: None)
+                        Output directory of the file. Usage: pyredactkit [file/filestoredact] -d [redacted_dir] (default: None)
   -c CUSTOMFILE, --customfile CUSTOMFILE
-                        User defined custom regex pattern for redaction. Usage: pyredactkit -f [file/filestoredact] -c [customfile.json] (default: None)
+                        User defined custom regex pattern for redaction. Usage: pyredactkit [file/filestoredact] -c [customfile.json] (default: None)
   -r, --recursive       Search through subfolders (default: True)
   -e EXTENSION, --extension EXTENSION
                         File extension to filter by. (default: )
 ```
 
-## Sample files
+## Sample log files
 
 - [All types of data](./logdata/test.txt)
 - [Different log file types](./logdata/)
