@@ -28,7 +28,7 @@ class Identifier:
             "type": ("cc", "creditcard")
         },
         {
-            "pattern": r"[STFG]\d{7}[A-Z]",
+            "pattern": r"[STFGM]\d{7}[A-Z]",
             "type": ("nric", "fin", "ic")
         },
         {
