@@ -46,8 +46,9 @@ def test_api_identify_sensitive_data(mocker_text_file, tmp_path):
     S0000212Q
     F2120212E
     S0021001P
+    M1234567A
     """
-    test_data = ['102.23.5.1', '10.10.10.1', '71.159.188.33', '81.141.167.45', '165.65.59.139', '64.248.67.225', 'https://tech.gov.sg', 'harold@mail.com', 'mail.com', '102.23.5.1', '10.10.10.1', '71.159.188.33', '81.141.167.45', '165.65.59.139', '64.248.67.225', 'G0022121F', 'F2121200F', 'G1021022E', 'S1022221L', 'G1222221C', 'S0000212Q', 'F2120212E', 'S0021001P']
+    test_data = ['102.23.5.1', '10.10.10.1', '71.159.188.33', '81.141.167.45', '165.65.59.139', '64.248.67.225', 'https://tech.gov.sg', 'harold@mail.com', 'mail.com', '102.23.5.1', '10.10.10.1', '71.159.188.33', '81.141.167.45', '165.65.59.139', '64.248.67.225', 'G0022121F', 'F2121200F', 'G1021022E', 'S1022221L', 'G1222221C', 'S0000212Q', 'F2120212E', 'S0021001P', 'M1234567A']
 
     assert Runner.api_identify_sensitive_data(test_string) == test_data, "api_identify_sensitive_data function should return a list of sensitive data"
     assert Runner.api_identify_sensitive_data('This is a test string') == [], "api_identify_sensitive_data function should return an empty list"
