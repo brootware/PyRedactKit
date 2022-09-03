@@ -1,4 +1,5 @@
-# PyRedactKit 🔐📝
+<br>
+<h1 align="center">PyRedactKit 🔐📝</h1>
 
 <p align="center">
   <img src="./images/pyredacthead.gif" alt="Python Redactor Kit!" width="300" height="300"/>
