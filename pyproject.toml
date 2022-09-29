@@ -43,7 +43,7 @@ rich = "^12.4.0"
 mypy = "^0.961"
 flake8 = "^4.0.1"
 tox = "^3.25.0"
-pytest-cov = "^3.0.0"
+pytest-cov = "^4.0.0"
 pytest-mock = "^3.8.2"
 
 [tool.poetry.scripts]
