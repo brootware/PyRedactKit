@@ -12,7 +12,7 @@ assignees: ''
 ## Checklist
 
 <!-- Please complete the following list of tasks, and then check it by changing the "[ ]" to "[x]" -->
-- [ ] There are no similar reports on [existing issues](https://github.com/brootware/PyMouseBot/issues?q=is%3Aissue) (including closed ones).
+- [ ] There are no similar reports on [existing issues](https://github.com/brootware/PyRedactKit/issues?q=is%3Aissue) (including closed ones).
 - [ ] I was in the `master` branch of the latest code.
 
 ## Is your feature request related to a problem? Please describe
