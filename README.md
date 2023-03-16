@@ -52,7 +52,7 @@ Demo:
 To use via docker
 
 ```bash
-docker run -v "$(pwd):/home/nonroot/workdir" brootware/pyredactkit 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'
+docker run -v "$(pwd):/workdir" brootware/pyredactkit 'This is my ip: 127.0.0.1. My email is brute@gmail.com. My favorite secret link is github.com'
 ```
 
 Quick install
