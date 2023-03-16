@@ -15,7 +15,7 @@
    <a href="https://twitter.com/brootware"><img src="https://img.shields.io/twitter/follow/brootware?style=social" alt="Twitter Follow"></a>
    <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/pyredactkit"> <img alt="PyPI" src="https://img.shields.io/pypi/v/pyredactkit">
    <a href="https://sonarcloud.io/summary/new_code?id=brootware_PyRedactKit"><img src="https://sonarcloud.io/api/project_badges/measure?project=brootware_PyRedactKit&metric=alert_status" alt="reliability rating"></a>
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/brootware/pyredactkit/CI?label=CI&branch=main">
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/brootware/pyredactkit/ci.yml?branch=main">
 </p>
 
 ## Features
