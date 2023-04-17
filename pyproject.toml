@@ -27,7 +27,7 @@ classifiers = [
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.1.2"
+pytest = "^7.3.1"
 regex = "^2022.4.24"
 attrs = "^21.4.0"
 click = ">=8.1.3"
