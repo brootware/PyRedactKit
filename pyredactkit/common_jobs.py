@@ -68,7 +68,7 @@ class CommonJobs:
         try:
             with open(filename, encoding="utf-8") as target_file:
                 text_chunk = target_file.read()
-                for current_text in text_chunk:
+                for current_text in text_chunk.split():
                     total_words += len(current_text)/word_length
         except UnicodeDecodeError:
             sys.exit("[-] Unable to read target file")
